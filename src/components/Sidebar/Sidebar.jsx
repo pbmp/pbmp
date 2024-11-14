@@ -25,7 +25,7 @@ function Sidebar({ showSidebar }) {
       <div className="sidebar-menus">
         <div className="menu-title">Main Menu</div>
         <div className="menu-list">
-          <NavLink className="menu-list-item" to={"/"}>
+          <NavLink className="menu-list-item" to={"/pbmp"}>
             <span className="icon">
               <Users size={20} strokeWidth={1.5} />
             </span>

@@ -19,7 +19,7 @@ createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/users" element={<UsersManagement />} />
           <Route path="/perwalian" element={<Perwalian />} />
-          <Route path="/" element={<PBM />} />
+          <Route path="/pbmp" element={<PBM />} />
           {/* <Route path="/" element={<MataKuliahLink />} /> */}
           <Route path="/kelas" element={<KelasLink />} />
           <Route
