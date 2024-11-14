@@ -1,0 +1,55 @@
+@use "./../../../helpers/mixins" as m;
+@use "./../../../helpers/variables" as v;
+
+@mixin wrapper() {
+  width: 100%;
+  @include m.flex( $justify: flex-start, $direction: column);
+  padding: 40px;
+}
+
+.sk {
+  @include wrapper();
+
+  &-header {
+    @include m.flex($direction: column, $justify: flex-start);
+    gap: 4px;
+
+    .logo {
+      width: 125px;
+      height: 125px;
+      margin-bottom: 40px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    @mixin formatText() {
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 100%;
+    }
+
+    .title,
+    .plt-univ,
+    .no,
+    .about,
+    .main,
+    .univ,
+    .semester-year,
+    .mercy {
+      @include formatText();
+    }
+
+    .about {
+      padding: 25px 0;
+    }
+
+    .mercy {
+      padding: 20px 0;
+    }
+  }
+}

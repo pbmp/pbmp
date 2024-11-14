@@ -1,0 +1,120 @@
+@use "./../../helpers/mixins" as m;
+@use "./../../helpers/variables" as v;
+
+@mixin sidebar() {
+  width: v.$w-sidebar-expand;
+  padding: 0 1.3vw;
+  @include m.flex($direction: column, $justify: flex-start);
+  border-right: 0.15vw solid #ddd;
+  position: relative;
+
+  &-logo {
+    width: 100%;
+    @include m.flex($justify: space-between);
+    height: v.$h-topbar-sidebar;
+    border-bottom: 0.15vw solid #ddd;
+
+    img {
+      width: auto;
+      height: 7vh;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    span {
+      color: map-get($map: v.$color, $key: "blue");
+      @include m.flex();
+      cursor: pointer;
+    }
+  }
+
+  &-menus {
+    width: 100%;
+    padding-top: v.$py-sidebar-content;
+    @include m.flex($direction: column, $align: flex-start);
+    row-gap: 1.9vh;
+
+    .menu-title {
+      font-size: 0.9vw;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: rgba($color: #000, $alpha: 0.5);
+    }
+
+    .menu-list {
+      width: 100%;
+      @include m.flex(
+        $direction: column,
+        $align: flex-start,
+        $justify: flex-start
+      );
+
+      &-item {
+        width: 100%;
+        padding: 2.4vh 0.8vw;
+        @include m.flex($justify: flex-start);
+        text-decoration: none;
+        gap: 0.6rem;
+        font-size: 1.2vw;
+        border-radius: 0.4vw;
+
+        span {
+          @include m.flex();
+          color: rgba($color: #000, $alpha: 0.8);
+        }
+
+        &:hover {
+          span {
+            @include m.flex();
+            color: map-get($map: v.$color, $key: "blue");
+          }
+        }
+
+        &.active {
+          background-color: rgba(
+            $color: map-get(v.$color, "other-blue"),
+            $alpha: 0.2
+          );
+          box-shadow: rgba($color: #000, $alpha: 0.2) 0.5px 0.5px 2px;
+
+          .icon,
+          .text {
+            color: map-get($map: v.$color, $key: "blue");
+          }
+        }
+      }
+    }
+  }
+
+  &.collapse {
+    width: v.$w-sidebar-collapse;
+
+    .sidebar-logo {
+      @include m.flex();
+
+      img {
+        display: none;
+      }
+
+      span {
+        transform: rotate(180deg);
+      }
+    }
+
+    .sidebar-menus {
+      .menu-title {
+        text-align: center;
+      }
+
+      .menu-list {
+        &-item {
+          @include m.flex();
+
+          .text {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+@use "./../../helpers/mixins" as m;
+@use "./../../helpers/variables" as v;
+@use "./perwalian-media" as perwalian-m;
+
+.perwalian {
+  @include m.flex($justify: flex-start);
+  @include perwalian-m.perwalian-media();
+
+  &-header {
+    width: 100%;
+    @include m.flex($justify: flex-start);
+    background-color: #f6f8fa;
+    padding: v.$py-sidebar-content v.$px-topbar-content;
+    border-bottom: 0.15vw solid #ddd;
+
+    .menu {
+      display: grid;
+      grid-template-areas:
+        "icon title"
+        "icon desc";
+      gap: 0.1vh 0.5vw;
+
+      .icon {
+        grid-area: icon;
+        background-color: #fff;
+        color: map-get($map: v.$color, $key: "blue");
+        @include m.flex();
+        padding: 0.45vw;
+        box-shadow: rgba($color: #000, $alpha: 0.2) 0.5px 0.5px 2px;
+        border-radius: 0.4vw;
+      }
+
+      .title {
+        @include m.flex($align: flex-end, $justify: flex-start);
+        grid-area: title;
+        font-size: 1.3vw;
+        font-weight: 600;
+        color: rgba($color: #000, $alpha: 0.8);
+      }
+
+      .desc {
+        @include m.flex($align: flex-start, $justify: flex-start);
+        color: rgba($color: #000, $alpha: 0.5);
+        grid-area: desc;
+        font-size: 1vw;
+      }
+    }
+  }
+}

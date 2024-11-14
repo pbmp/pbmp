@@ -1,0 +1,95 @@
+@use "../../helpers/mixins" as m;
+@use "../../helpers/variables" as v;
+
+@mixin users-media() {
+  @media (max-width: 575.98px) {
+    .users {
+      &-header {
+        padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
+
+        .menu {
+          gap: 0 1.4vw;
+
+          .icon {
+            width: 10vw;
+            height: 10vw;
+            border-radius: 1.6vw;
+          }
+
+          .title {
+            font-size: 4.2vw;
+          }
+
+          .desc {
+            font-size: 3.2vw;
+          }
+        }
+
+        .add-user {
+          column-gap: 0.4vw;
+          padding: 1.4vw 2.4vw 1.4vw 1.2vw;
+          border-radius: 0.8vw;
+
+          .icon {
+            width: 4.4vw;
+            height: 4.4vw;
+          }
+
+          .text {
+            font-size: 3.8vw;
+          }
+        }
+      }
+
+      &-table {
+        padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
+        overflow-x: auto;
+
+        .thead {
+          width: 180%;
+
+          .row {
+            font-size: 2.2vw;
+            
+            &:nth-child(1) {
+              border-top-left-radius: 1.3vw;
+              border-bottom-left-radius: 1.3vw;
+            }
+            
+            &:nth-child(6) {
+              border-top-right-radius: 1.3vw;
+              border-bottom-right-radius: 1.3vw;
+            }
+          }
+        }
+        
+        .tbody {
+          width: 180%;
+          
+          .col {
+            font-size: 2.2vw;
+            padding: 1.6vh 1.2vw;
+
+            &:nth-child(2) {
+              .avatar {
+                img {
+                  width: 11vw;
+                }
+              }
+            }
+
+            &:nth-child(6) {
+              column-gap: 0.8vw;
+
+              .edit,
+              .delete {
+                padding: .5vw;
+                border-radius: .8vw;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

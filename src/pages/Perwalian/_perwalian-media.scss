@@ -1,0 +1,45 @@
+@use "../../helpers/mixins" as m;
+@use "../../helpers/variables" as v;
+
+@mixin perwalian-media() {
+  @media (max-width: 575.98px) {
+    .perwalian {
+      &-header {
+        padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
+
+        .menu {
+          gap: 0 1.4vw;
+
+          .icon {
+            width: 10vw;
+            height: 10vw;
+            border-radius: 1.6vw;
+          }
+
+          .title {
+            font-size: 4.2vw;
+          }
+
+          .desc {
+            font-size: 3.2vw;
+          }
+        }
+
+        .add-user {
+          column-gap: 0.4vw;
+          padding: 1.4vw 2.4vw 1.4vw 1.2vw;
+          border-radius: 0.8vw;
+
+          .icon {
+            width: 4.4vw;
+            height: 4.4vw;
+          }
+
+          .text {
+            font-size: 3.8vw;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@use "./../../helpers/mixins" as m;
+@use "./../../helpers/variables" as v;
+
+@mixin media-topbar() {
+  @media (max-width: 575.98px) {
+    height: v.$h-topbar-sidebar-media;
+    padding: 0 v.$px-topbar-content-media;
+
+    &-search {
+      width: 100%;
+      gap: 0.4vw;
+
+      button .icon {
+        width: 5.5vw;
+        height: 5.5vw;
+      }
+
+      input {
+        font-size: 3.6vw;
+      }
+    }
+
+    &-other {
+      gap: 1.6vw;
+
+      .notification,
+      .hamburger {
+        width: 5.5vw;
+        height: 5.5vw;
+      }
+
+      .hamburger {
+        display: inline-block !important;
+      }
+
+      .line,
+      .profile,
+      .option {
+        display: none;
+      }
+    }
+  }
+}

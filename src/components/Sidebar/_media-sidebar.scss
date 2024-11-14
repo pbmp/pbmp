@@ -1,0 +1,45 @@
+@use "./../../helpers/mixins" as m;
+@use "./../../helpers/variables" as v;
+
+@mixin media-sidebar() {
+  @media (max-width: 575.98px) {
+    display: none;
+
+    &.show {
+      display: block;
+      position: absolute;
+      background-color: map-get($map: v.$color, $key: "light-grey");
+      height: 100%;
+      padding: 0 2.6vw;
+      width: 40vw;
+
+      .sidebar-logo {
+        height: v.$h-topbar-sidebar-media;
+
+        img {
+          width: auto;
+          height: 4.8vh;
+        }
+
+        span {
+          display: none;
+        }
+      }
+
+      .sidebar-menus {
+        row-gap: 1.2vh;
+
+        .menu-title {
+          font-size: 2.4vw;
+        }
+
+        .menu-list {
+          &-item {
+            padding: 1.4vh 1.2vw;
+            font-size: 3.2vw;
+          }
+        }
+      }
+    }
+  }
+}

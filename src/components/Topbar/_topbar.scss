@@ -1,0 +1,103 @@
+@use "./../../helpers/mixins" as m;
+@use "./../../helpers/variables" as v;
+
+@mixin topbar() {
+  width: 100%;
+  padding: 0 v.$px-topbar-content;
+  height: v.$h-topbar-sidebar;
+  @include m.flex($justify: space-between);
+  border-bottom: 0.15vw solid #ddd;
+
+  &-search {
+    width: 40vw;
+    @include m.flex($justify: flex-start);
+    gap: 0.1vw;
+
+    button {
+      color: rgba($color: #000000, $alpha: 0.5);
+      width: fit-content;
+      height: 100%;
+      @include m.flex();
+      border: 0;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    input {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      outline: none;
+      padding: 0 0.4vw;
+      font-size: 1.1vw;
+    }
+  }
+
+  &-other {
+    width: 100%;
+    height: auto;
+    @include m.flex($justify: flex-end);
+    gap: 1vw;
+
+    .notification {
+      cursor: pointer;
+      @include m.flex();
+    }
+
+    .hamburger {
+      display: none !important;
+      cursor: pointer;
+      @include m.flex();
+    }
+
+    .line {
+      width: 0.1vw;
+      height: 5vh;
+      background-color: #ddd;
+    }
+
+    .profile {
+      width: fit-content;
+      height: auto;
+      @include m.flex();
+      gap: 0.4vw;
+
+      .image {
+        @include m.circle($size: 3.4vw);
+        @include m.flex();
+
+        img {
+          @include m.circle($size: 3.4vw);
+          object-fit: cover;
+        }
+      }
+
+      .text {
+        width: 100%;
+        height: auto;
+        @include m.flex($direction: column, $align: flex-start);
+        gap: 0.15vw;
+
+        .name {
+          font-size: 1.2vw;
+          line-height: 100%;
+          font-weight: 600;
+          color: rgba($color: #000, $alpha: 0.8);
+        }
+
+        .job {
+          line-height: 100%;
+          font-size: 1.1vw;
+          font-weight: 700;
+          color: rgba($color: #000, $alpha: 0.5);
+        }
+      }
+    }
+
+    .option {
+      cursor: pointer;
+      @include m.flex();
+    }
+  }
+}

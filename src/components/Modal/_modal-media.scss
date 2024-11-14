@@ -1,0 +1,30 @@
+@use "./../../helpers/mixins" as m;
+@use "./../../helpers/variables" as v;
+
+@mixin modal-media() {
+  @media (max-width: 575.98px) {
+    .modal {
+      max-width: 70vw !important;
+      padding: 5.6vw 7.2vw 8.8vw !important;
+
+      &-image {
+        width: 15vw !important;
+      }
+
+      &-title {
+        font-size: 4.8vw !important;
+      }
+
+      &-form {
+        gap: 1.3vw !important;
+
+        input,
+        button {
+          height: 6vh !important;
+          font-size: 3.2vw !important;
+          padding: 0 3.4vw !important;
+        }
+      }
+    }
+  }
+}

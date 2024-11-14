@@ -1,0 +1,53 @@
+@use "./../../helpers/mixins" as m;
+@use "./../../helpers/variables" as v;
+@use "./pagination-media" as pagination-m;
+
+.pagination {
+  @include pagination-m.pagination-media();
+  @include m.flex();
+  width: 100%;
+  padding: 0 v.$px-topbar-content v.$py-sidebar-content;
+
+  button {
+    @include m.flex();
+    background-color: rgba(
+      $color: map-get(v.$color, "other-blue"),
+      $alpha: 0.2
+    );
+    outline: none;
+    color: rgba($color: #000, $alpha: 0.8);
+    cursor: pointer;
+    width: 2.25vw;
+    height: 4.5vh;
+    border-top: 0.1vw solid rgba($color: #000, $alpha: 0.2);
+    border-bottom: 0.1vw solid rgba($color: #000, $alpha: 0.2);
+    border-right: 0.1vw solid rgba($color: #000, $alpha: 0.2);
+    border-left: none;
+
+    &:first-child {
+      border-left: 0.1vw solid rgba($color: #000, $alpha: 0.2);
+      border-top-left-radius: 0.2vw;
+      border-bottom-left-radius: 0.2vw;
+    }
+
+    &:last-child {
+      border-top-right-radius: 0.2vw;
+      border-bottom-right-radius: 0.2vw;
+    }
+
+    &.active {
+      background-color: map-get($map: v.$color, $key: "blue");
+      color: #fff;
+      transform: scaleX(1.1) scaleY(1.2);
+      border-radius: 0.2vw;
+    }
+
+    &:disabled {
+      background-color: rgba(
+        $color: map-get(v.$color, "other-blue"),
+        $alpha: 0.8
+      );
+      cursor: not-allowed;
+    }
+  }
+}
