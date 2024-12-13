@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Topbar from "../Topbar/Topbar";
-import Sidebar from "../Sidebar/Sidebar";
-import SmoothScroll from "../../helpers/SmoothScroll";
+import Topbar from "@/components/Topbar/Topbar";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import SmoothScroll from "@/helpers/SmoothScroll";
 import { ToastContainer } from "react-toastify";
 
 function Layout({ children }) {

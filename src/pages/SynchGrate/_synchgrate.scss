@@ -1,0 +1,19 @@
+@use "../../helpers/mixins" as m;
+@use "../../helpers/variables" as v;
+@use "../../components/HeaderEl/header-el" as header-el;
+
+.synchgrate {
+  &-header {
+    @include header-el.header-el();
+
+    .action {
+      @include m.flex();
+      gap: 0.5rem;
+
+      .synchronize,
+      .migrate {
+        @include header-el.button();
+      }
+    }
+  }
+}

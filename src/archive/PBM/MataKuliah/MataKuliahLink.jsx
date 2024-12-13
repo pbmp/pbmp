@@ -1,5 +1,5 @@
 import React from "react";
-import PBMLink from "../PBMLink";
+import PBMLink from "../../PBMLink";
 
 function MataKuliahLink() {
   return (

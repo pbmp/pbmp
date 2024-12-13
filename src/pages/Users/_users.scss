@@ -1,5 +1,6 @@
 @use "./../../helpers/mixins" as m;
 @use "./../../helpers/variables" as v;
+@use "../../components/HeaderEl/header-el" as header-el;
 @use "./users-media" as users-m;
 
 .users {
@@ -7,44 +8,7 @@
   @include m.flex($direction: column, $align: flex-start);
 
   &-header {
-    width: 100%;
-    @include m.flex($justify: space-between);
-    background-color: map-get($map: v.$color, $key: "light-grey");
-    padding: v.$py-sidebar-content v.$px-topbar-content;
-    border-bottom: 0.15vw solid #ddd;
-
-    .menu {
-      display: grid;
-      grid-template-areas:
-        "icon title"
-        "icon desc";
-      gap: 0.1vh 0.5vw;
-
-      .icon {
-        grid-area: icon;
-        background-color: #fff;
-        color: map-get($map: v.$color, $key: "blue");
-        @include m.flex();
-        padding: 0.45vw;
-        box-shadow: rgba($color: #000, $alpha: 0.2) 0.5px 0.5px 2px;
-        border-radius: 0.4vw;
-      }
-
-      .title {
-        @include m.flex($align: flex-end, $justify: flex-start);
-        grid-area: title;
-        font-size: 1.3vw;
-        font-weight: 600;
-        color: rgba($color: #000, $alpha: 0.8);
-      }
-
-      .desc {
-        @include m.flex($align: flex-start, $justify: flex-start);
-        color: rgba($color: #000, $alpha: 0.5);
-        grid-area: desc;
-        font-size: 1vw;
-      }
-    }
+    @include header-el.header-el();
 
     .add-user {
       @include m.flex();
@@ -106,7 +70,7 @@
     }
 
     .tbody {
-      width: 100% ;
+      width: 100%;
       display: grid;
       grid-template-columns: 1fr 5fr 3fr 2fr 3fr 2fr;
       border-bottom: #ddd solid 0.15vw;

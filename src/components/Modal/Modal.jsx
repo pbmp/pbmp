@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./../../assets/logo/logo-Photoroom.png";
+import logo from "@/assets/logo/logo-Photoroom.png";
 
 function Modal({ titleModal, children, onClose, onOpen }) {
   if (!onOpen) return null;

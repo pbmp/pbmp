@@ -9,7 +9,7 @@ import {
   CalendarFold,
 } from "lucide-react";
 import { useReactToPrint } from "react-to-print";
-import Document from "./Document/Document";
+import Document from "../../pages/PBM/Document/Document";
 import { NavLink } from "react-router-dom";
 
 function PBMLink({ children }) {

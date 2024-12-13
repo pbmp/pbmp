@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Plus, Users, Pencil, Trash } from "lucide-react";
-import Layout from "../../components/Layout/Layout";
-import image from "../../assets/images/user.png";
+import Layout from "@/components/Layout/Layout";
+import image from "@/assets/images/user.png";
 import InsertData from "./Crud/Insert";
 import UpdateData from "./Crud/Update";
-import { useSearch } from "../../helpers/SearchContext";
-import Pagination from "../../components/Pagination/Pagination";
-import { toastMessage } from "../../helpers/AlertMessage";
+import { useSearch } from "@/helpers/SearchContext";
+import Pagination from "@/components/Pagination/Pagination";
+import { toastMessage } from "@/helpers/AlertMessage";
+import HeaderEl from "@/components/HeaderEl/HeaderEl";
 
 function UsersManagement() {
   axios.defaults.withCredentials = true;
@@ -67,14 +68,12 @@ function UsersManagement() {
     <>
       <Layout>
         <div className="users">
-          <div className="users-header">
-            <div className="menu">
-              <div className="icon">
-                <Users strokeWidth={1.5} size={28} />
-              </div>
-              <div className="title">Users</div>
-              <div className="desc">Manage your user</div>
-            </div>
+          <HeaderEl
+            classEl={"users"}
+            titleEl={"Users"}
+            descEl={"Manage your user"}
+            Icon={Users}
+          >
             <div
               className="add-user"
               onClick={() => {
@@ -86,7 +85,7 @@ function UsersManagement() {
               </div>
               <div className="text">Add User</div>
             </div>
-          </div>
+          </HeaderEl>
           <div className="users-table">
             <div className="thead">
               <div className="row">No</div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from "react";
-import user from "./../../assets/images/user.png";
+import user from "@/assets/images/user.png";
 import { Search, Bell, EllipsisVertical, Menu } from "lucide-react";
-import { useSearch } from "../../helpers/SearchContext";
-import { toastMessage } from "../../helpers/AlertMessage";
+import { useSearch } from "@/helpers/SearchContext";
+import { toastMessage } from "@/helpers/AlertMessage";
 
 function Topbar({ onHamburgerClick }) {
   const { setSearch } = useSearch();

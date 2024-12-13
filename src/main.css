@@ -666,7 +666,7 @@
 .users-header .menu {
   display: grid;
   grid-template-areas: "icon title" "icon desc";
-  gap: 0.1vh 0.5vw;
+  gap: 0.7vh 0.5vw;
 }
 .users-header .menu .icon {
   grid-area: icon;
@@ -689,6 +689,7 @@
   font-size: 1.3vw;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.8);
+  line-height: 100%;
 }
 .users-header .menu .desc {
   display: flex;
@@ -698,6 +699,7 @@
   color: rgba(0, 0, 0, 0.5);
   grid-area: desc;
   font-size: 1vw;
+  line-height: 100%;
 }
 .users-header .add-user {
   display: flex;
@@ -1033,7 +1035,7 @@
 .pbm-header .menu {
   display: grid;
   grid-template-areas: "icon title" "icon desc";
-  gap: 0.1vh 0.5vw;
+  gap: 0.7vh 0.5vw;
 }
 .pbm-header .menu .icon {
   grid-area: icon;
@@ -1056,6 +1058,7 @@
   font-size: 1.3vw;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.8);
+  line-height: 100%;
 }
 .pbm-header .menu .desc {
   display: flex;
@@ -1065,6 +1068,7 @@
   color: rgba(0, 0, 0, 0.5);
   grid-area: desc;
   font-size: 1vw;
+  line-height: 100%;
 }
 .pbm-header .action {
   display: flex;
@@ -1073,8 +1077,8 @@
   flex-direction: row;
   gap: 0.5rem;
 }
-.pbm-header .action .print,
-.pbm-header .action .download {
+.pbm-header .action .download,
+.pbm-header .action .print {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1087,8 +1091,8 @@
   padding: 0.6vw 1vw;
   cursor: pointer;
 }
-.pbm-header .action .print .icon,
-.pbm-header .action .download .icon {
+.pbm-header .action .download .icon,
+.pbm-header .action .print .icon {
   width: 20px;
   height: 20px;
 }
@@ -1138,7 +1142,200 @@
 .pbm-content {
   padding: 3.2vh 1.8vw;
 }
+.pbm-content .pbm-table {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 1.8vw;
+}
+.pbm-content .pbm-table .thead {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 3fr 1fr 2fr;
+}
+.pbm-content .pbm-table .thead .row {
+  font-size: 1.1vw;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(165, 176, 190, 0.2);
+  padding: 2vh 1.2vw;
+  text-transform: capitalize;
+}
+.pbm-content .pbm-table .thead .row:nth-child(1) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border-top-left-radius: 0.6vw;
+  border-bottom-left-radius: 0.6vw;
+}
+.pbm-content .pbm-table .thead .row:nth-child(3) .pbm-content .pbm-table .thead .row:nth-child(4) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.pbm-content .pbm-table .thead .row:nth-child(2), .pbm-content .pbm-table .thead .row:nth-child(5) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.pbm-content .pbm-table .thead .row:nth-child(6) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border-top-right-radius: 0.6vw;
+  border-bottom-right-radius: 0.6vw;
+}
+.pbm-content .pbm-table .tbody {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 3fr 1fr 2fr;
+  border-bottom: #ddd solid 0.15vw;
+}
+.pbm-content .pbm-table .tbody .col {
+  font-size: 1.1vw;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 2vh 1.2vw;
+  font-weight: 500;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(1) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(3) {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(4) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(2), .pbm-content .pbm-table .tbody .col:nth-child(5) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(6) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  -moz-column-gap: 0.25vw;
+       column-gap: 0.25vw;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(6) .edit {
+  padding: 0.4vw;
+  border: #f77f00 solid 0.15vw;
+  color: #f77f00;
+  border-radius: 0.3vw;
+  cursor: pointer;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(6) .edit .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(6) .delete {
+  padding: 0.4vw;
+  border: #d62828 solid 0.15vw;
+  color: #d62828;
+  border-radius: 0.3vw;
+  cursor: pointer;
+}
+.pbm-content .pbm-table .tbody .col:nth-child(6) .delete .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
 
+.synchgrate-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  background-color: #f6f8fa;
+  padding: 3.2vh 1.8vw;
+  border-bottom: 0.15vw solid #ddd;
+}
+.synchgrate-header .menu {
+  display: grid;
+  grid-template-areas: "icon title" "icon desc";
+  gap: 0.7vh 0.5vw;
+}
+.synchgrate-header .menu .icon {
+  grid-area: icon;
+  background-color: #fff;
+  color: #546983;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  padding: 0.45vw;
+  box-shadow: rgba(0, 0, 0, 0.2) 0.5px 0.5px 2px;
+  border-radius: 0.4vw;
+}
+.synchgrate-header .menu .title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-direction: row;
+  grid-area: title;
+  font-size: 1.3vw;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
+  line-height: 100%;
+}
+.synchgrate-header .menu .desc {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  color: rgba(0, 0, 0, 0.5);
+  grid-area: desc;
+  font-size: 1vw;
+  line-height: 100%;
+}
+.synchgrate-header .action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.synchgrate-header .action .synchronize,
+.synchgrate-header .action .migrate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  -moz-column-gap: 0.4vw;
+       column-gap: 0.4vw;
+  border-radius: 0.4vw;
+  background-color: #546983;
+  color: #fff;
+  padding: 0.6vw 1vw;
+  cursor: pointer;
+}
+.synchgrate-header .action .synchronize .icon,
+.synchgrate-header .action .migrate .icon {
+  width: 20px;
+  height: 20px;
+}
 *,
 *::before,
 *::after {

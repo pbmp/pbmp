@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import Layout from "../../components/Layout/Layout";
+import Layout from "@/components/Layout/Layout";
 import {
   FileText,
   Printer,
@@ -8,6 +8,7 @@ import {
   Blocks,
   CalendarFold,
 } from "lucide-react";
+import HeaderEl from "@/components/HeaderEl/HeaderEl";
 import { useReactToPrint } from "react-to-print";
 import Document from "./Document/Document";
 import Kelas from "./Kelas/Kelas";
@@ -43,14 +44,12 @@ function PBM() {
     <>
       <Layout>
         <div className="pbm">
-          <div className="pbm-header">
-            <div className="menu">
-              <div className="icon">
-                <FileText strokeWidth={1.5} size={28} />
-              </div>
-              <div className="title">PBM</div>
-              <div className="desc">Laporan Kinerja Dosen</div>
-            </div>
+          <HeaderEl
+            classEl={"pbm"}
+            titleEl={"PBM"}
+            descEl={"Laporan Kinerja Dosen"}
+            Icon={FileText}
+          >
             <div className="action">
               <div className="download">
                 <CloudDownload className="icon" strokeWidth={2} />
@@ -64,7 +63,8 @@ function PBM() {
                 <div className="text">Print</div>
               </div>
             </div>
-          </div>
+          </HeaderEl>
+
           <div className="pbm-submenu">
             {submenus.map((item, index) => (
               <div
