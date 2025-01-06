@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import logo from "./../../../assets/ulbi.jpg";
+import logo from "./../../../assets/logo/ulbi.jpg";
 
 function Document(props, ref) {
   return (

@@ -1,11 +1,13 @@
 import React, { useEffect, useCallback } from "react";
-import user from "@/assets/images/user.png";
+import userImage from "@/assets/images/user.png";
 import { Search, Bell, EllipsisVertical, Menu } from "lucide-react";
 import { useSearch } from "@/helpers/SearchContext";
 import { toastMessage } from "@/helpers/AlertMessage";
+import { useDashboard } from "../../context/DashboardContext";
 
 function Topbar({ onHamburgerClick }) {
   const { setSearch } = useSearch();
+  const { user } = useDashboard();
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -19,7 +21,7 @@ function Topbar({ onHamburgerClick }) {
     <div className="topbar">
       <div className="topbar-search">
         <button>
-          <Search className="icon" strokeWidth={1.5} size={20} />
+          <Search className="icon" strokeWidth={1.25} size={20} />
         </button>
         <input
           type="text"
@@ -30,28 +32,28 @@ function Topbar({ onHamburgerClick }) {
       <div className="topbar-other">
         <Bell
           className="notification"
-          strokeWidth={1.5}
+          strokeWidth={1.25}
           size={20}
           onClick={handleInfoAlert}
         />
         <Menu
           className="hamburger"
-          strokeWidth={1.5}
+          strokeWidth={1.25}
           size={20}
           onClick={onHamburgerClick}
         />
         <div className="line"></div>
         <div className="profile">
           <div className="image">
-            <img src={user} alt="User" />
+            <img src={userImage} alt="User" />
           </div>
           <div className="text">
-            <span className="name">Muhammad Azka Nuril Islami</span>
-            <span className="job">CEO</span>
+            <span className="name">{user.nama}</span>
+            <span className="job">{user.role[0]?.nama_role}</span>
           </div>
         </div>
         <span className="option" onClick={handleInfoAlert}>
-          <EllipsisVertical strokeWidth={1.5} size={20} />
+          <EllipsisVertical strokeWidth={1.25} size={20} />
         </span>
       </div>
     </div>

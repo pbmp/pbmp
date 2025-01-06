@@ -77,10 +77,10 @@
         width: 100%;
         height: auto;
         @include m.flex($direction: column, $align: flex-start);
-        gap: 0.15vw;
+        gap: 0.25vw;
 
         .name {
-          font-size: 1.2vw;
+          font-size: 1.12vw;
           line-height: 100%;
           font-weight: 600;
           color: rgba($color: #000, $alpha: 0.8);
@@ -88,8 +88,7 @@
 
         .job {
           line-height: 100%;
-          font-size: 1.1vw;
-          font-weight: 700;
+          font-size: 0.98vw;
           color: rgba($color: #000, $alpha: 0.5);
         }
       }

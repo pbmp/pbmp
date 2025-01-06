@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Topbar from "@/components/Topbar/Topbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import SmoothScroll from "@/helpers/SmoothScroll";
 import { ToastContainer } from "react-toastify";
 
 function Layout({ children }) {
@@ -13,7 +12,7 @@ function Layout({ children }) {
 
   return (
     <>
-      <SmoothScroll />
+      {/* <SmoothScroll /> */}
       <ToastContainer />
       <div className="layout">
         <Topbar onHamburgerClick={toggleShowSidebar} />

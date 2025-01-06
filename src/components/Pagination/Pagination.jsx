@@ -1,32 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-function Pagination({ data, itemsPerPage, onPageDataChange }) {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentData = data.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  useEffect(() => {
-    onPageDataChange(currentData, indexOfFirstItem);
-  }, [currentPage, data]);
-
+function Pagination({ currentPage, totalPages, onPageChange }) {
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      onPageChange(currentPage + 1);
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
+      onPageChange(currentPage - 1);
     }
   };
 
   const handlePageClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    onPageChange(pageNumber);
   };
 
   const paginationNumbers = [];
@@ -67,8 +56,7 @@ function Pagination({ data, itemsPerPage, onPageDataChange }) {
           key={index}
           onClick={() => handlePageClick(number)}
           className={number === currentPage ? "active" : ""}
-          disabled={number === "..."}
-        >
+          disabled={number === "..."}>
           {number}
         </button>
       ))}

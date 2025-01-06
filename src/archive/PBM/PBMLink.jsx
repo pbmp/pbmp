@@ -24,7 +24,7 @@ function PBMLink({ children }) {
           <div className="pbm-header">
             <div className="menu">
               <div className="icon">
-                <FileText strokeWidth={1.5} size={28} />
+                <FileText strokeWidth={1.25} size={28} />
               </div>
               <div className="title">PBM</div>
               <div className="desc">Laporan Kinerja Dosen</div>

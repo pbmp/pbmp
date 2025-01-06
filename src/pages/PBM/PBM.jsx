@@ -6,7 +6,11 @@ import {
   CloudDownload,
   LibraryBig,
   Blocks,
+  Calendar1,
   CalendarFold,
+  SquareCheckBig,
+  ClipboardList,
+  UserRoundCheck
 } from "lucide-react";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
 import { useReactToPrint } from "react-to-print";
@@ -18,15 +22,23 @@ import MataKuliah from "./MataKuliah/MataKuliah";
 const submenus = [
   {
     icon: <LibraryBig className="icon" strokeWidth={2} />,
-    text: "Mata kuliah",
+    text: "Mata Kuliah",
   },
   {
     icon: <Blocks className="icon" strokeWidth={2} />,
     text: "Kelas",
   },
   {
-    icon: <CalendarFold className="icon" strokeWidth={2} />,
-    text: "Jadwal perkuliahan",
+    icon: <Calendar1 className="icon" strokeWidth={2} />,
+    text: "Jadwal Perkuliahan",
+  },
+  {
+    icon: <UserRoundCheck className="icon" strokeWidth={2} />,
+    text: "Presensi",
+  },
+  {
+    icon: <ClipboardList className="icon" strokeWidth={2} />,
+    text: "Transkrip",
   },
 ];
 

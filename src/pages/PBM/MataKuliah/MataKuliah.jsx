@@ -1,90 +1,68 @@
 import React, { useState, useEffect } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { useFetchData, apiOptions } from "../../../helpers/useApiSevima";
 import { useSearch } from "@/helpers/SearchContext";
-import Endpoints from "@/helpers/Endpoints";
-import { Pencil, Trash } from "lucide-react";
+import Loader from "@/components/Loader/Loader";
+import { useDashboard } from "../../../context/DashboardContext";
 
 function MataKuliah() {
-  axios.defaults.withCredentials = true;
+  const { search } = useSearch(); // Mendapatkan input pencarian
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [allData, setAllData] = useState([]); // Semua data tanpa filter
-  const [filteredData, setFilteredData] = useState([]); // Data setelah pencarian
-  const [currentData, setCurrentData] = useState([]); // Data untuk halaman saat ini
-  const [indexFirstItem, setIndexFirstItem] = useState(0);
+  const { user } = useDashboard();
 
-  const { search } = useSearch();
+  // Menggunakan React Query untuk fetch data
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [`matakuliah/${user.role[0]?.id_pegawai}`, currentPage, search],
+    queryFn: useFetchData,
+    keepPreviousData: true, // Mempertahankan data lama saat ganti halaman
+    staleTime: 1000 * 60 * 5, // Cache valid selama 5 menit
+  });
 
-  const handlePageDataChange = (currentData, indexOfFirstItem) => {
-    setCurrentData(currentData);
-    setIndexFirstItem(indexOfFirstItem);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
-  // Fetch data
-  useEffect(() => {
-    axios
-      .get(Endpoints.matakuliah)
-      .then((res) => {
-        if (res.data.success) {
-          const attributes = res.data.data
-            .filter((item) => item.attributes)
-            .map((item) => item.attributes);
-          setAllData(attributes);
-          setFilteredData(attributes); // Default saat pertama kali
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  if (isLoading) return <Loader />;
+  if (isError) return <p>Error fetching data</p>;
 
-  // Update filtered data ketika pencarian berubah
-  useEffect(() => {
-    const searchLower = search.toLowerCase();
-    const filtered = allData.filter((item) => {
-      return (
-        item.kode.toLowerCase().includes(searchLower) ||
-        item.nama.toLowerCase().includes(searchLower) ||
-        item.program_studi.toLowerCase().includes(searchLower) ||
-        item.sks.toLowerCase().includes(searchLower)
-      );
-    });
-    setFilteredData(filtered);
-  }, [search, allData]);
+  const { data: mataKuliahData, meta } = data;
 
   return (
     <>
       <div className="pbm-table">
         <div className="thead">
           <div className="row">No</div>
-          <div className="row">Kode mata kuliah</div>
+          <div className="row">Kode</div>
           <div className="row">Nama mata kuliah</div>
           <div className="row">Program Studi</div>
-          <div className="row">SKS</div>
-          <div className="row">Action</div>
+          <div className="row">Ruangan</div>
+          <div className="row">Periode</div>
+          <div className="row">Kurikulum</div>
         </div>
-        {currentData.map((data, index) => (
+        {mataKuliahData.map((data, index) => (
           <div className="tbody" key={index}>
-            <div className="col">{indexFirstItem + index + 1}</div>
-            <div className="col">{data.kode}</div>
-            <div className="col">{data.nama}</div>
-            <div className="col">{data.program_studi}</div>
-            <div className="col">{data.sks}</div>
             <div className="col">
-              <div className="edit">
-                <Pencil className="icon" strokeWidth={2} size={16} />
-              </div>
-              <div className="delete">
-                <Trash className="icon" strokeWidth={2} size={16} />
-              </div>
+              {meta.per_page * (currentPage - 1) + index + 1}
             </div>
+            <div className="col">{data.attributes.kode_mata_kuliah}</div>
+            <div className="col">{data.attributes.mata_kuliah}</div>
+            <div className="col">{data.attributes.program_studi}</div>
+            <div className="col">{data.attributes.nama_ruang}</div>
+            <div className="col">{data.attributes.id_periode}</div>
+            <div className="col">{data.attributes.id_kurikulum}</div>
           </div>
         ))}
       </div>
+
+      {/* Pagination Component */}
       <Pagination
-        data={filteredData} // Kirimkan data hasil pencarian ke Pagination
-        itemsPerPage={12}
-        onPageDataChange={handlePageDataChange}
+        data={mataKuliahData}
+        itemsPerPage={meta.per_page}
+        currentPage={currentPage}
+        totalPages={meta.last_page}
+        onPageChange={handlePageChange}
       />
     </>
   );

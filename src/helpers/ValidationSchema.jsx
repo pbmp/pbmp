@@ -9,3 +9,8 @@ export const validationSchema = yup.object().shape({
   Phone: yup.number().required("Phone is required"),
   Alamat: yup.string().required("Address is required"),
 });
+
+export const authSchema = yup.object().shape({
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup.string().required("Password is required"),
+});

@@ -1,14 +1,90 @@
 @use "./variables" as v;
 
-@mixin flex($align: center, $justify: center, $direction: row) {
+@mixin flex(
+  $align: center,
+  $justify: center,
+  $direction: row,
+  $start: false,
+  $end: false
+) {
   display: flex;
-  align-items: $align;
-  justify-content: $justify;
   flex-direction: $direction;
+
+  @if $start {
+    align-items: flex-start;
+    justify-content: flex-start;
+  } @else if $end {
+    align-items: flex-end;
+    justify-content: flex-end;
+  } @else {
+    align-items: $align;
+    justify-content: $justify;
+  }
 }
 
 @mixin circle($size) {
   width: $size;
   height: $size;
   border-radius: 50%;
+}
+
+@mixin form-button(
+  $bg-color: #000,
+  $color: #fff,
+  $bg-color-hover: #fff,
+  $color-hover: #000,
+  $cursor: pointer,
+  $border-color: $bg-color,
+  $tx-transform: uppercase,
+  $justify: center,
+  $px: 0,
+  $py: 1rem,
+  $tx-align: start,
+  $w: 100%
+) {
+  width: $w;
+  padding: $py $px;
+  @include flex($justify: $justify);
+  border-radius: 0.4rem;
+  background-color: $bg-color;
+  outline: none;
+  border: none;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: $tx-transform;
+  margin-top: 0.9rem;
+  color: $color;
+  cursor: $cursor;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  transition: color 0.6s ease-in;
+  border: $border-color solid 1px;
+  text-align: $tx-align;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $bg-color-hover;
+    left: 0;
+    bottom: 0;
+    border-radius: 0.4rem;
+    transform: scale(0);
+    transition: transform 0.6s ease-in;
+    transform-origin: left top;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: $color-hover;
+    transition: color 0.6s ease-out;
+
+    &::after {
+      transform: scale(1);
+      transition: transform 0.6s ease-out;
+    }
+  }
 }
