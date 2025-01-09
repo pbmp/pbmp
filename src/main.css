@@ -1247,12 +1247,12 @@
   justify-content: center;
   padding-bottom: 1.8vw;
 }
-.pbm-content .pbm-table .thead {
+.pbm-content .pbm-table.mata-kuliah .thead {
   width: 100%;
   display: grid;
   grid-template-columns: 0.7fr 1fr 2.4fr 2.4fr 1.5fr 1fr 1fr;
 }
-.pbm-content .pbm-table .thead .row {
+.pbm-content .pbm-table.mata-kuliah .thead .row {
   font-size: 1vw;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.5);
@@ -1260,7 +1260,7 @@
   padding: 2.8vh 1vw;
   text-transform: capitalize;
 }
-.pbm-content .pbm-table .thead .row:nth-child(1) {
+.pbm-content .pbm-table.mata-kuliah .thead .row:nth-child(1) {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1268,29 +1268,29 @@
   border-top-left-radius: 0.6vw;
   border-bottom-left-radius: 0.6vw;
 }
-.pbm-content .pbm-table .thead .row:nth-child(2), .pbm-content .pbm-table .thead .row:nth-child(6), .pbm-content .pbm-table .thead .row:nth-child(7) {
+.pbm-content .pbm-table.mata-kuliah .thead .row:nth-child(2), .pbm-content .pbm-table.mata-kuliah .thead .row:nth-child(6), .pbm-content .pbm-table.mata-kuliah .thead .row:nth-child(7) {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.pbm-content .pbm-table .thead .row:nth-child(3), .pbm-content .pbm-table .thead .row:nth-child(4) {
+.pbm-content .pbm-table.mata-kuliah .thead .row:nth-child(3), .pbm-content .pbm-table.mata-kuliah .thead .row:nth-child(4) {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
-.pbm-content .pbm-table .thead .row:last-child {
+.pbm-content .pbm-table.mata-kuliah .thead .row:last-child {
   border-top-right-radius: 0.6vw;
   border-bottom-right-radius: 0.6vw;
 }
-.pbm-content .pbm-table .tbody {
+.pbm-content .pbm-table.mata-kuliah .tbody {
   width: 100%;
   display: grid;
   grid-template-columns: 0.7fr 1fr 2.4fr 2.4fr 1.5fr 1fr 1fr;
   border-bottom: #ddd solid 0.15vw;
 }
-.pbm-content .pbm-table .tbody .col {
+.pbm-content .pbm-table.mata-kuliah .tbody .col {
   font-size: 1vw;
   color: rgba(0, 0, 0, 0.8);
   padding: 3.6vh 1vw;
@@ -1298,26 +1298,102 @@
   text-overflow: wrap;
   line-height: 140%;
 }
-.pbm-content .pbm-table .tbody .col:nth-child(1) {
+.pbm-content .pbm-table.mata-kuliah .tbody .col:nth-child(1) {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.pbm-content .pbm-table .tbody .col:nth-child(3) {
+.pbm-content .pbm-table.mata-kuliah .tbody .col:nth-child(3) {
   text-transform: uppercase;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
-.pbm-content .pbm-table .tbody .col:nth-child(4) {
+.pbm-content .pbm-table.mata-kuliah .tbody .col:nth-child(4) {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
-.pbm-content .pbm-table .tbody .col:nth-child(2), .pbm-content .pbm-table .tbody .col:nth-child(6), .pbm-content .pbm-table .tbody .col:nth-child(7) {
+.pbm-content .pbm-table.mata-kuliah .tbody .col:nth-child(2), .pbm-content .pbm-table.mata-kuliah .tbody .col:nth-child(6), .pbm-content .pbm-table.mata-kuliah .tbody .col:nth-child(7) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .thead {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 2fr 1.6fr 1.2fr 1.2fr;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .thead .row {
+  font-size: 1vw;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(165, 176, 190, 0.2);
+  padding: 2.8vh 1vw;
+  text-transform: capitalize;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .thead .row:nth-child(1) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 0.6vw;
+  border-bottom-left-radius: 0.6vw;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .thead .row:nth-child(2), .pbm-content .pbm-table.jadwal-perkuliahan .thead .row:nth-child(6) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .thead .row:nth-child(3), .pbm-content .pbm-table.jadwal-perkuliahan .thead .row:nth-child(4) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .thead .row:last-child {
+  border-top-right-radius: 0.6vw;
+  border-bottom-right-radius: 0.6vw;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .tbody {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 2fr 1.6fr 1.2fr 1.2fr;
+  border-bottom: #ddd solid 0.15vw;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .tbody .col {
+  font-size: 1vw;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 3.6vh 1vw;
+  font-weight: 500;
+  text-overflow: wrap;
+  line-height: 140%;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .tbody .col:nth-child(1) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .tbody .col:nth-child(3) {
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .tbody .col:nth-child(4) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.pbm-content .pbm-table.jadwal-perkuliahan .tbody .col:nth-child(2), .pbm-content .pbm-table.jadwal-perkuliahan .tbody .col:nth-child(6) {
   display: flex;
   flex-direction: row;
   align-items: center;

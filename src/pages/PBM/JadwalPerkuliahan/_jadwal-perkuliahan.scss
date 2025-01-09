@@ -1,0 +1,77 @@
+@use "../../../helpers/mixins" as m;
+@use "../../../helpers/variables" as v;
+
+@mixin jadwal-perkuliahan() {
+  .thead {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.7fr 1fr 2fr 1.6fr 1.2fr 1.2fr;
+
+    .row {
+      font-size: 1vw;
+      font-weight: 600;
+      color: rgba($color: #000, $alpha: 0.5);
+      background-color: rgba(
+        $color: map-get($map: v.$color, $key: "other-blue"),
+        $alpha: 0.2
+      );
+      padding: 2.8vh 1vw;
+      text-transform: capitalize;
+
+      &:nth-child(1) {
+        @include m.flex();
+        border-top-left-radius: 0.6vw;
+        border-bottom-left-radius: 0.6vw;
+      }
+
+      &:nth-child(2),
+      &:nth-child(6) {
+        @include m.flex();
+      }
+
+      &:nth-child(3),
+      &:nth-child(4) {
+        @include m.flex($justify: flex-start);
+      }
+
+      &:last-child {
+        border-top-right-radius: 0.6vw;
+        border-bottom-right-radius: 0.6vw;
+      }
+    }
+  }
+
+  .tbody {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.7fr 1fr 2fr 1.6fr 1.2fr 1.2fr;
+    border-bottom: #ddd solid 0.15vw;
+
+    .col {
+      font-size: 1vw;
+      color: rgba($color: #000, $alpha: 0.8);
+      padding: 3.6vh 1vw;
+      font-weight: 500;
+      text-overflow: wrap;
+      line-height: 140%;
+
+      &:nth-child(1) {
+        @include m.flex();
+      }
+
+      &:nth-child(3) {
+        text-transform: uppercase;
+        @include m.flex($justify: flex-start);
+      }
+
+      &:nth-child(4) {
+        @include m.flex($justify: flex-start);
+      }
+
+      &:nth-child(2),
+      &:nth-child(6) {
+        @include m.flex();
+      }
+    }
+  }
+}

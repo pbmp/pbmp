@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
 import { useQuery } from "@tanstack/react-query";
-import { useFetchData, apiOptions } from "../../../helpers/useApiSevima";
+import { useFetchData } from "../../../helpers/useApiSevima";
 import { useSearch } from "@/helpers/SearchContext";
 import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "../../../context/DashboardContext";
@@ -31,7 +31,7 @@ function MataKuliah() {
 
   return (
     <>
-      <div className="pbm-table">
+      <div className="pbm-table mata-kuliah">
         <div className="thead">
           <div className="row">No</div>
           <div className="row">Kode</div>
