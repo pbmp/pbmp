@@ -6,9 +6,6 @@
 @use "./../Sidebar/media-sidebar" as media-s;
 
 .layout {
-  width: 100%;
-  height: auto;
-  min-height: 100vh;
   display: grid;
   grid-template-areas:
     "sidebar topbar"
@@ -16,13 +13,17 @@
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  overflow: hidden;
 
   .topbar {
     grid-area: topbar;
     @include t.topbar();
     @include media-t.media-topbar();
   }
-  
+
   .sidebar {
     grid-area: sidebar;
     @include s.sidebar();

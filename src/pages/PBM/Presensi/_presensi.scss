@@ -1,11 +1,11 @@
 @use "../../../helpers/mixins" as m;
 @use "../../../helpers/variables" as v;
 
-@mixin mata-kuliah() {
+@mixin presensi() {
   .thead {
-    width: 100%;
     display: grid;
-    grid-template-columns: 0.7fr 1fr 2.4fr 2.4fr 1.5fr 1fr 1fr;
+    // grid-template-columns: repeat(11, 4rem);
+    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 6.5rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
 
     .row {
       font-size: 1vw;
@@ -15,37 +15,32 @@
         $color: map-get($map: v.$color, $key: "other-blue"),
         $alpha: 0.2
       );
-      padding: 2.8vh 1vw;
+      padding: 1.9vh 1vw;
       text-transform: capitalize;
+      word-break: break-word;
+      white-space: normal;
+      line-height: 135%;
+      text-align: center;
+      @include m.flex();
 
-      &:nth-child(1) {
-        @include m.flex();
+      &:first-child {
         border-top-left-radius: 0.6vw;
         border-bottom-left-radius: 0.6vw;
-      }
-
-      &:nth-child(2),
-      &:nth-child(6),
-      &:nth-child(7) {
-        @include m.flex();
-      }
-
-      &:nth-child(3),
-      &:nth-child(4) {
-        @include m.flex($justify: flex-start);
       }
 
       &:last-child {
         border-top-right-radius: 0.6vw;
         border-bottom-right-radius: 0.6vw;
       }
+
+      
     }
   }
 
   .tbody {
-    width: 100%;
     display: grid;
-    grid-template-columns: 0.7fr 1fr 2.4fr 2.4fr 1.5fr 1fr 1fr;
+    // grid-template-columns: repeat(11, 4rem);
+    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 6.5rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
     border-bottom: #ddd solid 0.15vw;
 
     .col {
@@ -53,26 +48,17 @@
       color: rgba($color: #000, $alpha: 0.8);
       padding: 3.6vh 1vw;
       font-weight: 500;
-      text-overflow: wrap;
       line-height: 140%;
-
-      &:nth-child(1) {
-        @include m.flex();
-      }
-
-      &:nth-child(3) {
-        text-transform: uppercase;
-        @include m.flex($justify: flex-start);
-      }
-
-      &:nth-child(4) {
-        @include m.flex($justify: flex-start);
-      }
+      word-break: break-word;
+      white-space: normal;
+      @include m.flex($align: flex-start);
+      text-align: center;
 
       &:nth-child(2),
-      &:nth-child(6),
-      &:nth-child(7) {
-        @include m.flex();
+      &:nth-child(4),
+      &:nth-child(6) {
+        @include m.flex($start: true);
+        text-align: start;
       }
     }
   }

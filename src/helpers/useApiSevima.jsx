@@ -12,15 +12,15 @@ export const apiOptions = axios.create({
 });
 
 export const useFetchData = async ({ queryKey }) => {
-  const [key, page, search] = queryKey;
+  const [key, page] = queryKey;
   const response = await apiOptions.get(`/${key}`, {
     params: {
       page,
-      search: search || "",
     },
   });
 
   const { data, meta } = response.data;
+
   return {
     data,
     meta,

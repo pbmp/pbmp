@@ -1,7 +1,7 @@
 import React from "react";
 import PBMLink from "../../PBMLink";
 
-function MataKuliahLink() {
+function JurnalPerkuliahanLink() {
   return (
     <>
       <PBMLink>
@@ -11,4 +11,4 @@ function MataKuliahLink() {
   );
 }
 
-export default MataKuliahLink;
+export default JurnalPerkuliahanLink;

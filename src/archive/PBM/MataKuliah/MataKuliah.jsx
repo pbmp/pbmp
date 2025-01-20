@@ -5,7 +5,7 @@ import { useSearch } from "@/helpers/SearchContext";
 import Endpoints from "@/helpers/Endpoints";
 import { Pencil, Trash } from "lucide-react";
 
-function MataKuliah() {
+function JurnalPerkuliahan() {
   axios.defaults.withCredentials = true;
 
   const [allData, setAllData] = useState([]); // Semua data tanpa filter
@@ -23,7 +23,7 @@ function MataKuliah() {
   // Fetch data
   useEffect(() => {
     axios
-      .get(Endpoints.matakuliah)
+      .get(Endpoints.JurnalPerkuliahan)
       .then((res) => {
         if (res.data.success) {
           const attributes = res.data.data
@@ -90,4 +90,4 @@ function MataKuliah() {
   );
 }
 
-export default MataKuliah;
+export default JurnalPerkuliahan;

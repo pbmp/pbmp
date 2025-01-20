@@ -4,12 +4,14 @@
 @use "./Document/document";
 @use "./pbm-media" as pbm-m;
 @use "../../components/Loader/loader" as loader;
-@use "./MataKuliah/mata-kuliah" as mata-kuliah;
-@use "./JadwalPerkuliahan/jadwal-perkuliahan" as jadwal-perkuliahan;
+@use "./JurnalPerkuliahan/jurnal-perkuliahan" as jurnal-perkuliahan;
+@use "./Presensi/presensi" as presensi;
+@use "./Transkrip/transkrip" as transkrip;
 
 .pbm {
-  @include m.flex($direction: column, $justify: flex-start, $align: flex-start);
+  @include m.flex($direction: column, $start: true);
   @include pbm-m.pbm-media();
+  width: 100%;
 
   &-header {
     @include header-el.header-el();
@@ -102,17 +104,32 @@
 
   &-content {
     padding: v.$py-sidebar-content v.$px-topbar-content;
+    max-width: 100%;
+    min-width: 100%;
+    overflow: hidden;
 
     .pbm-table {
       @include m.flex($direction: column, $align: flex-start);
-      padding-bottom: v.$px-topbar-content;
+      overflow-x: auto;
+      max-width: 100%;
+      width: 75.1vw;
+      transition: width 0.4s ease-in;
 
-      &.mata-kuliah {
-        @include mata-kuliah.mata-kuliah();
+      &.expanded {
+        width: 89.1vw;
+        transition: width 0.4s ease-out;
       }
 
-      &.jadwal-perkuliahan {
-        @include jadwal-perkuliahan.jadwal-perkuliahan();
+      &.jurnal-perkuliahan {
+        @include jurnal-perkuliahan.jurnal-perkuliahan();
+      }
+
+      &.presensi {
+        @include presensi.presensi();
+      }
+
+      &.transkrip {
+        @include transkrip.transkrip();
       }
     }
 

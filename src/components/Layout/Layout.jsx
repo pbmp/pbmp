@@ -4,19 +4,13 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import { ToastContainer } from "react-toastify";
 
 function Layout({ children }) {
-  const [showSidebar, setShowSidebar] = useState(false);
-
-  const toggleShowSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
-
   return (
     <>
       {/* <SmoothScroll /> */}
       <ToastContainer />
       <div className="layout">
-        <Topbar onHamburgerClick={toggleShowSidebar} />
-        <Sidebar showSidebar={showSidebar} />
+        <Topbar />
+        <Sidebar />
         <div className="content">{children}</div>
       </div>
     </>

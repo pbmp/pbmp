@@ -30,7 +30,8 @@
       }
 
       .hamburger {
-        display: inline-block !important;
+        cursor: pointer;
+        @include m.flex();
       }
 
       .line,

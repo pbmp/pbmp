@@ -6,6 +6,8 @@ import CryptoJS from "crypto-js";
 const DashboardContext = createContext({
   user: {},
   token: null,
+  expandedSidebar: true,
+  handleExpandedSidebar: () => {},
 });
 
 export const DashboardProvider = ({ children }) => {
@@ -13,6 +15,11 @@ export const DashboardProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Status autentikasi
   const navigate = useNavigate();
+  const [expandedSidebar, setExpandedSidebar] = useState(true);
+
+  const handleExpandedSidebar = () => {
+    setExpandedSidebar(!expandedSidebar);
+  };
 
   const SECRET_KEY = "!uLBi123!";
 
@@ -47,7 +54,9 @@ export const DashboardProvider = ({ children }) => {
   }
 
   return (
-    <DashboardContext.Provider value={{ user, token }}>
+    <DashboardContext.Provider
+      value={{ user, token, handleExpandedSidebar, expandedSidebar }}
+    >
       {children}
     </DashboardContext.Provider>
   );

@@ -5,11 +5,14 @@
   width: 100%;
   padding: 0 v.$px-topbar-content;
   height: v.$h-topbar-sidebar;
-  @include m.flex($justify: space-between);
   border-bottom: 0.15vw solid #ddd;
+  display: grid;
+  grid-auto-columns: 40vw 1fr;
+  grid-template-areas: "search other";
 
   &-search {
-    width: 40vw;
+    grid-area: search;
+    width: 100%;
     @include m.flex($justify: flex-start);
     gap: 0.1vw;
 
@@ -35,6 +38,7 @@
   }
 
   &-other {
+    grid-area: other;
     width: 100%;
     height: auto;
     @include m.flex($justify: flex-end);
@@ -46,9 +50,7 @@
     }
 
     .hamburger {
-      display: none !important;
-      cursor: pointer;
-      @include m.flex();
+      display: none;
     }
 
     .line {

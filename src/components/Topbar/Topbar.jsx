@@ -5,8 +5,8 @@ import { useSearch } from "@/helpers/SearchContext";
 import { toastMessage } from "@/helpers/AlertMessage";
 import { useDashboard } from "../../context/DashboardContext";
 
-function Topbar({ onHamburgerClick }) {
-  const { setSearch } = useSearch();
+function Topbar() {
+  const { setSearch, search } = useSearch();
   const { user } = useDashboard();
 
   const handleSearch = (e) => {
@@ -25,6 +25,7 @@ function Topbar({ onHamburgerClick }) {
         </button>
         <input
           type="text"
+          value={search}
           onChange={handleSearch}
           placeholder="Search Keyword..."
         />
@@ -36,12 +37,7 @@ function Topbar({ onHamburgerClick }) {
           size={20}
           onClick={handleInfoAlert}
         />
-        <Menu
-          className="hamburger"
-          strokeWidth={1.25}
-          size={20}
-          onClick={onHamburgerClick}
-        />
+        <Menu className="hamburger" strokeWidth={1.25} size={20} />
         <div className="line"></div>
         <div className="profile">
           <div className="image">

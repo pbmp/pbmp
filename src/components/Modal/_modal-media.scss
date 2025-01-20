@@ -4,25 +4,25 @@
 @mixin modal-media() {
   @media (max-width: 575.98px) {
     .modal {
-      max-width: 70vw !important;
-      padding: 5.6vw 7.2vw 8.8vw !important;
+      max-width: 70vw;
+      padding: 5.6vw 7.2vw 8.8vw;
 
       &-image {
-        width: 15vw !important;
+        width: 15vw;
       }
 
       &-title {
-        font-size: 4.8vw !important;
+        font-size: 4.8vw;
       }
 
       &-form {
-        gap: 1.3vw !important;
+        gap: 1.3vw;
 
         input,
         button {
-          height: 6vh !important;
-          font-size: 3.2vw !important;
-          padding: 0 3.4vw !important;
+          height: 6vh;
+          font-size: 3.2vw;
+          padding: 0 3.4vw;
         }
       }
     }

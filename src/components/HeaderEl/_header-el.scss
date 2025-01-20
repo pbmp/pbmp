@@ -2,11 +2,11 @@
 @use "../../helpers/variables" as v;
 
 @mixin header-el() {
-  width: 100%;
   @include m.flex($justify: space-between);
   background-color: map-get($map: v.$color, $key: "light-grey");
   padding: v.$py-sidebar-content v.$px-topbar-content;
   border-bottom: 0.15vw solid #ddd;
+  width: 100%;
 
   .menu {
     display: grid;

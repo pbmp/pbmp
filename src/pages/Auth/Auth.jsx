@@ -57,7 +57,7 @@ function Auth() {
 
           authPromise
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
 
               authStatus.current = res.data.success;
 

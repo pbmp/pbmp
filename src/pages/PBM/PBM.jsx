@@ -10,44 +10,47 @@ import {
   CalendarFold,
   SquareCheckBig,
   ClipboardList,
-  UserRoundCheck
+  UserRoundCheck,
 } from "lucide-react";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
 import { useReactToPrint } from "react-to-print";
 import Document from "./Document/Document";
-import Kelas from "./Kelas/Kelas";
-import JadwalPerkuliahan from "./JadwalPerkuliahan/JadwalPerkuliahan";
-import MataKuliah from "./MataKuliah/MataKuliah";
+import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
+import Presensi from "./Presensi/Presensi";
+import Transkrip from "./Transkrip/Transkrip";
 
 const submenus = [
   {
+    id: 1,
     icon: <LibraryBig className="icon" strokeWidth={2} />,
-    text: "Mata Kuliah",
+    text: "Jurnal Perkuliahan",
   },
+  // {
+  //   icon: <Blocks className="icon" strokeWidth={2} />,
+  //   text: "Kelas",
+  // },
+  // {
+  //   icon: <Calendar1 className="icon" strokeWidth={2} />,
+  //   text: "Jadwal Perkuliahan",
+  // },
   {
-    icon: <Blocks className="icon" strokeWidth={2} />,
-    text: "Kelas",
-  },
-  {
-    icon: <Calendar1 className="icon" strokeWidth={2} />,
-    text: "Jadwal Perkuliahan",
-  },
-  {
+    id: 2,
     icon: <UserRoundCheck className="icon" strokeWidth={2} />,
     text: "Presensi",
   },
   {
+    id: 3,
     icon: <ClipboardList className="icon" strokeWidth={2} />,
     text: "Transkrip",
   },
 ];
 
 function PBM() {
-  const [activeSubmenu, setActiveSubmenu] = useState(0);
+  const [activeSubmenu, setActiveSubmenu] = useState(1);
   const printRef = useRef(null);
 
-  const handleActiveSubmenu = (index) => {
-    setActiveSubmenu(index);
+  const handleActiveSubmenu = (id) => {
+    setActiveSubmenu(id);
   };
 
   const content = "semester genap tahun akademik 2023/2024";
@@ -78,13 +81,13 @@ function PBM() {
           </HeaderEl>
 
           <div className="pbm-submenu">
-            {submenus.map((item, index) => (
+            {submenus.map((item) => (
               <div
-                key={index}
+                key={item.id}
                 className={`pbm-submenu-link ${
-                  activeSubmenu === index ? "active" : ""
+                  activeSubmenu === item.id ? "active" : ""
                 }`}
-                onClick={() => handleActiveSubmenu(index)}
+                onClick={() => handleActiveSubmenu(item.id)}
               >
                 {item.icon}
                 <div className="text">{item.text}</div>
@@ -93,9 +96,9 @@ function PBM() {
           </div>
         </div>
         <div className="pbm-content">
-          {activeSubmenu === 0 && <MataKuliah />}
-          {activeSubmenu === 1 && <Kelas />}
-          {activeSubmenu === 2 && <JadwalPerkuliahan />}
+          {activeSubmenu === 1 && <JurnalPerkuliahan />}
+          {activeSubmenu === 2 && <Presensi />}
+          {activeSubmenu === 3 && <Transkrip />}
         </div>
       </Layout>
       <div
