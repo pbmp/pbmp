@@ -28,13 +28,13 @@ function Sidebar() {
         <div className="menu-title">Main Menu</div>
         <div className="menu-list">
           <NavLink
-            className={() => getActiveClass("/pbmp/synchgrate")}
-            to={"/pbmp/synchgrate"}
+            className={() => getActiveClass("/pbmp/synchronize")}
+            to={"/pbmp/synchronize"}
           >
             <span className="icon">
               <DatabaseBackup size={22} strokeWidth={1.25} />
             </span>
-            <span className="text">Synch Grate</span>
+            <span className="text">Synchronize</span>
           </NavLink>
           <NavLink className={() => getActiveClass("/pbmp/")} to={"/pbmp/"}>
             <span className="icon">

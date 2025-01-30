@@ -89,11 +89,14 @@
   }
 }
 
-@mixin loader($height) {
+@mixin loader($height: 40vh) {
   .wrapper-fetch-loader {
     width: 100%;
     height: $height;
-    @include m.flex();
+    @include m.flex($direction: column);
+    gap: 0.8rem;
+    position: relative;
+    z-index: 9999;
 
     /* From Uiverse.io by Nawsome */
     .fetch-loader {

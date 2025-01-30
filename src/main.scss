@@ -1,6 +1,7 @@
 @use "./helpers/variables" as v;
 @use "./helpers/mixins" as m;
 
+@use "./components/Loader/loader" as loader;
 @use "./components/Pagination/pagination";
 @use "./pages/Error404/error404";
 @use "./pages/Users/users";
@@ -11,7 +12,10 @@
 @use "./components/Layout/layout";
 @use "./components/Modal/modal";
 
+
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+@include loader.loader();
 
 *,
 *::before,

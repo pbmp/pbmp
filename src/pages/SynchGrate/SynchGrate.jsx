@@ -1,11 +1,56 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { Shuffle, DatabaseBackup, RefreshCcw } from "lucide-react";
 import Layout from "@/components/Layout/Layout";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
+import Loader from "@/components/Loader/Loader";
+import { useQuery } from "@tanstack/react-query";
+import { useFetchData, apiOptions } from "../../helpers/useApiSevima";
+import { toastMessage } from "../../helpers/AlertMessage";
 
 function SynchGrate() {
-  axios.defaults.withCredentials = true;
+  const [isLoading, setIsLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  const asyncModal = useRef(null);
+
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (asyncModal.current && !asyncModal.current.contains(e.target)) {
+        setOpenModal(false);
+      }
+    };
+
+    if (openModal) {
+      document.addEventListener("mousedown", handleOutside);
+    } else {
+      document.removeEventListener("mousedown", handleOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutside);
+    };
+  }, [asyncModal, openModal]);
+
+  const handleSyncJurnal = useCallback(async () => {
+    setIsLoading(true);
+
+    try {
+      const syncPromise = await apiOptions.get("/jurnalperkuliahan");
+
+      const status = syncPromise.status;
+
+      if (status === 200) {
+        toastMessage("success", "Sinkronisasi Selesai!");
+      }
+      // console.log(syncPromise);
+    } catch (err) {
+      console.error(err);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [toastMessage]);
 
   return (
     <>
@@ -13,21 +58,34 @@ function SynchGrate() {
         <div className="synchgrate">
           <HeaderEl
             classEl={"synchgrate"}
-            titleEl={"Synchronize & Migrate"}
-            descEl={"Manage synchronize & migrate for update data"}
+            titleEl={"Synchronize"}
+            descEl={"Manage synchronize for refresh data"}
             Icon={DatabaseBackup}
           >
             <div className="action">
-              <div className="synchronize">
+              <div className="synchronize" onClick={() => setOpenModal(true)}>
                 <RefreshCcw className="icon" strokeWidth={2} />
                 <div className="text">Synchronize</div>
               </div>
-              <div className="migrate">
+              {openModal ? (
+                <div className="synchronize-modal" ref={asyncModal}>
+                  <div
+                    className="synchronize-modal-content"
+                    onClick={handleSyncJurnal}
+                  >
+                    Jurnal Perkuliahan
+                  </div>
+                </div>
+              ) : null}
+              {/* <div className="migrate">
                 <Shuffle className="icon" strokeWidth={2} />
                 <div className="text">Migrate</div>
-              </div>
+              </div> */}
             </div>
           </HeaderEl>
+          <div className="synchgrate-content">
+            {isLoading && <Loader text="Sinkronisasi..." />}
+          </div>
         </div>
       </Layout>
     </>

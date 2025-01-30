@@ -32,10 +32,10 @@ function App() {
               <Route path="users" element={<UsersManagement />} />
               <Route path="perwalian" element={<Perwalian />} />
               <Route index element={<PBM />} />
-              <Route path="synchgrate" element={<SynchGrate />} />
+              <Route path="synchronize" element={<SynchGrate />} />
             </Route>
             <Route path="*" element={<Error404 />} />
-            <Route path="/loader" element={<Loader />} />
+            <Route path="/pbmp/loader" element={<Loader />} />
           </Routes>
         </QueryClientProvider>
       </SearchProvider>
