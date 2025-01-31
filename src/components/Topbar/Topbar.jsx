@@ -1,13 +1,42 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import userImage from "@/assets/images/user.png";
 import { Search, Bell, EllipsisVertical, Menu } from "lucide-react";
 import { useSearch } from "@/helpers/SearchContext";
 import { toastMessage } from "@/helpers/AlertMessage";
 import { useDashboard } from "../../context/DashboardContext";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 function Topbar() {
+  const [openModal, setOpenModal] = useState(false);
+
+  const modalRef = useRef(null);
+
   const { setSearch, search } = useSearch();
   const { user } = useDashboard();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setOpenModal(false);
+      }
+    };
+
+    if (openModal) {
+      document.addEventListener("mousedown", clickOutside);
+    } else {
+      document.removeEventListener("mousedown", clickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", clickOutside);
+    };
+  }, [modalRef, openModal]);
+
+  useEffect(() => {
+    console.log(openModal);
+  }, []);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -16,6 +45,15 @@ function Topbar() {
   const handleInfoAlert = useCallback(() => {
     toastMessage("info", "This feature is under development!", "top-center");
   }, [toastMessage]);
+
+  const handleLogout = useCallback(() => {
+    Cookies.remove("pbmp-login");
+    Cookies.remove("pbmp-user");
+
+    navigate("/pbmp/auth", {
+      state: { logoutMessage: "Logout Successful!" },
+    });
+  }, []);
 
   return (
     <div className="topbar">
@@ -48,8 +86,17 @@ function Topbar() {
             <span className="job">{user.role[0]?.nama_role}</span>
           </div>
         </div>
-        <span className="option" onClick={handleInfoAlert}>
-          <EllipsisVertical strokeWidth={1.25} size={20} />
+        <span className="option">
+          <EllipsisVertical
+            strokeWidth={1.25}
+            size={20}
+            onClick={() => setOpenModal(true)}
+          />
+          {openModal ? (
+            <div className="option-modal" ref={modalRef}>
+              <span onClick={handleLogout}>Logout</span>
+            </div>
+          ) : null}
         </span>
       </div>
     </div>

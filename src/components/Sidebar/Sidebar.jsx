@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Users, PanelLeftClose, FileText, DatabaseBackup } from "lucide-react";
 import logo from "@/assets/logo/logo-Photoroom.png";
 import { NavLink, useLocation } from "react-router-dom";
@@ -6,8 +6,9 @@ import { useDashboard } from "../../context/DashboardContext";
 
 function Sidebar() {
   const location = useLocation();
+  const [isAdmak, setIsAdmak] = useState(false);
 
-  const { expandedSidebar, handleExpandedSidebar } = useDashboard();
+  const { expandedSidebar, handleExpandedSidebar, user } = useDashboard();
 
   const getActiveClass = (path) => {
     // Pastikan hanya path spesifik yang mendapatkan kelas active
@@ -15,6 +16,12 @@ function Sidebar() {
       ? "menu-list-item active"
       : "menu-list-item";
   };
+
+  useEffect(() => {
+    const getIsAdmak = user?.role.find((item) => item.id_role === "admak");
+
+    setIsAdmak(!!getIsAdmak);
+  }, [user]);
 
   return (
     <div className={`sidebar  ${expandedSidebar ? "" : "collapse"} `}>
@@ -27,15 +34,17 @@ function Sidebar() {
       <div className="sidebar-menus">
         <div className="menu-title">Main Menu</div>
         <div className="menu-list">
-          <NavLink
-            className={() => getActiveClass("/pbmp/synchronize")}
-            to={"/pbmp/synchronize"}
-          >
-            <span className="icon">
-              <DatabaseBackup size={22} strokeWidth={1.25} />
-            </span>
-            <span className="text">Synchronize</span>
-          </NavLink>
+          {isAdmak ? (
+            <NavLink
+              className={() => getActiveClass("/pbmp/synchronize")}
+              to={"/pbmp/synchronize"}
+            >
+              <span className="icon">
+                <DatabaseBackup size={22} strokeWidth={1.25} />
+              </span>
+              <span className="text">Synchronize</span>
+            </NavLink>
+          ) : null}
           <NavLink className={() => getActiveClass("/pbmp/")} to={"/pbmp/"}>
             <span className="icon">
               <FileText size={22} strokeWidth={1.25} />

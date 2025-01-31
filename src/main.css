@@ -1818,6 +1818,32 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+.layout .topbar-other .option-modal {
+  width: 12rem;
+  height: 3rem;
+  position: absolute;
+  background-color: #fff;
+  top: 150%;
+  right: 0;
+  border-radius: 0.4vw;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+.layout .topbar-other .option-modal span {
+  padding: 0 0.95rem;
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: #546983;
+  transition: background-color 0.2s ease-in;
+}
+.layout .topbar-other .option-modal span:hover {
+  background-color: rgba(165, 176, 190, 0.2);
+  transition: background-color 0.2s ease-out;
 }
 @media (max-width: 575.98px) {
   .layout .topbar {

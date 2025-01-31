@@ -88,6 +88,8 @@ function JurnalPerkuliahan() {
 
     setFilteredData(filtered);
     setCurrentPage(1); // Reset pagination ke halaman pertama saat pencarian berubah
+
+    console.log(jurnalData);
   }, [search, jurnalData]);
 
   const handlePageDataChange = (currentData, indexOfFirstItem) => {

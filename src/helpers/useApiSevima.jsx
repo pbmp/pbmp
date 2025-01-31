@@ -10,6 +10,15 @@ export const apiOptions = axios.create({
   withCredentials: true,
 });
 
+export const apiOptionsSync = axios.create({
+  baseURL: "https://pbmp-be.ulbi.ac.id",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+  withCredentials: true,
+});
+
 export const useFetchData = async ({ queryKey }) => {
   const [key, page] = queryKey || [];
   if (!key || page === undefined) {

@@ -1,8 +1,8 @@
-import React, { useCallback, useState, useRef } from "react";
+import React, { useCallback, useState, useRef, useEffect } from "react";
 import logo from "../../assets/logo/logo-bunga-default.jpg";
 import axios from "axios";
 import { authSchema } from "../../helpers/ValidationSchema";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toastMessage, toastPromise } from "../../helpers/AlertMessage";
 import { ToastContainer } from "react-toastify";
 import Cookies from "js-cookie";
@@ -20,6 +20,7 @@ function Auth() {
   const authStatus = useRef(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = useCallback(
     (e) => {
@@ -112,6 +113,24 @@ function Auth() {
     },
     [authSchema, data, toastPromise, toastMessage]
   );
+
+  useEffect(() => {
+    if (location.state?.hasNoAccess) {
+      toastMessage("warn", location.state.hasNoAccess, {
+        position: "top-center",
+      });
+      navigate(location.pathname, {
+        state: { ...location.state, hasNoAccess: undefined },
+        replace: true,
+      });
+    } else if (location.state?.logoutMessage) {
+      toastMessage("success", location.state.logoutMessage);
+      navigate(location.pathname, {
+        state: { ...location.state, logoutMessage: undefined },
+        replace: true,
+      });
+    }
+  }, [location.state, navigate, location.pathname]);
 
   return (
     <>

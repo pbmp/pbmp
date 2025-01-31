@@ -5,14 +5,32 @@ import Layout from "@/components/Layout/Layout";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
 import Loader from "@/components/Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
-import { useFetchData, apiOptions } from "../../helpers/useApiSevima";
+import { apiOptionsSync } from "../../helpers/useApiSevima";
 import { toastMessage } from "../../helpers/AlertMessage";
+import { useDashboard } from "../../context/DashboardContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function SynchGrate() {
   const [isLoading, setIsLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
   const asyncModal = useRef(null);
+
+  const { user } = useDashboard();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getIsAdmak = user?.role.find((item) => item.id_role === "admak");
+
+    if (!!getIsAdmak === false) {
+      navigate("/pbmp/auth", {
+        replace: true,
+        state: {
+          hasNoAccess: "Access Denied!",
+        },
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     const handleOutside = (e) => {
@@ -36,7 +54,7 @@ function SynchGrate() {
     setIsLoading(true);
 
     try {
-      const syncPromise = await apiOptions.get("/jurnalperkuliahan");
+      const syncPromise = await apiOptionsSync.get("/jurnalperkuliahan");
 
       const status = syncPromise.status;
 
@@ -46,7 +64,6 @@ function SynchGrate() {
       // console.log(syncPromise);
     } catch (err) {
       console.error(err);
-      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
