@@ -52,18 +52,18 @@ function JurnalPerkuliahan({ kelasIds }) {
     const searchLowerCase = search.toLowerCase();
     const filtered = jurnalData.filter(
       (item) =>
-        item.mata_kuliah.toLowerCase().includes(searchLowerCase) ||
-        item.nama_kelas.toLowerCase().includes(searchLowerCase) ||
-        item.nomor_pertemuan.toLowerCase().includes(searchLowerCase) ||
-        formatDate(item.tanggal).toLowerCase().includes(searchLowerCase) ||
-        item.waktu_mulai.toLowerCase().includes(searchLowerCase) ||
-        item.waktu_selesai.toLowerCase().includes(searchLowerCase) ||
-        item.nama_ruang.toLowerCase().includes(searchLowerCase) ||
-        item.status_perkuliahan.toLowerCase().includes(searchLowerCase) ||
-        item.rencana_materi.toLowerCase().includes(searchLowerCase) ||
-        item.bahasan.toLowerCase().includes(searchLowerCase) ||
-        item.nama_pengisi_materi.toLowerCase().includes(searchLowerCase) ||
-        item.sks.toLowerCase().includes(searchLowerCase)
+        item?.mata_kuliah.toLowerCase().includes(searchLowerCase) ||
+        item?.nama_kelas.toLowerCase().includes(searchLowerCase) ||
+        item?.nomor_pertemuan.toLowerCase().includes(searchLowerCase) ||
+        formatDate(item?.tanggal).toLowerCase().includes(searchLowerCase) ||
+        item?.waktu_mulai.toLowerCase().includes(searchLowerCase) ||
+        item?.waktu_selesai.toLowerCase().includes(searchLowerCase) ||
+        item?.nama_ruang.toLowerCase().includes(searchLowerCase) ||
+        item?.status_perkuliahan.toLowerCase().includes(searchLowerCase) ||
+        item?.rencana_materi.toLowerCase().includes(searchLowerCase) ||
+        item?.bahasan.toLowerCase().includes(searchLowerCase) ||
+        item?.nama_pengisi_materi.toLowerCase().includes(searchLowerCase) ||
+        item?.sks.toLowerCase().includes(searchLowerCase)
     );
 
     setFilteredData(filtered);
