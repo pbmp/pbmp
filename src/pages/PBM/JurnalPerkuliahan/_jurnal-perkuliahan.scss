@@ -5,7 +5,7 @@
   .thead {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 5.2rem 11rem 5.2rem 5.2rem 9rem 5.2rem 5.2rem 10rem 6.5rem 15rem 15rem 8rem 12rem 5.2rem 6.5rem;
+    grid-template-columns: 5.2rem 11rem 5.2rem 5.2rem 9rem 5.2rem 5.2rem 10rem 6.5rem 15rem 15rem 8rem 12rem 5.2rem;
 
     .row {
       font-size: 1vw;
@@ -46,7 +46,7 @@
   .tbody {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 5.2rem 11rem 5.2rem 5.2rem 9rem 5.2rem 5.2rem 10rem 6.5rem 15rem 15rem 8rem 12rem 5.2rem 6.5rem;
+    grid-template-columns: 5.2rem 11rem 5.2rem 5.2rem 9rem 5.2rem 5.2rem 10rem 6.5rem 15rem 15rem 8rem 12rem 5.2rem;
     border-bottom: #ddd solid 0.15vw;
 
     .col {

@@ -31,7 +31,6 @@
     @include m.flex($justify: flex-start);
     gap: 1.9vw;
     padding: 0 v.$px-topbar-content;
-    margin-bottom: 1.2vh;
     width: 100%;
 
     &-link {
@@ -102,8 +101,23 @@
     }
   }
 
+  &-feature {
+    width: 100%;
+    @include m.flex($justify: space-between);
+    padding: 1.6rem v.$px-topbar-content;
+
+    &-title {
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+
+    &-core {
+      @include m.flex();
+    }
+  }
+
   &-content {
-    padding: v.$py-sidebar-content v.$px-topbar-content;
+    padding: 0 v.$px-topbar-content v.$py-sidebar-content;
     max-width: 100%;
     min-width: 100%;
     overflow: hidden;

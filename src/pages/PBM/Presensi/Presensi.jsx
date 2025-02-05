@@ -20,9 +20,9 @@ function Presensi() {
     staleTime: 1000 * 60 * 5, // Cache valid selama 5 menit
   });
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  // const handlePageChange = (page) => {
+  //   setCurrentPage(page);
+  // };
 
   if (isLoading) return <Loader />;
   if (isError) return <p>Error fetching data</p>;
@@ -84,13 +84,13 @@ function Presensi() {
       </div>
 
       {/* Pagination Component */}
-      <Pagination
+      {/* <Pagination
         data={jurnalData}
         itemsPerPage={meta.per_page}
         currentPage={currentPage}
         totalPages={meta.last_page}
         onPageChange={handlePageChange}
-      />
+      /> */}
     </>
   );
 }

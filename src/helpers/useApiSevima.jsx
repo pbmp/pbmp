@@ -10,7 +10,7 @@ export const apiOptions = axios.create({
   withCredentials: true,
 });
 
-export const apiOptionsSync = axios.create({
+export const apiOptionsNoTimeout = axios.create({
   baseURL: "https://pbmp-be.ulbi.ac.id",
   headers: {
     "Content-Type": "application/json",

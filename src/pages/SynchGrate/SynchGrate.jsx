@@ -5,7 +5,7 @@ import Layout from "@/components/Layout/Layout";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
 import Loader from "@/components/Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
-import { apiOptionsSync } from "../../helpers/useApiSevima";
+import { apiOptionsNoTimeout } from "../../helpers/useApiSevima";
 import { toastMessage } from "../../helpers/AlertMessage";
 import { useDashboard } from "../../context/DashboardContext";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -54,7 +54,7 @@ function SynchGrate() {
     setIsLoading(true);
 
     try {
-      const syncPromise = await apiOptionsSync.get("/jurnalperkuliahan");
+      const syncPromise = await apiOptionsNoTimeout.get("/jurnalperkuliahan");
 
       const status = syncPromise.status;
 
