@@ -24,7 +24,7 @@ function JurnalPerkuliahan({ kelasIds }) {
     const fetchJurnalData = async () => {
       if (kelasIds.length === 0) return;
 
-      // console.log(kelasIds);
+      console.log(kelasIds);
 
       try {
         const jurnalResults = await Promise.all(
@@ -37,6 +37,8 @@ function JurnalPerkuliahan({ kelasIds }) {
           .flat()
           .map((result) => result.attributes)
           .flat();
+
+        console.log(combinedData);
 
         setJurnalData(combinedData);
       } catch (error) {
@@ -52,18 +54,18 @@ function JurnalPerkuliahan({ kelasIds }) {
   //   // const searchLowerCase = search.toLowerCase();
   //   // const filtered = jurnalData.filter(
   //   //   (item) =>
-  //   //     item?.mata_kuliah.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.nama_kelas.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.nomor_pertemuan.toLowerCase().includes(searchLowerCase) ||
-  //   //     formatDate(item?.tanggal).toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.waktu_mulai.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.waktu_selesai.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.nama_ruang.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.status_perkuliahan.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.rencana_materi.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.bahasan.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.nama_pengisi_materi.toLowerCase().includes(searchLowerCase) ||
-  //   //     item?.sks.toLowerCase().includes(searchLowerCase)
+  //   //     item?.mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.nama_kelas?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.nomor_pertemuan?.toLowerCase().includes(searchLowerCase) ||
+  //   //     formatDate(item?.tanggal)?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.waktu_mulai?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.waktu_selesai?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.nama_ruang?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.status_perkuliahan?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.rencana_materi?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.bahasan?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.nama_pengisi_materi?.toLowerCase().includes(searchLowerCase) ||
+  //   //     item?.sks?.toLowerCase().includes(searchLowerCase)
   //   // );
 
   //   setFilteredData(jurnalData);

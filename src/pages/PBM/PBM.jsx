@@ -74,6 +74,8 @@ function PBM() {
       const ids = kelasData.data.map((item) => item.attributes.id_kelas);
       setKelasIds(ids);
     }
+
+    console.log(kelasData);
   }, [kelasData]);
 
   const handlePrint = useCallback(async () => {
@@ -98,7 +100,10 @@ function PBM() {
         if (!newTab) {
           toastMessage(
             "info",
-            "Popup diblokir! Silakan aktifkan izin popup untuk membuka dokumen."
+            "Popup diblokir! Silakan aktifkan izin popup untuk membuka dokumen dan mohon cetak kembali.",
+            {
+              autoClose: 5000,
+            }
           );
         }
       } else {
