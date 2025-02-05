@@ -26,7 +26,7 @@ export const useFetchData = async ({ queryKey }) => {
   }
 
   try {
-    const response = await apiOptions.get(`/${key}`, {
+    const response = await apiOptionsNoTimeout.get(`/${key}`, {
       params: { page },
     });
     const { data, meta } = response.data;
@@ -45,7 +45,7 @@ export const useFetchTemporary = async ({ queryKey }) => {
   }
 
   try {
-    const response = await apiOptions.get(`/${key}`, {
+    const response = await apiOptionsNoTimeout.get(`/${key}`, {
       params: { idkelas },
     });
     const { data, meta } = response.data;
