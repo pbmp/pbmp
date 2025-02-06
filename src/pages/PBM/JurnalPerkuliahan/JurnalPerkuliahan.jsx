@@ -24,7 +24,7 @@ function JurnalPerkuliahan({ kelasIds }) {
     const fetchJurnalData = async () => {
       if (kelasIds.length === 0) return;
 
-      console.log(kelasIds);
+      // console.log(kelasIds);
 
       try {
         const jurnalResults = await Promise.all(
@@ -38,7 +38,7 @@ function JurnalPerkuliahan({ kelasIds }) {
           .map((result) => result.attributes)
           .flat();
 
-        console.log(combinedData);
+        // console.log(combinedData);
 
         setJurnalData(combinedData);
       } catch (error) {

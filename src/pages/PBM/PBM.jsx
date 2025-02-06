@@ -175,7 +175,7 @@ function PBM() {
         ) : (
           <div className="pbm-content">
             {activeSubmenu === 1 && <JurnalPerkuliahan kelasIds={kelasIds} />}
-            {activeSubmenu === 2 && <Presensi />}
+            {activeSubmenu === 2 && <Presensi kelasIds={kelasIds} />}
             {activeSubmenu === 3 && <Transkrip />}
           </div>
         )}
