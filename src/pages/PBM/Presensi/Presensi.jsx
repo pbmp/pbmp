@@ -57,7 +57,10 @@ function Presensi({ kelasIds }) {
       (item) =>
         item?.nama_mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
         item?.id_kelas?.toString()?.toLowerCase().includes(searchLowerCase) ||
-        item?.namapengajar?.toLowerCase().includes(searchLowerCase) ||
+        item?.namapengajar
+          .replace(/^.*?-/, "")
+          ?.toLowerCase()
+          .includes(searchLowerCase) ||
         item?.data.nim?.toLowerCase().includes(searchLowerCase) ||
         item?.data.nama?.toLowerCase().includes(searchLowerCase) ||
         item?.data.pertemuan
@@ -103,7 +106,7 @@ function Presensi({ kelasIds }) {
               <div className="row">Pengajar</div>
               <div className="row">NPM</div>
               <div className="row">Nama Mhs</div>
-              <div className="row">Status</div>
+              {/* <div className="row">Status</div> */}
               <div className="row">Pertemuan</div>
               <div className="row">Alfa</div>
               <div className="row">Hadir</div>
@@ -116,10 +119,12 @@ function Presensi({ kelasIds }) {
                 <div className="col">{indexFirstItem + index + 1}</div>
                 <div className="col">{data.nama_mata_kuliah}</div>
                 <div className="col">{data.id_kelas}</div>
-                <div className="col">{data.namapengajar}</div>
+                <div className="col">
+                  {data.namapengajar.replace(/^.*?-/, "")}
+                </div>
                 <div className="col">{data.data.nim}</div>
                 <div className="col">{data.data.nama}</div>
-                <div className="col">Reguler</div>
+                {/* <div className="col">Reguler</div> */}
                 <div className="col">{data.data.pertemuan}</div>
                 <div className="col">{data.data.alfa}</div>
                 <div className="col">{data.data.hadir}</div>

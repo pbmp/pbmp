@@ -5,7 +5,7 @@
   .thead {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 6.5rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
+    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
 
     .row {
       font-size: 1vw;
@@ -32,15 +32,13 @@
         border-top-right-radius: 0.6vw;
         border-bottom-right-radius: 0.6vw;
       }
-
-      
     }
   }
 
   .tbody {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 6.5rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
+    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
     border-bottom: #ddd solid 0.15vw;
 
     .col {

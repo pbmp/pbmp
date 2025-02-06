@@ -894,7 +894,7 @@
 }
 .pbm-content .pbm-table.presensi .thead {
   display: grid;
-  grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 6.5rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
+  grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
 }
 .pbm-content .pbm-table.presensi .thead .row {
   font-size: 1vw;
@@ -922,7 +922,7 @@
 }
 .pbm-content .pbm-table.presensi .tbody {
   display: grid;
-  grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 6.5rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
+  grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
   border-bottom: #ddd solid 0.15vw;
 }
 .pbm-content .pbm-table.presensi .tbody .col {
