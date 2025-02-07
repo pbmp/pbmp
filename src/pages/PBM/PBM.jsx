@@ -30,14 +30,6 @@ const submenus = [
     icon: <LibraryBig className="icon" strokeWidth={2} />,
     text: "Jurnal Perkuliahan",
   },
-  // {
-  //   icon: <Blocks className="icon" strokeWidth={2} />,
-  //   text: "Kelas",
-  // },
-  // {
-  //   icon: <Calendar1 className="icon" strokeWidth={2} />,
-  //   text: "Jadwal Perkuliahan",
-  // },
   {
     id: 2,
     icon: <UserRoundCheck className="icon" strokeWidth={2} />,
@@ -53,7 +45,11 @@ const submenus = [
 function PBM() {
   const [activeSubmenu, setActiveSubmenu] = useState(1);
   const [kelasIds, setKelasIds] = useState([]);
+  const [periodeData, setPeriodeData] = useState([]);
   const [loadingPrint, setLoadingPrint] = useState(false);
+  const [openPeriode, setOpenPeriode] = useState(false);
+
+  const periodeModal = useRef(null);
 
   const { user } = useDashboard();
 
@@ -69,53 +65,84 @@ function PBM() {
     staleTime: 1000 * 60 * 5,
   });
 
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
+
   useEffect(() => {
     if (kelasData?.data) {
       const ids = kelasData.data.map((item) => item.attributes.id_kelas);
       setKelasIds(ids);
-    }
 
-    console.log(kelasData);
+      console.log(kelasData);
+
+      
+      const getPeriode = [
+        ...new Set(kelasData.data.map((item) => item.attributes.id_periode)),
+      ];
+      setPeriodeData(getPeriode);
+    }
   }, [kelasData]);
 
-  const handlePrint = useCallback(async () => {
-    try {
-      setLoadingPrint(true);
-
-      const promise = await apiOptionsNoTimeout.get("/laporan/pbmp", {
-        params: {
-          idpegawai: user.role[0]?.id_pegawai,
-          idperiode: kelasData.data[0].attributes.id_periode,
-        },
-      });
-
-      if (promise.data?.success) {
-        toastMessage("success", "Printing successfully!");
-
-        const newTab = window.open(
-          `https://docs.google.com/document/d/${promise.data.id_docs}/edit?tab=t.0`,
-          "_blank"
-        );
-
-        if (!newTab) {
-          toastMessage(
-            "info",
-            "Popup diblokir! Silakan aktifkan izin popup untuk membuka dokumen dan mohon cetak kembali.",
-            {
-              autoClose: 5000,
-            }
-          );
-        }
-      } else {
-        toastMessage("error", "Gagal mencetak laporan!");
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (periodeModal.current && !periodeModal.current.contains(e.target)) {
+        setOpenPeriode(false);
       }
-    } catch (error) {
-      console.error(error);
-      toastMessage("error", "Terjadi kesalahan saat mencetak laporan!");
-    } finally {
-      setLoadingPrint(false);
+    };
+
+    if (openPeriode) {
+      document.addEventListener("mousedown", handleOutside);
+    } else {
+      document.removeEventListener("mousedown", handleOutside);
     }
-  }, [user, kelasData, setLoadingPrint]);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutside);
+    };
+  }, [periodeModal, openPeriode]);
+
+  const handlePrint = useCallback(
+    async (periodeId) => {
+      try {
+        setLoadingPrint(true);
+
+        const promise = await apiOptionsNoTimeout.get("/laporan/pbmp", {
+          params: {
+            idpegawai: user.role[0]?.id_pegawai,
+            idperiode: periodeId,
+          },
+        });
+
+        if (promise.data?.success) {
+          toastMessage("success", "Printing successfully!");
+
+          const newTab = window.open(
+            `https://docs.google.com/document/d/${promise.data.id_docs}/edit?tab=t.0`,
+            "_blank"
+          );
+
+          if (!newTab) {
+            toastMessage(
+              "info",
+              "Popup diblokir! Silakan aktifkan izin popup untuk membuka dokumen dan mohon cetak kembali.",
+              {
+                autoClose: 5000,
+              }
+            );
+          }
+        } else {
+          toastMessage("error", "Gagal mencetak laporan!");
+        }
+      } catch (error) {
+        console.error(error);
+        toastMessage("error", "Terjadi kesalahan saat mencetak laporan!");
+      } finally {
+        setLoadingPrint(false);
+      }
+    },
+    [user, kelasData, setLoadingPrint]
+  );
 
   const handleActiveSubmenu = (id) => {
     setActiveSubmenu(id);
@@ -135,14 +162,29 @@ function PBM() {
             Icon={FileText}
           >
             <div className="action">
-              <div className="download">
+              {/* <div className="download">
                 <CloudDownload className="icon" strokeWidth={2} />
                 <div className="text">Download</div>
-              </div>
-              <div className="print" onClick={handlePrint}>
+              </div> */}
+              <div className="print" onClick={() => setOpenPeriode(true)}>
                 <Printer className="icon" strokeWidth={2} />
                 <div className="text">Print</div>
               </div>
+              {openPeriode ? (
+                <div className="periode-modal" ref={periodeModal}>
+                  {periodeData.map((data, index) => {
+                    return (
+                      <div
+                        className="periode-modal-content"
+                        key={index}
+                        onClick={() => handlePrint(data)}
+                      >
+                        {data}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : null}
             </div>
           </HeaderEl>
           {loadingPrint ? null : (

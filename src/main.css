@@ -704,6 +704,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  position: relative;
 }
 .pbm-header .action .download,
 .pbm-header .action .print {
@@ -727,6 +728,31 @@
 .pbm-header .action .download .text,
 .pbm-header .action .print .text {
   font-size: 1vw;
+}
+.pbm-header .action .periode-modal {
+  width: 150%;
+  height: auto;
+  position: absolute;
+  background-color: #fff;
+  top: 115%;
+  right: 0;
+  border-radius: 0.4vw;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+.pbm-header .action .periode-modal-content {
+  padding: 0 0.95rem;
+  height: 3.3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: #546983;
+  transition: background-color 0.2s ease-in;
+}
+.pbm-header .action .periode-modal-content:hover {
+  background-color: rgba(165, 176, 190, 0.2);
+  transition: background-color 0.2s ease-out;
 }
 .pbm-submenu {
   display: flex;
@@ -800,7 +826,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 1.6rem 1.8vw;
+  padding: 1.6rem 1.8vw 0;
 }
 .pbm-feature-title {
   font-weight: 600;

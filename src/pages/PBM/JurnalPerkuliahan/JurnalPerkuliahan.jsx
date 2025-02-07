@@ -1,14 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-import {
-  useFetchData,
-  useFetchTemporary,
-  apiOptions,
-} from "../../../helpers/useApiSevima";
-import Loader from "@/components/Loader/Loader";
+import { useFetchTemporary } from "../../../helpers/useApiSevima";
+// import Loader from "@/components/Loader/Loader";
 import { useSearch } from "@/helpers/SearchContext";
 import { useDashboard } from "../../../context/DashboardContext";
 import { formatDate } from "../../../helpers/FormatDate";
+import { toastMessage } from "../../../helpers/AlertMessage";
 
 function JurnalPerkuliahan({ kelasIds }) {
   const { search } = useSearch(); // Input pencarian
@@ -24,25 +21,46 @@ function JurnalPerkuliahan({ kelasIds }) {
     const fetchJurnalData = async () => {
       if (kelasIds.length === 0) return;
 
-      // console.log(kelasIds);
-
       try {
-        const jurnalResults = await Promise.all(
-          kelasIds.map((idkelas) =>
-            useFetchTemporary({ queryKey: ["perkuliahan", idkelas] })
-          )
+        const jurnalResults = await Promise.allSettled(
+          kelasIds.map(async (idkelas) => {
+            try {
+              const result = await useFetchTemporary({
+                queryKey: ["perkuliahan", idkelas],
+              });
+              return result.data;
+            } catch (err) {
+              throw new Error(
+                `Gagal mengambil data untuk ID kelas: ${idkelas}`
+              );
+            }
+          })
         );
-        const combinedData = jurnalResults
-          .map((result) => result.data)
+
+        // Filter hanya hasil yang sukses (fulfilled)
+        const successfulData = jurnalResults
+          .filter((result) => result.status === "fulfilled")
+          .map((result) => result.value)
           .flat()
           .map((result) => result.attributes)
           .flat();
 
-        // console.log(combinedData);
+        setJurnalData(successfulData);
 
-        setJurnalData(combinedData);
+        // Handle dan tampilkan error jika ada
+        const errors = jurnalResults
+          .filter((result) => result.status === "rejected")
+          .map((result) => result.reason.message);
+
+        if (errors.length > 0) {
+          console.warn("Beberapa data tidak bisa diambil:", errors);
+          toastMessage("warn", errors.join("\n"), { position: "top-center" });
+        }
       } catch (error) {
         console.error("Error fetching jurnal data:", error);
+        toastMessage("error", "Terjadi kesalahan saat mengambil data jurnal", {
+          position: "top-center",
+        });
       }
     };
 
@@ -71,7 +89,7 @@ function JurnalPerkuliahan({ kelasIds }) {
     setFilteredData(filtered);
     setCurrentPage(1); // Reset pagination ke halaman pertama saat pencarian berubah
 
-    console.log(filtered);
+    // console.log(filtered);
   }, [search, jurnalData]);
 
   const handlePageDataChange = (currentData, indexOfFirstItem) => {

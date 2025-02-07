@@ -34,9 +34,9 @@ function Topbar() {
     };
   }, [modalRef, openModal]);
 
-  useEffect(() => {
-    console.log(openModal);
-  }, []);
+  // useEffect(() => {
+  //   console.log(openModal);
+  // }, []);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);

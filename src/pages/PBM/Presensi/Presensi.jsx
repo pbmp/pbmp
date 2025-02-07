@@ -23,25 +23,50 @@ function Presensi({ kelasIds }) {
     const fetchPresensiData = async () => {
       if (kelasIds.length === 0) return;
 
-      // console.log(kelasIds);
-
       try {
         setLoading(true);
 
-        const presensiResults = await Promise.all(
-          kelasIds.map((idkelas) =>
-            apiOptionsNoTimeout.get(`/presensi/${idkelas}`)
-          )
+        // Gunakan Promise.allSettled agar tidak langsung gagal jika ada error pada satu idkelas
+        const presensiResults = await Promise.allSettled(
+          kelasIds.map(async (idkelas) => {
+            try {
+              const response = await apiOptionsNoTimeout.get(
+                `/presensi/${idkelas}`
+              );
+              return response.data;
+            } catch (err) {
+              throw new Error(
+                `Gagal mengambil presensi untuk ID kelas: ${idkelas}`
+              );
+            }
+          })
         );
-        const combinedData = presensiResults
-          .map((result) => result.data)
+
+        // Filter hanya hasil yang sukses
+        const successfulData = presensiResults
+          .filter((result) => result.status === "fulfilled")
+          .map((result) => result.value)
           .flat();
 
-        console.log(combinedData);
+        console.log(successfulData);
+        setPresensiData(successfulData);
 
-        setPresensiData(combinedData);
+        // Tampilkan error jika ada request yang gagal
+        const errors = presensiResults
+          .filter((result) => result.status === "rejected")
+          .map((result) => result.reason.message);
+
+        if (errors.length > 0) {
+          console.warn("Beberapa data tidak bisa diambil:", errors);
+          toastMessage("error", errors.join("\n"), { position: "top-center" });
+        }
       } catch (error) {
-        console.error("Error fetching jurnal data:", error);
+        console.error("Error fetching presensi data:", error);
+        toastMessage(
+          "error",
+          "Terjadi kesalahan saat mengambil data presensi",
+          { position: "top-center" }
+        );
       } finally {
         setLoading(false);
       }
