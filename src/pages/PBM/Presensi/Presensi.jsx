@@ -7,6 +7,7 @@ import {
 import { useSearch } from "@/helpers/SearchContext";
 import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "../../../context/DashboardContext";
+import { toastMessage } from "../../../helpers/AlertMessage";
 
 function Presensi({ kelasIds }) {
   const { search } = useSearch(); // Mendapatkan input pencarian
@@ -73,7 +74,7 @@ function Presensi({ kelasIds }) {
     };
 
     fetchPresensiData();
-  }, [kelasIds]);
+  }, [kelasIds, toastMessage]);
 
   // Filter data berdasarkan pencarian dan reset ke halaman pertama
   useEffect(() => {
@@ -127,8 +128,8 @@ function Presensi({ kelasIds }) {
             <div className="thead">
               <div className="row">No</div>
               <div className="row">Mata Kuliah</div>
-              <div className="row">Kelas</div>
-              <div className="row">Pengajar</div>
+              {/* <div className="row">Kelas</div> */}
+              {/* <div className="row">Pengajar</div> */}
               <div className="row">NPM</div>
               <div className="row">Nama Mhs</div>
               {/* <div className="row">Status</div> */}
@@ -143,10 +144,10 @@ function Presensi({ kelasIds }) {
               <div className="tbody" key={index}>
                 <div className="col">{indexFirstItem + index + 1}</div>
                 <div className="col">{data.nama_mata_kuliah}</div>
-                <div className="col">{data.id_kelas}</div>
-                <div className="col">
+                {/* <div className="col">{data.id_kelas}</div> */}
+                {/* <div className="col">
                   {data.namapengajar.replace(/^.*?-/, "")}
-                </div>
+                </div> */}
                 <div className="col">{data.data.nim}</div>
                 <div className="col">{data.data.nama}</div>
                 {/* <div className="col">Reguler</div> */}

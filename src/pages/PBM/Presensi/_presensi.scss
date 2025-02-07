@@ -5,7 +5,8 @@
   .thead {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
+    width: 100%;
 
     .row {
       font-size: 1vw;
@@ -15,10 +16,10 @@
         $color: map-get($map: v.$color, $key: "other-blue"),
         $alpha: 0.2
       );
-      padding: 1.9vh 1vw;
+      padding: 3.1vh 1vw;
       text-transform: capitalize;
-      word-break: break-word;
-      white-space: normal;
+      // word-break: break-word;
+      // white-space: normal;
       line-height: 135%;
       text-align: center;
       @include m.flex();
@@ -32,14 +33,19 @@
         border-top-right-radius: 0.6vw;
         border-bottom-right-radius: 0.6vw;
       }
+
+      &:nth-child(4) {
+        @include m.flex($justify: flex-start);
+      }
     }
   }
 
   .tbody {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 5.2rem 11rem 5.2rem 12rem 8rem 12rem 7rem 5.2rem 5.2rem 5.2rem 5.2rem 8rem;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
     border-bottom: #ddd solid 0.15vw;
+    width: 100%;
 
     .col {
       font-size: 1vw;
@@ -49,13 +55,11 @@
       line-height: 140%;
       word-break: break-word;
       white-space: normal;
-      @include m.flex($align: flex-start);
+      @include m.flex();
       text-align: center;
 
-      &:nth-child(2),
-      &:nth-child(4),
-      &:nth-child(6) {
-        @include m.flex($start: true);
+      &:nth-child(4) {
+        @include m.flex($justify: flex-start);
         text-align: start;
       }
     }
