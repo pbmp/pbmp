@@ -59,12 +59,12 @@ function Presensi({ kelasIds, filterMatkul = [] }) {
 
         if (errors.length > 0) {
           console.warn("Beberapa data tidak bisa diambil:", errors);
-          toastMessage("error", errors.join("\n"), { position: "top-center" });
+          toastMessage("warn", errors.join("\n"), { position: "top-center" });
         }
       } catch (error) {
         console.error("Error fetching presensi data:", error);
         toastMessage(
-          "error",
+          "warn",
           "Terjadi kesalahan saat mengambil data presensi",
           { position: "top-center" }
         );
@@ -149,7 +149,7 @@ function Presensi({ kelasIds, filterMatkul = [] }) {
               <div className="row">NPM</div>
               <div className="row">Nama Mhs</div>
               {/* <div className="row">Status</div> */}
-              <div className="row">Pertemuan</div>
+              <div className="row">Total Pertemuan</div>
               <div className="row">Alfa</div>
               <div className="row">Hadir</div>
               <div className="row">Ijin</div>
@@ -172,7 +172,9 @@ function Presensi({ kelasIds, filterMatkul = [] }) {
                 <div className="col">{data.data.hadir}</div>
                 <div className="col">{data.data.ijin}</div>
                 <div className="col">{data.data.sakit}</div>
-                <div className="col">{data.data.presentase}</div>
+                <div className="col">
+                  {parseFloat(data.data.presentase.toFixed(2))}
+                </div>
               </div>
             ))}
           </div>

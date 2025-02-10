@@ -4,7 +4,7 @@ import UsersManagement from "@/pages/Users/Users";
 import Error404 from "@/pages/Error404/Error404";
 import Perwalian from "@/pages/Perwalian/Perwalian";
 import PBM from "@/pages/PBM/PBM";
-import SynchGrate from "@/pages/SynchGrate/SynchGrate";
+// import SynchGrate from "@/pages/SynchGrate/SynchGrate";
 import Loader from "@/components/Loader/Loader";
 import Auth from "@/pages/Auth/Auth";
 import { SearchProvider } from "@/helpers/SearchContext";
@@ -32,7 +32,7 @@ function App() {
               <Route path="users" element={<UsersManagement />} />
               <Route path="perwalian" element={<Perwalian />} />
               <Route index element={<PBM />} />
-              <Route path="synchronize" element={<SynchGrate />} />
+              {/* <Route path="synchronize" element={<SynchGrate />} /> */}
             </Route>
             <Route path="*" element={<Error404 />} />
             <Route path="/pbmp/loader" element={<Loader />} />

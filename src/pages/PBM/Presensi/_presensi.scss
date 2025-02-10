@@ -5,7 +5,7 @@
   .thead {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
+    grid-template-columns: 0.4fr 1fr .9fr 1fr 0.7fr 0.5fr 0.5fr 0.5fr 0.5fr .8fr;
     width: 100%;
 
     .row {
@@ -34,6 +34,7 @@
         border-bottom-right-radius: 0.6vw;
       }
 
+      &:nth-child(2),
       &:nth-child(4) {
         @include m.flex($justify: flex-start);
       }
@@ -43,7 +44,7 @@
   .tbody {
     display: grid;
     // grid-template-columns: repeat(11, 4rem);
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
+    grid-template-columns: 0.4fr 1fr .9fr 1fr 0.7fr 0.5fr 0.5fr 0.5fr 0.5fr .8fr;
     border-bottom: #ddd solid 0.15vw;
     width: 100%;
 
@@ -53,13 +54,14 @@
       padding: 3.6vh 1vw;
       font-weight: 500;
       line-height: 140%;
-      word-break: break-word;
-      white-space: normal;
-      @include m.flex();
+      // word-break: break-word;
+      // white-space: normal;
+      @include m.flex($align: flex-start);
       text-align: center;
 
+      &:nth-child(2),
       &:nth-child(4) {
-        @include m.flex($justify: flex-start);
+        @include m.flex($start: true);
         text-align: start;
       }
     }

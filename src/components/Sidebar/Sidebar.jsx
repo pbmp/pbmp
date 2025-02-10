@@ -34,7 +34,7 @@ function Sidebar() {
       <div className="sidebar-menus">
         <div className="menu-title">Main Menu</div>
         <div className="menu-list">
-          {isAdmak ? (
+          {/* {isAdmak ? (
             <NavLink
               className={() => getActiveClass("/pbmp/synchronize")}
               to={"/pbmp/synchronize"}
@@ -44,7 +44,7 @@ function Sidebar() {
               </span>
               <span className="text">Synchronize</span>
             </NavLink>
-          ) : null}
+          ) : null} */}
           <NavLink className={() => getActiveClass("/pbmp/")} to={"/pbmp/"}>
             <span className="icon">
               <FileText size={22} strokeWidth={1.25} />

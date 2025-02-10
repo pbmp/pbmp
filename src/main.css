@@ -837,6 +837,7 @@
   justify-content: flex-end;
   width: 100%;
   gap: 0.5vw;
+  margin-top: 0.8rem;
 }
 .pbm-feature-filter .add-filters {
   display: flex;
@@ -984,7 +985,7 @@
 }
 .pbm-content .pbm-table.jurnal-perkuliahan .thead {
   display: grid;
-  grid-template-columns: 0.4fr 0.75fr 0.5fr 1fr 1fr 1fr;
+  grid-template-columns: 0.4fr 0.8fr 0.5fr 1fr 0.9fr 1fr;
   width: 100%;
 }
 .pbm-content .pbm-table.jurnal-perkuliahan .thead .row {
@@ -1009,7 +1010,7 @@
   border-top-right-radius: 0.6vw;
   border-bottom-right-radius: 0.6vw;
 }
-.pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(5), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(6) {
+.pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(2), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(4), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(5), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(6) {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1017,7 +1018,7 @@
 }
 .pbm-content .pbm-table.jurnal-perkuliahan .tbody {
   display: grid;
-  grid-template-columns: 0.4fr 0.75fr 0.5fr 1fr 1fr 1fr;
+  grid-template-columns: 0.4fr 0.8fr 0.5fr 1fr 0.9fr 1fr;
   border-bottom: #ddd solid 0.15vw;
   width: 100%;
 }
@@ -1035,7 +1036,7 @@
   justify-content: center;
   text-align: center;
 }
-.pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(5), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(6) {
+.pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(2), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(4), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(5), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(6) {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -1044,7 +1045,7 @@
 }
 .pbm-content .pbm-table.presensi .thead {
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
+  grid-template-columns: 0.4fr 1fr 0.9fr 1fr 0.7fr 0.5fr 0.5fr 0.5fr 0.5fr 0.8fr;
   width: 100%;
 }
 .pbm-content .pbm-table.presensi .thead .row {
@@ -1069,7 +1070,7 @@
   border-top-right-radius: 0.6vw;
   border-bottom-right-radius: 0.6vw;
 }
-.pbm-content .pbm-table.presensi .thead .row:nth-child(4) {
+.pbm-content .pbm-table.presensi .thead .row:nth-child(2), .pbm-content .pbm-table.presensi .thead .row:nth-child(4) {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1077,7 +1078,7 @@
 }
 .pbm-content .pbm-table.presensi .tbody {
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 0.8fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
+  grid-template-columns: 0.4fr 1fr 0.9fr 1fr 0.7fr 0.5fr 0.5fr 0.5fr 0.5fr 0.8fr;
   border-bottom: #ddd solid 0.15vw;
   width: 100%;
 }
@@ -1087,18 +1088,16 @@
   padding: 3.6vh 1vw;
   font-weight: 500;
   line-height: 140%;
-  word-break: break-word;
-  white-space: normal;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   text-align: center;
 }
-.pbm-content .pbm-table.presensi .tbody .col:nth-child(4) {
+.pbm-content .pbm-table.presensi .tbody .col:nth-child(2), .pbm-content .pbm-table.presensi .tbody .col:nth-child(4) {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   text-align: start;
 }
@@ -1976,7 +1975,7 @@
 }
 .layout .topbar-other .profile .text .name {
   font-size: 1.12vw;
-  line-height: 100%;
+  line-height: 130%;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.8);
 }

@@ -139,6 +139,7 @@
       @include m.flex($justify: flex-end);
       width: 100%;
       gap: 0.5vw;
+      margin-top: 0.8rem;
 
       .add-filters {
         @include header-el.button($w-icon: 15px, $h-icon: 15px);

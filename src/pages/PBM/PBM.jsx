@@ -15,8 +15,6 @@ import {
   SquareCheckBig,
 } from "lucide-react";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
-import { useReactToPrint } from "react-to-print";
-import Document from "./Document/Document";
 import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
 import Presensi from "./Presensi/Presensi";
 import Transkrip from "./Transkrip/Transkrip";
@@ -25,6 +23,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "@/context/DashboardContext";
 import { toastMessage } from "../../helpers/AlertMessage";
+import { formatName } from "../../helpers/FormatName";
 
 const submenus = [
   {
@@ -71,9 +70,9 @@ function PBM() {
     staleTime: 1000 * 60 * 5,
   });
 
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   useEffect(() => {
     if (kelasData?.data) {
@@ -115,12 +114,6 @@ function PBM() {
     };
   }, [openPeriode, openFilter, handleClickOutside]);
 
-  useEffect(() => {
-    if (openFilter) {
-      setTempFilterMatakuliah(filterMatakuliah); // Pastikan filter sementara di-reset setiap kali modal dibuka
-    }
-  }, [openFilter, filterMatakuliah]);
-
   const handleFilterMatakuliah = useCallback((id) => {
     setTempFilterMatakuliah((prev) => {
       if (prev.includes(id)) {
@@ -131,50 +124,80 @@ function PBM() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   console.log(filterMatakuliah);
-  // }, [filterMatakuliah]);
+  // const handlePrint = useCallback(
+  //   async (periodeId) => {
+  //     try {
+  //       setLoadingPrint(true);
+
+  //       const promise = await apiOptionsNoTimeout.get("/laporan/pbmp", {
+  //         params: {
+  //           idpegawai: user.role[0]?.id_pegawai,
+  //           idperiode: periodeId,
+  //         },
+  //       });
+
+  //       if (promise.data?.success) {
+  //         toastMessage("success", "Printing successfully!");
+
+  //         const newTab = window.open(
+  //           `https://docs.google.com/document/d/${promise.data.id_docs}/edit?tab=t.0`,
+  //           "_blank"
+  //         );
+
+  //         if (!newTab) {
+  //           toastMessage(
+  //             "info",
+  //             "Popup diblokir! Silakan aktifkan izin popup untuk membuka dokumen dan mohon cetak kembali.",
+  //             {
+  //               autoClose: 5000,
+  //             }
+  //           );
+  //         }
+  //       } else {
+  //         toastMessage("error", "Gagal mencetak laporan!");
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //       toastMessage("error", "Terjadi kesalahan saat mencetak laporan!");
+  //     } finally {
+  //       setLoadingPrint(false);
+  //     }
+  //   },
+  //   [user, kelasData, setLoadingPrint]
+  // );
 
   const handlePrint = useCallback(
     async (periodeId) => {
       try {
         setLoadingPrint(true);
 
-        const promise = await apiOptionsNoTimeout.get("/laporan/pbmp", {
+        const response = await apiOptionsNoTimeout.get("/laporan/pbmp", {
           params: {
             idpegawai: user.role[0]?.id_pegawai,
             idperiode: periodeId,
           },
+          responseType: "blob", // Penting agar response dikembalikan dalam format blob
         });
 
-        if (promise.data?.success) {
-          toastMessage("success", "Printing successfully!");
+        const blob = response.data;
+        const fileUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = fileUrl;
+        a.download = `Laporan_${periodeId}_${formatName(user.nama)}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(fileUrl);
 
-          const newTab = window.open(
-            `https://docs.google.com/document/d/${promise.data.id_docs}/edit?tab=t.0`,
-            "_blank"
-          );
-
-          if (!newTab) {
-            toastMessage(
-              "info",
-              "Popup diblokir! Silakan aktifkan izin popup untuk membuka dokumen dan mohon cetak kembali.",
-              {
-                autoClose: 5000,
-              }
-            );
-          }
-        } else {
-          toastMessage("error", "Gagal mencetak laporan!");
-        }
+        toastMessage("success", "File berhasil diunduh!");
       } catch (error) {
-        console.error(error);
-        toastMessage("error", "Terjadi kesalahan saat mencetak laporan!");
+        console.error("Error fetching PDF:", error);
+        toastMessage("error", `Gagal mengunduh file: ${error.message}`);
       } finally {
         setLoadingPrint(false);
       }
     },
-    [user, kelasData, setLoadingPrint]
+    [user, setLoadingPrint, toastMessage]
   );
 
   const handleActiveSubmenu = (id) => {
@@ -250,9 +273,10 @@ function PBM() {
                           <div className="filter-by">Matakuliah</div>
                           <div className="filter-list">
                             {kelasData.data.map((item, index) => {
-                              const activeFilter = tempFilterMatakuliah?.includes(
-                                item.attributes.id_kelas
-                              );
+                              const activeFilter =
+                                tempFilterMatakuliah?.includes(
+                                  item.attributes.id_kelas
+                                );
 
                               return (
                                 <div
@@ -276,6 +300,7 @@ function PBM() {
                                     />
                                   )}
                                   <div className="text">
+                                    {item.attributes.id_periode} -{" "}
                                     {item.attributes.mata_kuliah}
                                   </div>
                                 </div>
@@ -287,7 +312,6 @@ function PBM() {
                           <span
                             onClick={(e) => {
                               e.stopPropagation();
-                              setTempFilterMatakuliah(filterMatakuliah); // Reset filter sementara ke nilai sebelumnya
                               setOpenFilter(false);
                             }}
                           >
@@ -296,7 +320,7 @@ function PBM() {
                           <span
                             onClick={(e) => {
                               e.stopPropagation();
-                              setFilterMatakuliah(tempFilterMatakuliah); // Terapkan filter yang dipilih
+                              setFilterMatakuliah(tempFilterMatakuliah);
                               setOpenFilter(false);
                             }}
                           >
@@ -308,7 +332,10 @@ function PBM() {
                   </div>
                   <div
                     className="clear-filter"
-                    onClick={() => setFilterMatakuliah([])}
+                    onClick={() => {
+                      setFilterMatakuliah([]);
+                      setTempFilterMatakuliah([]);
+                    }}
                   >
                     <div className="text">Clear Filter</div>
                   </div>
