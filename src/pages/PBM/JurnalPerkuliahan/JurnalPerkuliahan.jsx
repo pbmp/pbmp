@@ -96,9 +96,9 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
     // console.log(filtered);
   }, [search, jurnalData, filterMatkul]);
 
-  useEffect(() => {
-    console.log(filterMatkul);
-  }, [filterMatkul]);
+  // useEffect(() => {
+  //   console.log(filterMatkul);
+  // }, [filterMatkul]);
 
   const handlePageDataChange = (currentData, indexOfFirstItem) => {
     setCurrentData(currentData);
