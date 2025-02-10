@@ -8,11 +8,12 @@ import {
   Blocks,
   Calendar1,
   CalendarFold,
+  SquareCheckBig,
   ClipboardList,
   UserRoundCheck,
   Filter,
-  Square,
-  SquareCheckBig,
+  ArrowDownRight,
+  Circle,
 } from "lucide-react";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
 import { useReactToPrint } from "react-to-print";
@@ -51,11 +52,11 @@ function PBM() {
   const [loadingPrint, setLoadingPrint] = useState(false);
   const [openPeriode, setOpenPeriode] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
-  const [filterMatakuliah, setFilterMatakuliah] = useState([]);
-  const [tempFilterMatakuliah, setTempFilterMatakuliah] = useState([]);
+  const [openMatakuliah, setOpenMatakuliah] = useState(false);
 
-  const filterModal = useRef(null);
   const periodeModal = useRef(null);
+  const filterModal = useRef(null);
+  const matakuliahModal = useRef(null);
 
   const { user } = useDashboard();
 
@@ -89,8 +90,8 @@ function PBM() {
     }
   }, [kelasData]);
 
-  const handleClickOutside = useCallback(
-    (e) => {
+  useEffect(() => {
+    const handleOutside = (e) => {
       if (periodeModal.current && !periodeModal.current.contains(e.target)) {
         setOpenPeriode(false);
       } else if (
@@ -98,42 +99,31 @@ function PBM() {
         !filterModal.current.contains(e.target)
       ) {
         setOpenFilter(false);
+      } else if (
+        matakuliahModal.current &&
+        !matakuliahModal.current.contains(e.target)
+      ) {
+        setOpenMatakuliah(false);
       }
-    },
-    [periodeModal, filterModal]
-  );
+    };
 
-  useEffect(() => {
-    if (openPeriode || openFilter) {
-      document.addEventListener("mousedown", handleClickOutside);
+    if (openPeriode || openFilter || openMatakuliah) {
+      document.addEventListener("mousedown", handleOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleOutside);
     };
-  }, [openPeriode, openFilter, handleClickOutside]);
-
-  useEffect(() => {
-    if (openFilter) {
-      setTempFilterMatakuliah(filterMatakuliah); // Pastikan filter sementara di-reset setiap kali modal dibuka
-    }
-  }, [openFilter, filterMatakuliah]);
-
-  const handleFilterMatakuliah = useCallback((id) => {
-    setTempFilterMatakuliah((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      } else {
-        return [...prev, id];
-      }
-    });
-  }, []);
-
-  // useEffect(() => {
-  //   console.log(filterMatakuliah);
-  // }, [filterMatakuliah]);
+  }, [
+    periodeModal,
+    openPeriode,
+    filterModal,
+    openFilter,
+    matakuliahModal,
+    openMatakuliah,
+  ]);
 
   const handlePrint = useCallback(
     async (periodeId) => {
@@ -248,68 +238,40 @@ function PBM() {
                       <div className="filter-modal" ref={filterModal}>
                         <div className="filter-modal-content">
                           <div className="filter-by">Matakuliah</div>
-                          <div className="filter-list">
-                            {kelasData.data.map((item, index) => {
-                              const activeFilter = tempFilterMatakuliah?.includes(
-                                item.attributes.id_kelas
-                              );
-
-                              return (
-                                <div
-                                  className={`filter-list-item`}
-                                  key={index}
-                                  onClick={() =>
-                                    handleFilterMatakuliah(
-                                      item.attributes.id_kelas
-                                    )
-                                  }
-                                >
-                                  {activeFilter ? (
-                                    <SquareCheckBig
-                                      strokeWidth={1.75}
-                                      className="icon"
-                                    />
-                                  ) : (
-                                    <Square
-                                      strokeWidth={1.25}
-                                      className="icon"
-                                    />
-                                  )}
-                                  <div className="text">
-                                    {item.attributes.mata_kuliah}
-                                  </div>
-                                </div>
-                              );
-                            })}
+                          <div
+                            className="filter-default"
+                            onClick={() => setOpenMatakuliah(true)}
+                          >
+                            <div className="text">Pilih matakuliah</div>
+                            <ArrowDownRight
+                              className={`icon ${
+                                openMatakuliah ? "default-closed" : ""
+                              }`}
+                              strokeWidth={1.25}
+                            />
                           </div>
-                        </div>
-                        <div className="filter-modal-button">
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setTempFilterMatakuliah(filterMatakuliah); // Reset filter sementara ke nilai sebelumnya
-                              setOpenFilter(false);
-                            }}
-                          >
-                            cancel
-                          </span>
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setFilterMatakuliah(tempFilterMatakuliah); // Terapkan filter yang dipilih
-                              setOpenFilter(false);
-                            }}
-                          >
-                            apply
-                          </span>
+                          {openMatakuliah ? (
+                            <div className="filter-list" ref={matakuliahModal}>
+                              {kelasData.data.map((item, index) => {
+                                return (
+                                  <div className="filter-list-item" key={index}>
+                                    <Circle
+                                      className="icon"
+                                      strokeWidth={1.5}
+                                    />
+                                    <div className="text">
+                                      {item.attributes.mata_kuliah}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                     ) : null}
                   </div>
-                  <div
-                    className="clear-filter"
-                    onClick={() => setFilterMatakuliah([])}
-                  >
+                  <div className="clear-filter">
                     <div className="text">Clear Filter</div>
                   </div>
                 </div>
@@ -321,15 +283,8 @@ function PBM() {
           <Loader text="Printing Document on Progress..." />
         ) : (
           <div className="pbm-content">
-            {activeSubmenu === 1 && (
-              <JurnalPerkuliahan
-                kelasIds={kelasIds}
-                filterMatkul={filterMatakuliah}
-              />
-            )}
-            {activeSubmenu === 2 && (
-              <Presensi kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
-            )}
+            {activeSubmenu === 1 && <JurnalPerkuliahan kelasIds={kelasIds} />}
+            {activeSubmenu === 2 && <Presensi kelasIds={kelasIds} />}
             {activeSubmenu === 3 && <Transkrip />}
           </div>
         )}

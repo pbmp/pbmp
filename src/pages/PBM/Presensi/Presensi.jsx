@@ -9,7 +9,7 @@ import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "../../../context/DashboardContext";
 import { toastMessage } from "../../../helpers/AlertMessage";
 
-function Presensi({ kelasIds }) {
+function Presensi({ kelasIds, filterMatkul = [] }) {
   const { search } = useSearch(); // Mendapatkan input pencarian
   const [presensiData, setPresensiData] = useState([]);
   const [filteredData, setFilteredData] = useState([]); // Data setelah filter pencarian
@@ -79,35 +79,51 @@ function Presensi({ kelasIds }) {
   // Filter data berdasarkan pencarian dan reset ke halaman pertama
   useEffect(() => {
     const searchLowerCase = search.toLowerCase();
-    const filtered = presensiData.filter(
-      (item) =>
-        item?.nama_mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
-        item?.id_kelas?.toString()?.toLowerCase().includes(searchLowerCase) ||
-        item?.namapengajar
-          .replace(/^.*?-/, "")
-          ?.toLowerCase()
-          .includes(searchLowerCase) ||
-        item?.data.nim?.toLowerCase().includes(searchLowerCase) ||
-        item?.data.nama?.toLowerCase().includes(searchLowerCase) ||
-        item?.data.pertemuan
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchLowerCase) ||
-        item?.data.alfa?.toString()?.toLowerCase().includes(searchLowerCase) ||
-        item?.data.hadir?.toString()?.toLowerCase().includes(searchLowerCase) ||
-        item?.data.ijin?.toString()?.toLowerCase().includes(searchLowerCase) ||
-        item?.data.sakit?.toString()?.toLowerCase().includes(searchLowerCase) ||
-        item?.data.presentase
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchLowerCase)
-    );
+    const filtered = presensiData
+      .filter((item) =>
+        filterMatkul.length === 0 ? true : filterMatkul.includes(item.id_kelas)
+      )
+      .filter(
+        (item) =>
+          item?.nama_mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
+          item?.id_kelas?.toString()?.toLowerCase().includes(searchLowerCase) ||
+          item?.namapengajar
+            .replace(/^.*?-/, "")
+            ?.toLowerCase()
+            .includes(searchLowerCase) ||
+          item?.data.nim?.toLowerCase().includes(searchLowerCase) ||
+          item?.data.nama?.toLowerCase().includes(searchLowerCase) ||
+          item?.data.pertemuan
+            ?.toString()
+            ?.toLowerCase()
+            .includes(searchLowerCase) ||
+          item?.data.alfa
+            ?.toString()
+            ?.toLowerCase()
+            .includes(searchLowerCase) ||
+          item?.data.hadir
+            ?.toString()
+            ?.toLowerCase()
+            .includes(searchLowerCase) ||
+          item?.data.ijin
+            ?.toString()
+            ?.toLowerCase()
+            .includes(searchLowerCase) ||
+          item?.data.sakit
+            ?.toString()
+            ?.toLowerCase()
+            .includes(searchLowerCase) ||
+          item?.data.presentase
+            ?.toString()
+            ?.toLowerCase()
+            .includes(searchLowerCase)
+      );
 
     setFilteredData(filtered);
     setCurrentPage(1); // Reset pagination ke halaman pertama saat pencarian berubah
 
     // console.log(filtered);
-  }, [search, presensiData]);
+  }, [search, presensiData, filterMatkul]);
 
   const handlePageDataChange = (currentData, indexOfFirstItem) => {
     setCurrentData(currentData);

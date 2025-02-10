@@ -715,9 +715,11 @@
   -moz-column-gap: 0.4vw;
        column-gap: 0.4vw;
   border-radius: 0.4vw;
+  padding: 0 1.2vw;
   background-color: #546983;
   color: #fff;
-  padding: 0.8vw 1.2vw;
+  border: 0.12vw solid transparent;
+  height: 6vh;
   cursor: pointer;
 }
 .pbm-header .action .download .icon,
@@ -738,6 +740,7 @@
   right: 0;
   border-radius: 0.4vw;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  z-index: 43;
 }
 .pbm-header .action .periode-modal-content {
   padding: 0 0.95rem;
@@ -754,16 +757,23 @@
   background-color: rgba(165, 176, 190, 0.2);
   transition: background-color 0.2s ease-out;
 }
-.pbm-submenu {
+.pbm-feature {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9vh 1.8vw;
+}
+.pbm-feature-submenu {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: 1.9vw;
-  padding: 0 1.8vw;
   width: 100%;
+  gap: 1.9vw;
 }
-.pbm-submenu-link {
+.pbm-feature-submenu-link {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -774,7 +784,7 @@
   text-decoration: none;
   position: relative;
 }
-.pbm-submenu-link::after {
+.pbm-feature-submenu-link::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -786,60 +796,174 @@
   transition: transform 1.1s ease-in;
   transform-origin: left;
 }
-.pbm-submenu-link .icon {
+.pbm-feature-submenu-link .icon {
   width: 20px;
   height: 20px;
   color: rgba(0, 0, 0, 0.5);
   transition: color 0.4s ease-in;
 }
-.pbm-submenu-link .text {
+.pbm-feature-submenu-link .text {
   color: rgba(0, 0, 0, 0.5);
   transition: color 0.4s ease-in;
 }
-.pbm-submenu-link:hover::after {
+.pbm-feature-submenu-link:hover::after {
   transform: scaleX(1);
   transition: transform 1.1s ease-out;
 }
-.pbm-submenu-link:hover .icon {
+.pbm-feature-submenu-link:hover .icon {
   color: #546983;
   transition: color 0.4s ease-out;
 }
-.pbm-submenu-link:hover .text {
+.pbm-feature-submenu-link:hover .text {
   color: #546983;
   transition: color 0.4s ease-out;
 }
-.pbm-submenu-link.active::after {
+.pbm-feature-submenu-link.active::after {
   transform: scaleX(1);
   transition: transform 1.1s ease-out;
 }
-.pbm-submenu-link.active .icon {
+.pbm-feature-submenu-link.active .icon {
   color: #546983;
   transition: color 0.4s ease-out;
 }
-.pbm-submenu-link.active .text {
+.pbm-feature-submenu-link.active .text {
   color: #546983;
   transition: color 0.4s ease-out;
 }
-.pbm-feature {
-  width: 100%;
+.pbm-feature-filter {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding: 1.6rem 1.8vw 0;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 0.5vw;
 }
-.pbm-feature-title {
-  font-weight: 600;
-  font-size: 1.8rem;
-}
-.pbm-feature-core {
+.pbm-feature-filter .add-filters {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  -moz-column-gap: 0.4vw;
+       column-gap: 0.4vw;
+  border-radius: 0.4vw;
+  padding: 0 1.2vw;
+  background-color: #546983;
+  color: #fff;
+  border: 0.12vw solid transparent;
+  height: 6vh;
+  cursor: pointer;
+  position: relative;
+}
+.pbm-feature-filter .add-filters .icon {
+  width: 15px;
+  height: 15px;
+}
+.pbm-feature-filter .add-filters .text {
+  font-size: 1vw;
+}
+.pbm-feature-filter .add-filters .filter-modal {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  width: 220%;
+  height: auto;
+  background-color: #fff;
+  border-radius: 0.4vw;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  padding: 0.1rem 1.1rem 1.3rem;
+  cursor: default;
+}
+.pbm-feature-filter .add-filters .filter-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  padding: 0.9rem 0 0;
+  color: #546983;
+  position: relative;
+}
+.pbm-feature-filter .add-filters .filter-modal-content .filter-by {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.pbm-feature-filter .add-filters .filter-modal-content .filter-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.pbm-feature-filter .add-filters .filter-modal-content .filter-list-item {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 0.2rem;
+  align-items: center;
+  cursor: pointer;
+}
+.pbm-feature-filter .add-filters .filter-modal-content .filter-list-item .icon {
+  width: 15px;
+  height: 15px;
+}
+.pbm-feature-filter .add-filters .filter-modal-content .filter-list-item .text {
+  font-size: 0.8rem;
+}
+.pbm-feature-filter .add-filters .filter-modal-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.2rem;
+  margin-top: 2.1rem;
+}
+.pbm-feature-filter .add-filters .filter-modal-button span:first-child {
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.2vw;
+  background-color: #f6f8fa;
+  color: #546983;
+  border: 0.12vw solid #a5b0be;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.pbm-feature-filter .add-filters .filter-modal-button span:last-child {
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.2vw;
+  background-color: #546983;
+  color: #fff;
+  border: 0.12vw solid transparent;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.pbm-feature-filter .clear-filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  -moz-column-gap: 0.4vw;
+       column-gap: 0.4vw;
+  border-radius: 0.4vw;
+  padding: 0 1.2vw;
+  background-color: #f6f8fa;
+  color: #546983;
+  border: 0.12vw solid #a5b0be;
+  height: 6vh;
+  cursor: pointer;
+}
+.pbm-feature-filter .clear-filter .icon {
+  width: 20px;
+  height: 20px;
+}
+.pbm-feature-filter .clear-filter .text {
+  font-size: 1vw;
 }
 .pbm-content {
-  padding: 0 1.8vw 3.2vh;
+  padding: 3.2vh 1.8vw;
   max-width: 100%;
   min-width: 100%;
   overflow: hidden;
@@ -1297,9 +1421,11 @@
   -moz-column-gap: 0.4vw;
        column-gap: 0.4vw;
   border-radius: 0.4vw;
+  padding: 0 1.2vw;
   background-color: #546983;
   color: #fff;
-  padding: 0.8vw 1.2vw;
+  border: 0.12vw solid transparent;
+  height: 6vh;
   cursor: pointer;
 }
 .synchgrate-header .action .synchronize .icon {

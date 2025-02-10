@@ -7,7 +7,7 @@ import { useDashboard } from "../../../context/DashboardContext";
 import { formatDate } from "../../../helpers/FormatDate";
 import { toastMessage } from "../../../helpers/AlertMessage";
 
-function JurnalPerkuliahan({ kelasIds }) {
+function JurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
   const { search } = useSearch(); // Input pencarian
   const [jurnalData, setJurnalData] = useState([]);
   const [filteredData, setFilteredData] = useState([]); // Data setelah filter pencarian
@@ -70,27 +70,35 @@ function JurnalPerkuliahan({ kelasIds }) {
   // Filter data berdasarkan pencarian dan reset ke halaman pertama
   useEffect(() => {
     const searchLowerCase = search.toLowerCase();
-    const filtered = jurnalData.filter(
-      (item) =>
-        item?.mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
-        // item?.nama_kelas?.toLowerCase().includes(searchLowerCase) ||
-        item?.nomor_pertemuan?.toLowerCase().includes(searchLowerCase) ||
-        formatDate(item?.tanggal)?.toLowerCase().includes(searchLowerCase) ||
-        // item?.waktu_mulai?.toLowerCase().includes(searchLowerCase) ||
-        // item?.waktu_selesai?.toLowerCase().includes(searchLowerCase) ||
-        // item?.nama_ruang?.toLowerCase().includes(searchLowerCase) ||
-        // item?.status_perkuliahan?.toLowerCase().includes(searchLowerCase) ||
-        item?.rencana_materi?.toLowerCase().includes(searchLowerCase) ||
-        item?.bahasan?.toLowerCase().includes(searchLowerCase)
-      // item?.nama_pengisi_materi?.toLowerCase().includes(searchLowerCase) ||
-      // item?.sks?.toLowerCase().includes(searchLowerCase)
-    );
+    const filtered = jurnalData
+      .filter((item) =>
+        filterMatkul.length === 0 ? true : filterMatkul.includes(item.id_kelas)
+      )
+      .filter(
+        (item) =>
+          item?.mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
+          // item?.nama_kelas?.toLowerCase().includes(searchLowerCase) ||
+          item?.nomor_pertemuan?.toLowerCase().includes(searchLowerCase) ||
+          formatDate(item?.tanggal)?.toLowerCase().includes(searchLowerCase) ||
+          // item?.waktu_mulai?.toLowerCase().includes(searchLowerCase) ||
+          // item?.waktu_selesai?.toLowerCase().includes(searchLowerCase) ||
+          // item?.nama_ruang?.toLowerCase().includes(searchLowerCase) ||
+          // item?.status_perkuliahan?.toLowerCase().includes(searchLowerCase) ||
+          item?.rencana_materi?.toLowerCase().includes(searchLowerCase) ||
+          item?.bahasan?.toLowerCase().includes(searchLowerCase)
+        // item?.nama_pengisi_materi?.toLowerCase().includes(searchLowerCase) ||
+        // item?.sks?.toLowerCase().includes(searchLowerCase)
+      );
 
     setFilteredData(filtered);
     setCurrentPage(1); // Reset pagination ke halaman pertama saat pencarian berubah
 
     // console.log(filtered);
-  }, [search, jurnalData]);
+  }, [search, jurnalData, filterMatkul]);
+
+  useEffect(() => {
+    console.log(filterMatkul);
+  }, [filterMatkul]);
 
   const handlePageDataChange = (currentData, indexOfFirstItem) => {
     setCurrentData(currentData);

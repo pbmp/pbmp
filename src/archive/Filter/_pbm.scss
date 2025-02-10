@@ -153,8 +153,7 @@
           background-color: #fff;
           border-radius: 0.4vw;
           box-shadow: 0 0 4px rgba($color: #000, $alpha: 0.15);
-          padding: 0.1rem 1.1rem 1.3rem;
-          cursor: default;
+          padding: 0.1rem 0 2.8rem;
 
           @mixin container(
             $p: 0 0.6rem,
@@ -178,72 +177,78 @@
 
           &-content {
             @include m.flex($direction: column, $start: true);
-            gap: 0.65rem;
-            padding: 0.9rem 0 0;
+            gap: 0.4rem;
+            padding: 0.9rem 1.1rem 0;
             color: map-get($map: v.$color, $key: "blue");
             position: relative;
 
             .filter-by {
-              font-size: 0.95rem;
+              font-size: 0.9rem;
               font-weight: 600;
             }
 
+            .filter-default {
+              @include container($input: true, $w: 80%);
+              @include m.flex($justify: space-between);
+              cursor: pointer;
+
+              .text {
+                text-transform: capitalize;
+              }
+
+              .icon {
+                font-size: 1.3rem;
+                transition: transform 0.6s ease;
+
+                &.default-closed {
+                  transform: rotate(180deg);
+                  transition: transform 0.6s ease;
+                }
+              }
+            }
+
             .filter-list {
-              @include m.flex($direction: column, $start: true);
-              gap: 0.65rem;
-              width: fit-content;
+              position: absolute;
+              top: 108%;
+              right: 23.5%;
+              overflow-y: auto;
+              height: fit-content;
+              width: 80%;
+              border-radius: 0.4vw;
+              background-color: #fff;
+              box-shadow: 0 0 4px rgba($color: #000, $alpha: 0.15);
+              z-index: 42;
 
               &-item {
+                @include container($fs: 0.7rem, $bdr-rds: 0, $h: 2.6rem);
+                gap: 0.6rem;
+                transition: background-color 0.25s ease-in, color 0.25s ease-in;
+                width: 100%;
                 display: grid;
                 grid-template-columns: 20px 1fr;
-                gap: 0.2rem;
                 align-items: center;
-                cursor: pointer;
+
+                &:hover {
+                  background-color: map-get($map: v.$color, $key: "blue");
+                  color: #fff;
+                  transition: background-color 0.25s ease-out,
+                    color 0.25s ease-out;
+                }
 
                 .icon {
-                  width: 15px;
-                  height: 15px;
+                  width: 1rem;
+                  height: 1rem;
                 }
 
                 .text {
-                  font-size: 0.8rem;
+                  text-transform: capitalize;
+                  cursor: pointer;
+
+                  &:not(:last-child) {
+                    border-bottom: 0.05rem solid
+                      map-get($map: v.$color, $key: "blue");
+                  }
                 }
-              }
-            }
-          }
-
-          &-button {
-            @include m.flex($justify: flex-end);
-            gap: 0.2rem;
-            margin-top: 2.1rem;
-
-            @mixin button(
-              $bg-clr: map-get($map: v.$color, $key: "blue"),
-              $clr: #fff,
-              $bdr-clr: transparent
-            ) {
-              padding: 0.4rem 0.85rem;
-              border-radius: 0.2vw;
-              background-color: $bg-clr;
-              color: $clr;
-              border: 0.12vw solid $bdr-clr;
-              text-transform: capitalize;
-              letter-spacing: 0.5px;
-              font-size: 0.8rem;
-              cursor: pointer;
-            }
-
-            span {
-              &:first-child {
-                @include button(
-                  $bg-clr: map-get($map: v.$color, $key: "light-grey"),
-                  $clr: map-get($map: v.$color, $key: "blue"),
-                  $bdr-clr: map-get($map: v.$color, $key: "other-blue")
-                );
-              }
-
-              &:last-child {
-                @include button();
               }
             }
           }

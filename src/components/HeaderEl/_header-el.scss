@@ -44,18 +44,27 @@
   }
 }
 
-@mixin button() {
+@mixin button(
+  $bg-clr: map-get($map: v.$color, $key: "blue"),
+  $clr: #fff,
+  $bdr-clr: transparent,
+  $h: 6vh,
+  $w-icon: 20px,
+  $h-icon: 20px
+) {
   @include m.flex();
   column-gap: 0.4vw;
   border-radius: 0.4vw;
-  background-color: map-get($map: v.$color, $key: "blue");
-  color: #fff;
-  padding: 0.8vw 1.2vw;
+  padding: 0 1.2vw;
+  background-color: $bg-clr;
+  color: $clr;
+  border: 0.12vw solid $bdr-clr;
+  height: $h;
   cursor: pointer;
 
   .icon {
-    width: 20px;
-    height: 20px;
+    width: $w-icon;
+    height: $h-icon;
   }
 
   .text {
