@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-import {
-  useFetchTemporary,
-  apiOptionsNoTimeout,
-} from "../../../helpers/useApiSevima";
+import { apiOptionsNoTimeout } from "../../../helpers/useApiSevima";
 import { useSearch } from "@/helpers/SearchContext";
 import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "../../../context/DashboardContext";
@@ -49,7 +46,6 @@ function Presensi({ kelasIds, filterMatkul = [] }) {
           .map((result) => result.value)
           .flat();
 
-        console.log(successfulData);
         setPresensiData(successfulData);
 
         // Tampilkan error jika ada request yang gagal
@@ -63,11 +59,9 @@ function Presensi({ kelasIds, filterMatkul = [] }) {
         }
       } catch (error) {
         console.error("Error fetching presensi data:", error);
-        toastMessage(
-          "warn",
-          "Terjadi kesalahan saat mengambil data presensi",
-          { position: "top-center" }
-        );
+        toastMessage("warn", "Terjadi kesalahan saat mengambil data presensi", {
+          position: "top-center",
+        });
       } finally {
         setLoading(false);
       }

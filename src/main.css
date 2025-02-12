@@ -565,52 +565,6 @@
   font-size: 1vw;
 }
 
-.sk {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 40px;
-}
-.sk-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 4px;
-}
-.sk-header .logo {
-  width: 125px;
-  height: 125px;
-  margin-bottom: 40px;
-}
-.sk-header .logo img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.sk-header .title,
-.sk-header .plt-univ,
-.sk-header .no,
-.sk-header .about,
-.sk-header .main,
-.sk-header .univ,
-.sk-header .semester-year,
-.sk-header .mercy {
-  font-size: 18px;
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 100%;
-}
-.sk-header .about {
-  padding: 25px 0;
-}
-.sk-header .mercy {
-  padding: 20px 0;
-}
-
 .pbm {
   display: flex;
   flex-direction: column;
@@ -706,7 +660,6 @@
   gap: 0.5rem;
   position: relative;
 }
-.pbm-header .action .download,
 .pbm-header .action .print {
   display: flex;
   flex-direction: row;
@@ -722,14 +675,12 @@
   height: 6vh;
   cursor: pointer;
 }
-.pbm-header .action .download .icon,
 .pbm-header .action .print .icon {
   width: 20px;
   height: 20px;
 }
-.pbm-header .action .download .text,
 .pbm-header .action .print .text {
-  font-size: 1vw;
+  font-size: 1.1vw;
 }
 .pbm-header .action .periode-modal {
   width: 150%;
@@ -1103,7 +1054,7 @@
 }
 .pbm-content .pbm-table.transkrip .thead {
   display: grid;
-  grid-template-columns: 4.4rem 1fr 0.8fr 1fr 0.5fr 0.5fr 0.5fr 1fr;
+  grid-template-columns: 4.4rem 1fr 0.8fr 1fr 0.5fr 0.5fr 0.5fr 0.8fr;
   width: 100%;
 }
 .pbm-content .pbm-table.transkrip .thead .row {
@@ -1136,9 +1087,15 @@
   align-items: center;
   justify-content: flex-start;
 }
+.pbm-content .pbm-table.transkrip .thead .row:nth-child(7) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 .pbm-content .pbm-table.transkrip .tbody {
   display: grid;
-  grid-template-columns: 4.4rem 1fr 0.8fr 1fr 0.5fr 0.5fr 0.5fr 1fr;
+  grid-template-columns: 4.4rem 1fr 0.8fr 1fr 0.5fr 0.5fr 0.5fr 0.8fr;
   width: 100%;
   border-bottom: #ddd solid 0.15vw;
 }
@@ -1155,9 +1112,15 @@
 .pbm-content .pbm-table.transkrip .tbody .col:nth-child(4) {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   text-align: start;
+}
+.pbm-content .pbm-table.transkrip .tbody .col:nth-child(7) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .pbm-content .wrapper-fetch-loader {
   width: 100%;

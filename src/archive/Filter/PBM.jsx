@@ -16,7 +16,7 @@ import {
   Circle,
 } from "lucide-react";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
-import { useReactToPrint } from "react-to-print";
+// import { useReactToPrint } from "react-to-print";
 import Document from "./Document/Document";
 import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
 import Presensi from "./Presensi/Presensi";

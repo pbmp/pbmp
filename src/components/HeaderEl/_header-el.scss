@@ -50,7 +50,8 @@
   $bdr-clr: transparent,
   $h: 6vh,
   $w-icon: 20px,
-  $h-icon: 20px
+  $h-icon: 20px,
+  $fs: 1vw
 ) {
   @include m.flex();
   column-gap: 0.4vw;
@@ -68,6 +69,6 @@
   }
 
   .text {
-    font-size: 1vw;
+    font-size: $fs;
   }
 }

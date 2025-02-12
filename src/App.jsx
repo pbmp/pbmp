@@ -3,10 +3,9 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import UsersManagement from "@/pages/Users/Users";
 import Error404 from "@/pages/Error404/Error404";
 import Perwalian from "@/pages/Perwalian/Perwalian";
-import PBM from "@/pages/PBM/PBM";
+import PBM from "@/pages/PBM/index";
 // import SynchGrate from "@/pages/SynchGrate/SynchGrate";
-import Loader from "@/components/Loader/Loader";
-import Auth from "@/pages/Auth/Auth";
+import Auth from "@/pages/Auth/index";
 import { SearchProvider } from "@/helpers/SearchContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { DashboardProvider } from "./context/DashboardContext";
@@ -35,7 +34,6 @@ function App() {
               {/* <Route path="synchronize" element={<SynchGrate />} /> */}
             </Route>
             <Route path="*" element={<Error404 />} />
-            <Route path="/pbmp/loader" element={<Loader />} />
           </Routes>
         </QueryClientProvider>
       </SearchProvider>

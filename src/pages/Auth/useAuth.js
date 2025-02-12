@@ -1,5 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect } from "react";
-import logo from "../../assets/logo/logo-bunga-default.jpg";
+import { useCallback, useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { authSchema } from "../../helpers/ValidationSchema";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -8,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
 
-function Auth() {
+export function useAuth() {
   axios.defaults.withCredentials = true;
 
   const [hidePassword, setHidePassword] = useState(true);
@@ -91,8 +90,6 @@ function Auth() {
                 SECRET_KEY
               ).toString();
 
-              // console.log("Data Terenkripsi:", encryptedData);
-
               Cookies.set("pbmp-user", encryptedData, {
                 path: "/",
                 secure: true,
@@ -132,61 +129,13 @@ function Auth() {
     }
   }, [location.state, navigate, location.pathname]);
 
-  return (
-    <>
-      <div className="auth">
-        <div className="auth-title">
-          <img className="logo" src={logo} alt="ULBI's Logo" />
-          <div className="title">
-            Selamat Datang di <span>Sistem PBMP</span>
-          </div>
-          <div className="univ">
-            Universitas Logistik & Bisnis Internasional
-          </div>
-        </div>
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="auth-form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="ulbi@ulbi.ac.id"
-              onChange={handleChange}
-              value={data.email}
-            />
-            <div className="border-effect"></div>
-          </div>
-          <div className="auth-form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type={hidePassword ? "password" : "text"}
-              id="password"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              value={data.password}
-            />
-            <span
-              className="material-symbols-outlined"
-              onClick={() => setHidePassword(!hidePassword)}
-            >
-              {hidePassword ? "visibility_off" : "visibility"}
-            </span>
-            <div className="border-effect"></div>
-          </div>
-          <button
-            className="auth-form-button"
-            type="submit"
-            disabled={data.email === "" || data.password === ""}
-          >
-            Login
-          </button>
-        </form>
-      </div>
-      <ToastContainer />
-    </>
-  );
+  return {
+    hidePassword,
+    setHidePassword,
+    data,
+    authStatus,
+    handleChange,
+    handleSubmit,
+    ToastContainer,
+  };
 }
-
-export default Auth;

@@ -1,7 +1,6 @@
 @use "./../../helpers/mixins" as m;
 @use "./../../helpers/variables" as v;
 @use "../../components/HeaderEl/header-el" as header-el;
-@use "./Document/document";
 @use "./pbm-media" as pbm-m;
 @use "../../components/Loader/loader" as loader;
 @use "./JurnalPerkuliahan/jurnal-perkuliahan" as jurnal-perkuliahan;
@@ -21,9 +20,9 @@
       gap: 0.5rem;
       position: relative;
 
-      .download,
+      // .download,
       .print {
-        @include header-el.button();
+        @include header-el.button($fs: 1.1vw);
       }
 
       .periode-modal {

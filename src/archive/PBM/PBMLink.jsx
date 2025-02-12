@@ -8,7 +8,7 @@ import {
   Blocks,
   CalendarFold,
 } from "lucide-react";
-import { useReactToPrint } from "react-to-print";
+// import { useReactToPrint } from "react-to-print";
 import Document from "../../pages/PBM/Document/Document";
 import { NavLink } from "react-router-dom";
 

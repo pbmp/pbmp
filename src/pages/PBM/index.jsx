@@ -1,29 +1,20 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
 import Layout from "@/components/Layout/Layout";
 import {
   FileText,
   Printer,
-  CloudDownload,
-  LibraryBig,
-  Blocks,
-  Calendar1,
-  CalendarFold,
-  ClipboardList,
-  UserRoundCheck,
   Filter,
   Square,
   SquareCheckBig,
+  LibraryBig,
+  ClipboardList,
+  UserRoundCheck,
 } from "lucide-react";
 import HeaderEl from "@/components/HeaderEl/HeaderEl";
 import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
 import Presensi from "./Presensi/Presensi";
 import Transkrip from "./Transkrip/Transkrip";
-import { useFetchData, apiOptionsNoTimeout } from "../../helpers/useApiSevima";
-import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/Loader/Loader";
-import { useDashboard } from "@/context/DashboardContext";
-import { toastMessage } from "../../helpers/AlertMessage";
-import { formatName } from "../../helpers/FormatName";
+import { usePBM } from "./usePBM";
 
 const submenus = [
   {
@@ -43,166 +34,29 @@ const submenus = [
   },
 ];
 
-function PBM() {
-  const [activeSubmenu, setActiveSubmenu] = useState(1);
-  const [kelasIds, setKelasIds] = useState([]);
-  const [periodeData, setPeriodeData] = useState([]);
-  const [loadingPrint, setLoadingPrint] = useState(false);
-  const [openPeriode, setOpenPeriode] = useState(false);
-  const [openFilter, setOpenFilter] = useState(false);
-  const [filterMatakuliah, setFilterMatakuliah] = useState([]);
-  const [tempFilterMatakuliah, setTempFilterMatakuliah] = useState([]);
-
-  const filterModal = useRef(null);
-  const periodeModal = useRef(null);
-
-  const { user } = useDashboard();
-
-  // Fetch data kelas
+export function PBM() {
   const {
-    data: kelasData,
-    isLoading: isLoadingKelas,
-    isError: isErrorKelas,
-  } = useQuery({
-    queryKey: [`matakuliah/${user.role[0]?.id_pegawai}`, 1],
-    queryFn: useFetchData,
-    keepPreviousData: true,
-    staleTime: 1000 * 60 * 5,
-  });
-
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
-
-  useEffect(() => {
-    if (kelasData?.data) {
-      const ids = kelasData.data.map((item) => item.attributes.id_kelas);
-      setKelasIds(ids);
-
-      // console.log(kelasData);
-
-      const getPeriode = [
-        ...new Set(kelasData.data.map((item) => item.attributes.id_periode)),
-      ];
-      setPeriodeData(getPeriode);
-    }
-  }, [kelasData]);
-
-  const handleClickOutside = useCallback(
-    (e) => {
-      if (periodeModal.current && !periodeModal.current.contains(e.target)) {
-        setOpenPeriode(false);
-      } else if (
-        filterModal.current &&
-        !filterModal.current.contains(e.target)
-      ) {
-        setOpenFilter(false);
-      }
-    },
-    [periodeModal, filterModal]
-  );
-
-  useEffect(() => {
-    if (openPeriode || openFilter) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [openPeriode, openFilter, handleClickOutside]);
-
-  const handleFilterMatakuliah = useCallback((id) => {
-    setTempFilterMatakuliah((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      } else {
-        return [...prev, id];
-      }
-    });
-  }, []);
-
-  // const handlePrint = useCallback(
-  //   async (periodeId) => {
-  //     try {
-  //       setLoadingPrint(true);
-
-  //       const promise = await apiOptionsNoTimeout.get("/laporan/pbmp", {
-  //         params: {
-  //           idpegawai: user.role[0]?.id_pegawai,
-  //           idperiode: periodeId,
-  //         },
-  //       });
-
-  //       if (promise.data?.success) {
-  //         toastMessage("success", "Printing successfully!");
-
-  //         const newTab = window.open(
-  //           `https://docs.google.com/document/d/${promise.data.id_docs}/edit?tab=t.0`,
-  //           "_blank"
-  //         );
-
-  //         if (!newTab) {
-  //           toastMessage(
-  //             "info",
-  //             "Popup diblokir! Silakan aktifkan izin popup untuk membuka dokumen dan mohon cetak kembali.",
-  //             {
-  //               autoClose: 5000,
-  //             }
-  //           );
-  //         }
-  //       } else {
-  //         toastMessage("error", "Gagal mencetak laporan!");
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //       toastMessage("error", "Terjadi kesalahan saat mencetak laporan!");
-  //     } finally {
-  //       setLoadingPrint(false);
-  //     }
-  //   },
-  //   [user, kelasData, setLoadingPrint]
-  // );
-
-  const handlePrint = useCallback(
-    async (periodeId) => {
-      try {
-        setLoadingPrint(true);
-
-        const response = await apiOptionsNoTimeout.get("/laporan/pbmp", {
-          params: {
-            idpegawai: user.role[0]?.id_pegawai,
-            idperiode: periodeId,
-          },
-          responseType: "blob", // Penting agar response dikembalikan dalam format blob
-        });
-
-        const blob = response.data;
-        const fileUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = fileUrl;
-        a.download = `Laporan_${periodeId}_${formatName(user.nama)}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(fileUrl);
-
-        toastMessage("success", "File berhasil diunduh!");
-      } catch (error) {
-        console.error("Error fetching PDF:", error);
-        toastMessage("error", `Gagal mengunduh file: ${error.message}`);
-      } finally {
-        setLoadingPrint(false);
-      }
-    },
-    [user, setLoadingPrint, toastMessage]
-  );
-
-  const handleActiveSubmenu = (id) => {
-    setActiveSubmenu(id);
-  };
+    activeSubmenu,
+    kelasIds,
+    kelasData,
+    periodeData,
+    loadingPrint,
+    openPeriode,
+    setOpenPeriode,
+    openFilter,
+    setOpenFilter,
+    filterMatakuliah,
+    setFilterMatakuliah,
+    tempFilterMatakuliah,
+    setTempFilterMatakuliah,
+    filterModal,
+    periodeModal,
+    isLoadingKelas,
+    isErrorKelas,
+    handleFilterMatakuliah,
+    handlePrint,
+    handleActiveSubmenu,
+  } = usePBM();
 
   if (isLoadingKelas) return <Loader />;
   if (isErrorKelas) return <p>Error fetching data</p>;
@@ -218,12 +72,8 @@ function PBM() {
             Icon={FileText}
           >
             <div className="action">
-              {/* <div className="download">
-                <CloudDownload className="icon" strokeWidth={2} />
-                <div className="text">Download</div>
-              </div> */}
               <div className="print" onClick={() => setOpenPeriode(true)}>
-                <Printer className="icon" strokeWidth={2} />
+                <Printer className="icon" strokeWidth={1.75} />
                 <div className="text">Print</div>
               </div>
               {openPeriode ? (
@@ -357,7 +207,9 @@ function PBM() {
             {activeSubmenu === 2 && (
               <Presensi kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
             )}
-            {activeSubmenu === 3 && <Transkrip />}
+            {activeSubmenu === 3 && (
+              <Transkrip kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
+            )}
           </div>
         )}
       </Layout>
