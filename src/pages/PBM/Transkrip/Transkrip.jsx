@@ -67,6 +67,8 @@ function Transkrip({ kelasIds, filterMatkul = [] }) {
           successfulNameData.map((data) => [data.nim, data.nama_mahasiswa])
         );
 
+        // console.log(successfulKHSData);
+
         // Hapus duplikat KHS berdasarkan NIM + Mata Kuliah
         const uniqueKHSData = [
           ...new Map(
@@ -77,7 +79,7 @@ function Transkrip({ kelasIds, filterMatkul = [] }) {
         ];
 
         // Gabungkan nama mahasiswa dari NameData ke KHSData
-        const mergedData = uniqueKHSData.map((khsItem) => ({
+        const mergedData = successfulKHSData.map((khsItem) => ({
           ...khsItem,
           nama_mahasiswa: nameMap.get(khsItem.nim) || "Tidak Diketahui",
         }));
