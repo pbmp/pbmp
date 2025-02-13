@@ -3,7 +3,7 @@ import userImage from "/images/user.png";
 import { Search, Bell, EllipsisVertical, Menu } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import { toastMessage } from "@/helpers/AlertMessage";
-import { useDashboard } from "../../../context/DashboardContext";
+import { useDashboard } from "../../context/DashboardContext";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 

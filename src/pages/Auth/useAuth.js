@@ -1,8 +1,8 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { authSchema } from "../../validations/Auth";
+import { authSchema } from "@/validations/Auth";
 import { useNavigate, useLocation } from "react-router-dom";
-import { toastMessage, toastPromise } from "../../helpers/AlertMessage";
+import { toastMessage, toastPromise } from "@/helpers/AlertMessage";
 import { ToastContainer } from "react-toastify";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";

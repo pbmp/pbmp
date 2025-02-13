@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat("id-ID", {
@@ -6,4 +8,8 @@ export const formatDate = (dateString) => {
     year: "numeric",
     weekday: "long",
   }).format(date);
+};
+
+formatDate.propTypes = {
+  dateString: PropTypes.string,
 };

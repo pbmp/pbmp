@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function Header({ classEl, titleEl, descEl, Icon, children }) {
   return (
     <div className={`${classEl}-header`}>
@@ -12,5 +14,13 @@ function Header({ classEl, titleEl, descEl, Icon, children }) {
     </div>
   );
 }
+
+Header.propTypes = {
+  classEl: PropTypes.string,
+  titleEl: PropTypes.string,
+  descEl: PropTypes.string,
+  Icon: PropTypes.func,
+  children: PropTypes.node,
+};
 
 export default Header;

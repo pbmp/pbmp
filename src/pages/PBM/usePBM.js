@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { useFetchData, apiOptions } from "../../hooks/useApiSevima";
+import { useFetchData, apiOptions } from "@/hooks/useApiSevima";
 import { useQuery } from "@tanstack/react-query";
 import { useDashboard } from "@/context/DashboardContext";
-import { toastMessage } from "../../helpers/AlertMessage";
-import { formatName } from "../../helpers/FormatName";
+import { toastMessage } from "@/helpers/AlertMessage";
+import { formatName } from "@/helpers/FormatName";
 
 export function usePBM() {
   const [activeSubmenu, setActiveSubmenu] = useState(1);

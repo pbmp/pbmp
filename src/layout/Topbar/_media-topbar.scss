@@ -1,5 +1,5 @@
-@use "../../../helpers/mixins" as m;
-@use "../../../helpers/variables" as v;
+@use "../../helpers/mixins" as m;
+@use "../../helpers/variables" as v;
 
 @mixin media-topbar() {
   @media (max-width: 575.98px) {

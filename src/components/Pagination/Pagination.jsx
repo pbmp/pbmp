@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import PropTypes from "prop-types";
 
 function Pagination({
   data,
@@ -96,5 +97,13 @@ function Pagination({
     </div>
   );
 }
+
+Pagination.propTypes = {
+  data: PropTypes.array,
+  itemsPerPage: PropTypes.number,
+  onPageDataChange: PropTypes.func,
+  currentPage: PropTypes.number,
+  setCurrentPage: PropTypes.func,
+};
 
 export default Pagination;

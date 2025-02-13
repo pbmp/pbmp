@@ -1,7 +1,6 @@
 import {
   FileText,
   Printer,
-  Filter,
   Square,
   SquareCheckBig,
   LibraryBig,
@@ -9,11 +8,11 @@ import {
   UserRoundCheck,
 } from "lucide-react";
 import Header from "@/components/Header/Header";
-import Feature from "../../components/Feature/Feature";
+import Feature from "@/components/Feature/Feature";
+import Loader from "@/components/Loader/Loader";
 import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
 import Presensi from "./Presensi/Presensi";
 import Transkrip from "./Transkrip/Transkrip";
-import Loader from "@/components/Loader/Loader";
 import { usePBM } from "./usePBM";
 
 const submenus = [
@@ -90,145 +89,51 @@ export function PBM() {
           </div>
         </Header>
         {loadingPrint ? null : (
-          <>
-            <Feature
-              classEl="pbm"
-              submenus={submenus}
-              activeSubmenu={activeSubmenu}
-              setActiveSubmenu={setActiveSubmenu}
-              onApplyFilter={() => {
-                setFilterMatakuliah(tempFilterMatakuliah);
-              }}
-              onClearFilter={() => {
-                setFilterMatakuliah([]);
-                setTempFilterMatakuliah([]);
-              }}
-            >
-              {" "}
-              <div className="filter-modal-content">
-                <div className="filter-by">Matakuliah</div>
-                <div className="filter-list">
-                  {kelasData.data.map((item, index) => {
-                    const activeFilter = tempFilterMatakuliah?.includes(
-                      item.attributes.id_kelas
-                    );
+          <Feature
+            classEl="pbm"
+            submenus={submenus}
+            activeSubmenu={activeSubmenu}
+            setActiveSubmenu={setActiveSubmenu}
+            onApplyFilter={() => {
+              setFilterMatakuliah(tempFilterMatakuliah);
+            }}
+            onClearFilter={() => {
+              setFilterMatakuliah([]);
+              setTempFilterMatakuliah([]);
+            }}
+          >
+            {" "}
+            <div className="filter-modal-content">
+              <div className="filter-by">Matakuliah</div>
+              <div className="filter-list">
+                {kelasData.data.map((item, index) => {
+                  const activeFilter = tempFilterMatakuliah?.includes(
+                    item.attributes.id_kelas
+                  );
 
-                    return (
-                      <div
-                        className={`filter-list-item`}
-                        key={index}
-                        onClick={() =>
-                          handleFilterMatakuliah(item.attributes.id_kelas)
-                        }
-                      >
-                        {activeFilter ? (
-                          <SquareCheckBig strokeWidth={1.75} className="icon" />
-                        ) : (
-                          <Square strokeWidth={1.25} className="icon" />
-                        )}
-                        <div className="text">
-                          {item.attributes.id_periode} -{" "}
-                          {item.attributes.mata_kuliah}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </Feature>
-            {/* <div className="pbm-feature">
-              <div className="pbm-feature-submenu">
-                {submenus.map((item) => (
-                  <div
-                    key={item.id}
-                    className={`pbm-feature-submenu-link ${
-                      activeSubmenu === item.id ? "active" : ""
-                    }`}
-                    onClick={() => handleActiveSubmenu(item.id)}
-                  >
-                    {item.icon}
-                    <div className="text">{item.text}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="pbm-feature-filter">
-                <div
-                  className="add-filters"
-                  onClick={() => setOpenFilter(true)}
-                >
-                  <Filter className="icon" strokeWidth={1.75} />
-                  <div className="text">Add Filters</div>
-                  {openFilter ? (
-                    <div className="filter-modal" ref={filterModal}>
-                      <div className="filter-modal-content">
-                        <div className="filter-by">Matakuliah</div>
-                        <div className="filter-list">
-                          {kelasData.data.map((item, index) => {
-                            const activeFilter = tempFilterMatakuliah?.includes(
-                              item.attributes.id_kelas
-                            );
-
-                            return (
-                              <div
-                                className={`filter-list-item`}
-                                key={index}
-                                onClick={() =>
-                                  handleFilterMatakuliah(
-                                    item.attributes.id_kelas
-                                  )
-                                }
-                              >
-                                {activeFilter ? (
-                                  <SquareCheckBig
-                                    strokeWidth={1.75}
-                                    className="icon"
-                                  />
-                                ) : (
-                                  <Square strokeWidth={1.25} className="icon" />
-                                )}
-                                <div className="text">
-                                  {item.attributes.id_periode} -{" "}
-                                  {item.attributes.mata_kuliah}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      <div className="filter-modal-button">
-                        <span
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setOpenFilter(false);
-                          }}
-                        >
-                          cancel
-                        </span>
-                        <span
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setFilterMatakuliah(tempFilterMatakuliah);
-                            setOpenFilter(false);
-                          }}
-                        >
-                          apply
-                        </span>
+                  return (
+                    <div
+                      className={`filter-list-item`}
+                      key={index}
+                      onClick={() =>
+                        handleFilterMatakuliah(item.attributes.id_kelas)
+                      }
+                    >
+                      {activeFilter ? (
+                        <SquareCheckBig strokeWidth={1.75} className="icon" />
+                      ) : (
+                        <Square strokeWidth={1.25} className="icon" />
+                      )}
+                      <div className="text">
+                        {item.attributes.id_periode} -{" "}
+                        {item.attributes.mata_kuliah}
                       </div>
                     </div>
-                  ) : null}
-                </div>
-                <div
-                  className="clear-filter"
-                  onClick={() => {
-                    setFilterMatakuliah([]);
-                    setTempFilterMatakuliah([]);
-                  }}
-                >
-                  <div className="text">Clear Filter</div>
-                </div>
+                  );
+                })}
               </div>
-            </div> */}
-          </>
+            </div>
+          </Feature>
         )}
       </div>
       {loadingPrint ? (

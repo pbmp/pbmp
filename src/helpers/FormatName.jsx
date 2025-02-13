@@ -1,7 +1,9 @@
+import PropTypes from "prop-types";
+
 export const formatName = (nama) => {
-  return nama
-    .replace(/,.*/g, "") // Menghapus semua gelar setelah koma
-    .trim() // Menghapus spasi di awal/akhir
-    .replace(/\s+/g, "-") // Mengganti spasi dengan "-"
-    .toLowerCase(); // Mengubah ke lowercase
+  return nama.replace(/,.*/g, "").trim().replace(/\s+/g, "-").toLowerCase();
+};
+
+formatName.propTypes = {
+  nama: PropTypes.string,
 };

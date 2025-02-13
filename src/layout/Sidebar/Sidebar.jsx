@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Users, PanelLeftClose, FileText } from "lucide-react";
 import logo from "/logo/logo-Photoroom.png";
 import { NavLink, useLocation } from "react-router-dom";
-import { useDashboard } from "../../../context/DashboardContext";
+import { useDashboard } from "../../context/DashboardContext";
 
 function Sidebar() {
   const location = useLocation();

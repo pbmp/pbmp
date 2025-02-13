@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 function Loader({ text = null }) {
   return (
@@ -16,5 +16,9 @@ function Loader({ text = null }) {
     </div>
   );
 }
+
+Loader.propTypes = {
+  text: PropTypes.string,
+};
 
 export default Loader;

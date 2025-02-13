@@ -1,5 +1,5 @@
-import Topbar from "@/layout/dashboard/Topbar/Topbar";
-import Sidebar from "@/layout/dashboard/Sidebar/Sidebar";
+import Topbar from "@/layout/Topbar/Topbar";
+import Sidebar from "@/layout/Sidebar/Sidebar";
 import { ToastContainer } from "react-toastify";
 
 function DashboardLayout({ children }) {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import PropTypes from "prop-types";
 
 export const apiOptions = axios.create({
   baseURL: "https://pbmp-be.ulbi.ac.id",

@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
+import PropTypes from "prop-types";
+import Loader from "@/components/Loader/Loader";
 
 const DashboardContext = createContext({
   user: {},
@@ -50,7 +52,7 @@ export const DashboardProvider = ({ children }) => {
 
   // Tampilkan loader hingga autentikasi selesai
   if (!isAuthenticated && !token) {
-    return <div>Loading...</div>; // Ganti dengan komponen loading Anda
+    return <Loader />;
   }
 
   return (
@@ -63,3 +65,7 @@ export const DashboardProvider = ({ children }) => {
 };
 
 export const useDashboard = () => useContext(DashboardContext);
+
+DashboardProvider.propTypes = {
+  children: PropTypes.node,
+};

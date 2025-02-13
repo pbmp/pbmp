@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
 
 export const toastMessage = (type, message, option = {}) => {
   toast[type](message, {
@@ -12,6 +13,12 @@ export const toastMessage = (type, message, option = {}) => {
     progress: option.progress || undefined,
     theme: option.theme || "light",
   });
+};
+
+toastMessage.propTypes = {
+  type: PropTypes.string,
+  message: PropTypes.string,
+  option: PropTypes.object,
 };
 
 export const toastPromise = (
@@ -63,4 +70,11 @@ export const toastPromise = (
       },
     }
   );
+};
+
+toastPromise.propTypes = {
+  promise: PropTypes.object,
+  defaultMessages: PropTypes.object,
+  option: PropTypes.object,
+  onCloseCallback: PropTypes.func,
 };
