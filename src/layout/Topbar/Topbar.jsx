@@ -50,7 +50,7 @@ function Topbar() {
     Cookies.remove("pbmp-login");
     Cookies.remove("pbmp-user");
 
-    navigate("/auth", {
+    navigate("/pbmp/auth", {
       state: { logoutMessage: "Logout Successful!" },
     });
   }, [navigate]);

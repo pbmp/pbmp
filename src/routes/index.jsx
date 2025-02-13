@@ -10,7 +10,7 @@ import Perwalian from "../pages/Perwalian/Perwalian";
 export function routes() {
   return [
     {
-      path: "/auth",
+      path: "/pbmp/auth",
       element: <Auth />,
     },
     {
