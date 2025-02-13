@@ -1,6 +1,6 @@
 @use "./../../helpers/mixins" as m;
 @use "./../../helpers/variables" as v;
-@use "../../components/HeaderEl/header-el" as header-el;
+@use "../../components/Header/header" as header;
 @use "./pbm-media" as pbm-m;
 @use "../../components/Loader/loader" as loader;
 @use "./JurnalPerkuliahan/jurnal-perkuliahan" as jurnal-perkuliahan;
@@ -13,7 +13,7 @@
   width: 100%;
 
   &-header {
-    @include header-el.header-el();
+    @include header.header();
 
     .action {
       @include m.flex();
@@ -22,7 +22,7 @@
 
       // .download,
       .print {
-        @include header-el.button($fs: 1.1vw);
+        @include header.button($fs: 1.1vw);
       }
 
       .periode-modal {
@@ -141,7 +141,7 @@
       margin-top: 0.8rem;
 
       .add-filters {
-        @include header-el.button($w-icon: 15px, $h-icon: 15px);
+        @include header.button($w-icon: 15px, $h-icon: 15px);
         position: relative;
 
         .filter-modal {
@@ -251,7 +251,7 @@
       }
 
       .clear-filter {
-        @include header-el.button(
+        @include header.button(
           $bg-clr: map-get($map: v.$color, $key: "light-grey"),
           $clr: map-get($map: v.$color, $key: "blue"),
           $bdr-clr: map-get($map: v.$color, $key: "other-blue")

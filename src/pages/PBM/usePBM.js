@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { useFetchData, apiOptionsNoTimeout } from "../../helpers/useApiSevima";
+import { useFetchData, apiOptions } from "../../hooks/useApiSevima";
 import { useQuery } from "@tanstack/react-query";
 import { useDashboard } from "@/context/DashboardContext";
 import { toastMessage } from "../../helpers/AlertMessage";
@@ -11,11 +11,9 @@ export function usePBM() {
   const [periodeData, setPeriodeData] = useState([]);
   const [loadingPrint, setLoadingPrint] = useState(false);
   const [openPeriode, setOpenPeriode] = useState(false);
-  const [openFilter, setOpenFilter] = useState(false);
   const [filterMatakuliah, setFilterMatakuliah] = useState([]);
   const [tempFilterMatakuliah, setTempFilterMatakuliah] = useState([]);
 
-  const filterModal = useRef(null);
   const periodeModal = useRef(null);
 
   const { user } = useDashboard();
@@ -54,18 +52,13 @@ export function usePBM() {
     (e) => {
       if (periodeModal.current && !periodeModal.current.contains(e.target)) {
         setOpenPeriode(false);
-      } else if (
-        filterModal.current &&
-        !filterModal.current.contains(e.target)
-      ) {
-        setOpenFilter(false);
       }
     },
-    [periodeModal, filterModal]
+    [periodeModal]
   );
 
   useEffect(() => {
-    if (openPeriode || openFilter) {
+    if (openPeriode) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -74,7 +67,7 @@ export function usePBM() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [openPeriode, openFilter, handleClickOutside]);
+  }, [openPeriode, handleClickOutside]);
 
   const handleFilterMatakuliah = useCallback((id) => {
     setTempFilterMatakuliah((prev) => {
@@ -91,7 +84,7 @@ export function usePBM() {
       try {
         setLoadingPrint(true);
 
-        const response = await apiOptionsNoTimeout.get("/laporan/pbmp", {
+        const response = await apiOptions.get("/laporan/pbmp", {
           params: {
             idpegawai: user.role[0]?.id_pegawai,
             idperiode: periodeId,
@@ -120,30 +113,23 @@ export function usePBM() {
     [user, setLoadingPrint, toastMessage]
   );
 
-  const handleActiveSubmenu = (id) => {
-    setActiveSubmenu(id);
-  };
-
   return {
     activeSubmenu,
+    setActiveSubmenu,
     kelasIds,
     kelasData,
     periodeData,
     loadingPrint,
     openPeriode,
     setOpenPeriode,
-    openFilter,
-    setOpenFilter,
     filterMatakuliah,
     setFilterMatakuliah,
     tempFilterMatakuliah,
     setTempFilterMatakuliah,
-    filterModal,
     periodeModal,
     isLoadingKelas,
     isErrorKelas,
     handleFilterMatakuliah,
     handlePrint,
-    handleActiveSubmenu,
   };
 }

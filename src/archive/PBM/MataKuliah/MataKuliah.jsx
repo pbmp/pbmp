@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Pagination from "@/components/Pagination/Pagination";
 import axios from "axios";
-import { useSearch } from "@/helpers/SearchContext";
+import { useSearch } from "@/context/SearchContext";
 import Endpoints from "@/helpers/Endpoints";
 import { Pencil, Trash } from "lucide-react";
 

@@ -1,4 +1,4 @@
-import logo from "../../assets/logo/logo-bunga-default.jpg";
+import logo from "/logo/logo-bunga-default.jpg";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "./useAuth";
 

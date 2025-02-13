@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import Layout from "@/components/Layout/Layout";
+// import Layout from "@/components/Layout/Layout";
 import {
   FileText,
   Printer,
@@ -15,13 +15,13 @@ import {
   ArrowDownRight,
   Circle,
 } from "lucide-react";
-import HeaderEl from "@/components/HeaderEl/HeaderEl";
+import Header from "@/components/Header/Header";
 // import { useReactToPrint } from "react-to-print";
 import Document from "./Document/Document";
 import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
 import Presensi from "./Presensi/Presensi";
 import Transkrip from "./Transkrip/Transkrip";
-import { useFetchData, apiOptionsNoTimeout } from "../../helpers/useApiSevima";
+import { useFetchData, apiOptionsNoTimeout } from "../../hooks/useApiSevima";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "@/context/DashboardContext";
@@ -178,7 +178,7 @@ function PBM() {
     <>
       <Layout>
         <div className="pbm">
-          <HeaderEl
+          <Header
             classEl={"pbm"}
             titleEl={"PBM"}
             descEl={"Laporan Kinerja Dosen"}
@@ -209,7 +209,7 @@ function PBM() {
                 </div>
               ) : null}
             </div>
-          </HeaderEl>
+          </Header>
           {loadingPrint ? null : (
             <>
               <div className="pbm-feature">

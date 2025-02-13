@@ -1,6 +1,6 @@
 import { useCallback, useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { authSchema } from "../../helpers/ValidationSchema";
+import { authSchema } from "../../validations/Auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toastMessage, toastPromise } from "../../helpers/AlertMessage";
 import { ToastContainer } from "react-toastify";

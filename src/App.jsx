@@ -1,43 +1,17 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import UsersManagement from "@/pages/Users/Users";
-import Error404 from "@/pages/Error404/Error404";
-import Perwalian from "@/pages/Perwalian/Perwalian";
-import PBM from "@/pages/PBM/index";
-// import SynchGrate from "@/pages/SynchGrate/SynchGrate";
-import Auth from "@/pages/Auth/index";
-import { SearchProvider } from "@/helpers/SearchContext";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { DashboardProvider } from "./context/DashboardContext";
+import { routes } from "@/routes";
 
 function App() {
   const queryClient = new QueryClient();
 
-  const DashboardComponents = () => {
-    return (
-      <DashboardProvider>
-        <Outlet />
-      </DashboardProvider>
-    );
-  };
+  const router = createBrowserRouter(routes());
 
   return (
-    <BrowserRouter>
-      <SearchProvider>
-        <QueryClientProvider client={queryClient}>
-          <Routes>
-            <Route path="/pbmp/auth" element={<Auth />} />
-            <Route path="/pbmp/" element={<DashboardComponents />}>
-              <Route path="users" element={<UsersManagement />} />
-              <Route path="perwalian" element={<Perwalian />} />
-              <Route index element={<PBM />} />
-              {/* <Route path="synchronize" element={<SynchGrate />} /> */}
-            </Route>
-            <Route path="*" element={<Error404 />} />
-          </Routes>
-        </QueryClientProvider>
-      </SearchProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-import { apiOptionsNoTimeout } from "../../../helpers/useApiSevima";
-import { useSearch } from "@/helpers/SearchContext";
+import { apiOptions } from "../../../hooks/useApiSevima";
+import { useSearch } from "@/context/SearchContext";
 import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "../../../context/DashboardContext";
 import { toastMessage } from "../../../helpers/AlertMessage";
@@ -28,9 +28,7 @@ function Presensi({ kelasIds, filterMatkul = [] }) {
         const presensiResults = await Promise.allSettled(
           kelasIds.map(async (idkelas) => {
             try {
-              const response = await apiOptionsNoTimeout.get(
-                `/presensi/${idkelas}`
-              );
+              const response = await apiOptions.get(`/presensi/${idkelas}`);
               return response.data;
             } catch (err) {
               throw new Error(

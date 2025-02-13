@@ -41,10 +41,10 @@ export const DashboardProvider = ({ children }) => {
         setIsAuthenticated(true);
       } catch (error) {
         console.error("Failed to decrypt or parse user data:", error);
-        navigate("/pbmp/auth", { replace: true });
+        navigate("/auth", { replace: true });
       }
     } else {
-      navigate("/pbmp/auth", { replace: true });
+      navigate("/auth", { replace: true });
     }
   }, [navigate]);
 

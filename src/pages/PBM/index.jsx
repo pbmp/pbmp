@@ -1,4 +1,3 @@
-import Layout from "@/components/Layout/Layout";
 import {
   FileText,
   Printer,
@@ -9,7 +8,8 @@ import {
   ClipboardList,
   UserRoundCheck,
 } from "lucide-react";
-import HeaderEl from "@/components/HeaderEl/HeaderEl";
+import Header from "@/components/Header/Header";
+import Feature from "../../components/Feature/Feature";
 import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
 import Presensi from "./Presensi/Presensi";
 import Transkrip from "./Transkrip/Transkrip";
@@ -37,25 +37,22 @@ const submenus = [
 export function PBM() {
   const {
     activeSubmenu,
+    setActiveSubmenu,
     kelasIds,
     kelasData,
     periodeData,
     loadingPrint,
     openPeriode,
     setOpenPeriode,
-    openFilter,
-    setOpenFilter,
     filterMatakuliah,
     setFilterMatakuliah,
     tempFilterMatakuliah,
     setTempFilterMatakuliah,
-    filterModal,
     periodeModal,
     isLoadingKelas,
     isErrorKelas,
     handleFilterMatakuliah,
     handlePrint,
-    handleActiveSubmenu,
   } = usePBM();
 
   if (isLoadingKelas) return <Loader />;
@@ -63,156 +60,195 @@ export function PBM() {
 
   return (
     <>
-      <Layout>
-        <div className="pbm">
-          <HeaderEl
-            classEl={"pbm"}
-            titleEl={"PBM"}
-            descEl={"Laporan Kinerja Dosen"}
-            Icon={FileText}
-          >
-            <div className="action">
-              <div className="print" onClick={() => setOpenPeriode(true)}>
-                <Printer className="icon" strokeWidth={1.75} />
-                <div className="text">Print</div>
+      <div className="pbm">
+        <Header
+          classEl={"pbm"}
+          titleEl={"PBM"}
+          descEl={"Laporan Kinerja Dosen"}
+          Icon={FileText}
+        >
+          <div className="action">
+            <div className="print" onClick={() => setOpenPeriode(true)}>
+              <Printer className="icon" strokeWidth={1.75} />
+              <div className="text">Print</div>
+            </div>
+            {openPeriode ? (
+              <div className="periode-modal" ref={periodeModal}>
+                {periodeData.map((data, index) => {
+                  return (
+                    <div
+                      className="periode-modal-content"
+                      key={index}
+                      onClick={() => handlePrint(data)}
+                    >
+                      {data}
+                    </div>
+                  );
+                })}
               </div>
-              {openPeriode ? (
-                <div className="periode-modal" ref={periodeModal}>
-                  {periodeData.map((data, index) => {
+            ) : null}
+          </div>
+        </Header>
+        {loadingPrint ? null : (
+          <>
+            <Feature
+              classEl="pbm"
+              submenus={submenus}
+              activeSubmenu={activeSubmenu}
+              setActiveSubmenu={setActiveSubmenu}
+              onApplyFilter={() => {
+                setFilterMatakuliah(tempFilterMatakuliah);
+              }}
+              onClearFilter={() => {
+                setFilterMatakuliah([]);
+                setTempFilterMatakuliah([]);
+              }}
+            >
+              {" "}
+              <div className="filter-modal-content">
+                <div className="filter-by">Matakuliah</div>
+                <div className="filter-list">
+                  {kelasData.data.map((item, index) => {
+                    const activeFilter = tempFilterMatakuliah?.includes(
+                      item.attributes.id_kelas
+                    );
+
                     return (
                       <div
-                        className="periode-modal-content"
+                        className={`filter-list-item`}
                         key={index}
-                        onClick={() => handlePrint(data)}
+                        onClick={() =>
+                          handleFilterMatakuliah(item.attributes.id_kelas)
+                        }
                       >
-                        {data}
+                        {activeFilter ? (
+                          <SquareCheckBig strokeWidth={1.75} className="icon" />
+                        ) : (
+                          <Square strokeWidth={1.25} className="icon" />
+                        )}
+                        <div className="text">
+                          {item.attributes.id_periode} -{" "}
+                          {item.attributes.mata_kuliah}
+                        </div>
                       </div>
                     );
                   })}
                 </div>
-              ) : null}
-            </div>
-          </HeaderEl>
-          {loadingPrint ? null : (
-            <>
-              <div className="pbm-feature">
-                <div className="pbm-feature-submenu">
-                  {submenus.map((item) => (
-                    <div
-                      key={item.id}
-                      className={`pbm-feature-submenu-link ${
-                        activeSubmenu === item.id ? "active" : ""
-                      }`}
-                      onClick={() => handleActiveSubmenu(item.id)}
-                    >
-                      {item.icon}
-                      <div className="text">{item.text}</div>
-                    </div>
-                  ))}
-                </div>
-                <div className="pbm-feature-filter">
+              </div>
+            </Feature>
+            {/* <div className="pbm-feature">
+              <div className="pbm-feature-submenu">
+                {submenus.map((item) => (
                   <div
-                    className="add-filters"
-                    onClick={() => setOpenFilter(true)}
+                    key={item.id}
+                    className={`pbm-feature-submenu-link ${
+                      activeSubmenu === item.id ? "active" : ""
+                    }`}
+                    onClick={() => handleActiveSubmenu(item.id)}
                   >
-                    <Filter className="icon" strokeWidth={1.75} />
-                    <div className="text">Add Filters</div>
-                    {openFilter ? (
-                      <div className="filter-modal" ref={filterModal}>
-                        <div className="filter-modal-content">
-                          <div className="filter-by">Matakuliah</div>
-                          <div className="filter-list">
-                            {kelasData.data.map((item, index) => {
-                              const activeFilter =
-                                tempFilterMatakuliah?.includes(
-                                  item.attributes.id_kelas
-                                );
+                    {item.icon}
+                    <div className="text">{item.text}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="pbm-feature-filter">
+                <div
+                  className="add-filters"
+                  onClick={() => setOpenFilter(true)}
+                >
+                  <Filter className="icon" strokeWidth={1.75} />
+                  <div className="text">Add Filters</div>
+                  {openFilter ? (
+                    <div className="filter-modal" ref={filterModal}>
+                      <div className="filter-modal-content">
+                        <div className="filter-by">Matakuliah</div>
+                        <div className="filter-list">
+                          {kelasData.data.map((item, index) => {
+                            const activeFilter = tempFilterMatakuliah?.includes(
+                              item.attributes.id_kelas
+                            );
 
-                              return (
-                                <div
-                                  className={`filter-list-item`}
-                                  key={index}
-                                  onClick={() =>
-                                    handleFilterMatakuliah(
-                                      item.attributes.id_kelas
-                                    )
-                                  }
-                                >
-                                  {activeFilter ? (
-                                    <SquareCheckBig
-                                      strokeWidth={1.75}
-                                      className="icon"
-                                    />
-                                  ) : (
-                                    <Square
-                                      strokeWidth={1.25}
-                                      className="icon"
-                                    />
-                                  )}
-                                  <div className="text">
-                                    {item.attributes.id_periode} -{" "}
-                                    {item.attributes.mata_kuliah}
-                                  </div>
+                            return (
+                              <div
+                                className={`filter-list-item`}
+                                key={index}
+                                onClick={() =>
+                                  handleFilterMatakuliah(
+                                    item.attributes.id_kelas
+                                  )
+                                }
+                              >
+                                {activeFilter ? (
+                                  <SquareCheckBig
+                                    strokeWidth={1.75}
+                                    className="icon"
+                                  />
+                                ) : (
+                                  <Square strokeWidth={1.25} className="icon" />
+                                )}
+                                <div className="text">
+                                  {item.attributes.id_periode} -{" "}
+                                  {item.attributes.mata_kuliah}
                                 </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                        <div className="filter-modal-button">
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setOpenFilter(false);
-                            }}
-                          >
-                            cancel
-                          </span>
-                          <span
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setFilterMatakuliah(tempFilterMatakuliah);
-                              setOpenFilter(false);
-                            }}
-                          >
-                            apply
-                          </span>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
-                    ) : null}
-                  </div>
-                  <div
-                    className="clear-filter"
-                    onClick={() => {
-                      setFilterMatakuliah([]);
-                      setTempFilterMatakuliah([]);
-                    }}
-                  >
-                    <div className="text">Clear Filter</div>
-                  </div>
+                      <div className="filter-modal-button">
+                        <span
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenFilter(false);
+                          }}
+                        >
+                          cancel
+                        </span>
+                        <span
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setFilterMatakuliah(tempFilterMatakuliah);
+                            setOpenFilter(false);
+                          }}
+                        >
+                          apply
+                        </span>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+                <div
+                  className="clear-filter"
+                  onClick={() => {
+                    setFilterMatakuliah([]);
+                    setTempFilterMatakuliah([]);
+                  }}
+                >
+                  <div className="text">Clear Filter</div>
                 </div>
               </div>
-            </>
+            </div> */}
+          </>
+        )}
+      </div>
+      {loadingPrint ? (
+        <Loader text="Printing Document on Progress..." />
+      ) : (
+        <div className="pbm-content">
+          {activeSubmenu === 1 && (
+            <JurnalPerkuliahan
+              kelasIds={kelasIds}
+              filterMatkul={filterMatakuliah}
+            />
+          )}
+          {activeSubmenu === 2 && (
+            <Presensi kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
+          )}
+          {activeSubmenu === 3 && (
+            <Transkrip kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
           )}
         </div>
-        {loadingPrint ? (
-          <Loader text="Printing Document on Progress..." />
-        ) : (
-          <div className="pbm-content">
-            {activeSubmenu === 1 && (
-              <JurnalPerkuliahan
-                kelasIds={kelasIds}
-                filterMatkul={filterMatakuliah}
-              />
-            )}
-            {activeSubmenu === 2 && (
-              <Presensi kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
-            )}
-            {activeSubmenu === 3 && (
-              <Transkrip kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
-            )}
-          </div>
-        )}
-      </Layout>
+      )}
     </>
   );
 }

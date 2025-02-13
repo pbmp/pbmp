@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-import { apiOptionsNoTimeout } from "../../../helpers/useApiSevima";
-import { useSearch } from "@/helpers/SearchContext";
+import { apiOptions } from "../../../hooks/useApiSevima";
+import { useSearch } from "@/context/SearchContext";
 import { useDashboard } from "../../../context/DashboardContext";
 import { toastMessage } from "../../../helpers/AlertMessage";
 
@@ -24,7 +24,7 @@ function Transkrip({ kelasIds, filterMatkul = [] }) {
           Promise.allSettled(
             kelasIds.map(async (idkelas) => {
               try {
-                const result = await apiOptionsNoTimeout.get(
+                const result = await apiOptions.get(
                   `/data/transkrip/${idkelas}`
                 );
                 return result.data.map((item) => item.attributes);
@@ -38,9 +38,7 @@ function Transkrip({ kelasIds, filterMatkul = [] }) {
           Promise.allSettled(
             kelasIds.map(async (idkelas) => {
               try {
-                const result = await apiOptionsNoTimeout.get(
-                  `/nilai/${idkelas}`
-                );
+                const result = await apiOptions.get(`/nilai/${idkelas}`);
                 return result.data.map((item) => ({
                   nim: item.attributes.nim,
                   nama_mahasiswa: item.attributes.nama_mahasiswa,

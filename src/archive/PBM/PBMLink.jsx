@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Layout from "../../components/Layout/Layout";
+// import Layout from "../../components/Layout/Layout";
 import {
   FileText,
   Printer,

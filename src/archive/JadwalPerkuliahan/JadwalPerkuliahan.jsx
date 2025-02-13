@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
 import { useQuery } from "@tanstack/react-query";
-import { useFetchData } from "@/helpers/useApiSevima";
-import { useSearch } from "@/helpers/SearchContext";
+import { useFetchData } from "@/hooks/useApiSevima";
+import { useSearch } from "@/context/SearchContext";
 import Loader from "@/components/Loader/Loader";
 import { useDashboard } from "@/context/DashboardContext";
 

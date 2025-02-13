@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
-import { useFetchTemporary } from "../../../helpers/useApiSevima";
+import { useFetchTemporary } from "../../../hooks/useApiSevima";
 // import Loader from "@/components/Loader/Loader";
-import { useSearch } from "@/helpers/SearchContext";
+import { useSearch } from "@/context/SearchContext";
 import { useDashboard } from "../../../context/DashboardContext";
 import { formatDate } from "../../../helpers/FormatDate";
 import { toastMessage } from "../../../helpers/AlertMessage";
@@ -38,7 +38,6 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
         );
 
         // console.log(jurnalResults);
-        
 
         // Filter hanya hasil yang sukses (fulfilled)
         const successfulData = jurnalResults

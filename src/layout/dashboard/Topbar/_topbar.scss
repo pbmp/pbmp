@@ -1,0 +1,133 @@
+@use "../../../helpers/mixins" as m;
+@use "../../../helpers/variables" as v;
+
+@mixin topbar() {
+  width: 100%;
+  padding: 0 v.$px-topbar-content;
+  height: v.$h-topbar-sidebar;
+  border-bottom: 0.15vw solid #ddd;
+  display: grid;
+  grid-auto-columns: 40vw 1fr;
+  grid-template-areas: "search other";
+
+  &-search {
+    grid-area: search;
+    width: 100%;
+    @include m.flex($justify: flex-start);
+    gap: 0.1vw;
+
+    button {
+      color: rgba($color: #000000, $alpha: 0.5);
+      width: fit-content;
+      height: 100%;
+      @include m.flex();
+      border: 0;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    input {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      outline: none;
+      padding: 0 0.4vw;
+      font-size: 1.1vw;
+    }
+  }
+
+  &-other {
+    grid-area: other;
+    width: 100%;
+    height: auto;
+    @include m.flex($justify: flex-end);
+    gap: 1vw;
+
+    .notification {
+      cursor: pointer;
+      @include m.flex();
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    .line {
+      width: 0.1vw;
+      height: 5vh;
+      background-color: #ddd;
+    }
+
+    .profile {
+      width: fit-content;
+      height: auto;
+      @include m.flex();
+      gap: 0.4vw;
+
+      .image {
+        @include m.circle($size: 3.4vw);
+        @include m.flex();
+
+        img {
+          @include m.circle($size: 3.4vw);
+          object-fit: cover;
+        }
+      }
+
+      .text {
+        width: 100%;
+        height: auto;
+        @include m.flex($direction: column, $align: flex-start);
+        gap: 0.25vw;
+
+        .name {
+          font-size: 1.12vw;
+          line-height: 130%;
+          font-weight: 600;
+          color: rgba($color: #000, $alpha: 0.8);
+        }
+
+        .job {
+          line-height: 100%;
+          font-size: 0.98vw;
+          color: rgba($color: #000, $alpha: 0.5);
+        }
+      }
+    }
+
+    .option {
+      cursor: pointer;
+      @include m.flex();
+      position: relative;
+
+      &-modal {
+        width: 12rem;
+        height: 3rem;
+        position: absolute;
+        background-color: #fff;
+        top: 150%;
+        right: 0;
+        border-radius: 0.4vw;
+        box-shadow: 0 0 4px rgba($color: #000, $alpha: 0.15);
+
+        span {
+          padding: 0 0.95rem;
+          height: 3rem;
+          @include m.flex($justify: flex-start);
+          cursor: pointer;
+          color: map-get($map: v.$color, $key: "blue");
+          transition: background-color 0.2s ease-in;
+
+          &:hover {
+            background-color: rgba(
+              $color: map-get(v.$color, "other-blue"),
+              $alpha: 0.2
+            );
+            transition: background-color 0.2s ease-out;
+          }
+        }
+      }
+    }
+  }
+}
