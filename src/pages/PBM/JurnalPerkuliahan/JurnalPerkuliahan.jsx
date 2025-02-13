@@ -1,4 +1,5 @@
 import Pagination from "@/components/Pagination/Pagination";
+import { Printer } from "lucide-react";
 import { formatDate } from "@/helpers/FormatDate";
 import Loader from "@/components/Loader/Loader";
 import useJurnalPerkuliahan from "./useJurnalPerkuliahan";
@@ -30,19 +31,23 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
             <div className="thead">
               <div className="row">No</div>
               <div className="row">Mata Kuliah</div>
-              <div className="row">Pertemuan</div>
+              <div className="row">Total Pertemuan</div>
               <div className="row">Hari / Tanggal</div>
-              <div className="row">Rencana Materi</div>
-              <div className="row">Realisasi Materi</div>
+              <div className="row">Periode</div>
+              <div className="row">Aksi</div>
             </div>
             {currentData.map((data, index) => (
               <div className="tbody" key={index}>
                 <div className="col">{indexFirstItem + index + 1}</div>
                 <div className="col">{data.mata_kuliah}</div>
-                <div className="col">{data.nomor_pertemuan}</div>
+                <div className="col">{data.total_pertemuan}</div>
                 <div className="col">{formatDate(data.tanggal)}</div>
-                <div className="col">{data.rencana_materi}</div>
-                <div className="col">{data.bahasan}</div>
+                <div className="col">{data.id_periode}</div>
+                <div className="col">
+                  <div className="print">
+                    <Printer className="print-icon" strokeWidth={1.5} />
+                  </div>
+                </div>
               </div>
             ))}
           </div>

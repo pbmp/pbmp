@@ -110,7 +110,7 @@ export function usePBM() {
         setLoadingPrint(false);
       }
     },
-    [user, setLoadingPrint, toastMessage]
+    [user, setLoadingPrint]
   );
 
   return {

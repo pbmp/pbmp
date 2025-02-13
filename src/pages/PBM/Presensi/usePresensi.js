@@ -29,6 +29,7 @@ function usePresensi({ kelasIds, filterMatkul = [] }) {
               const response = await apiOptions.get(`/presensi/${idkelas}`);
               return response.data;
             } catch (err) {
+              console.error(err);
               throw new Error(
                 `Gagal mengambil presensi untuk ID kelas: ${idkelas}`
               );
@@ -62,7 +63,7 @@ function usePresensi({ kelasIds, filterMatkul = [] }) {
     };
 
     fetchPresensiData();
-  }, [kelasIds, toastMessage]);
+  }, [kelasIds]);
 
   useEffect(() => {
     const searchLowerCase = search.toLowerCase();

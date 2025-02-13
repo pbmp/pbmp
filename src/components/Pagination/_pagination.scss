@@ -6,7 +6,7 @@
   @include pagination-m.pagination-media();
   @include m.flex();
   width: 100%;
-  padding: v.$py-sidebar-content v.$px-topbar-content;
+  padding: v.$py-sidebar-content v.$px-topbar-content 0;
 
   button {
     @include m.flex();

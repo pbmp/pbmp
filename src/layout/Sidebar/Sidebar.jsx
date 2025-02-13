@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Users, PanelLeftClose, FileText } from "lucide-react";
 import logo from "/logo/logo-Photoroom.png";
 import { NavLink, useLocation } from "react-router-dom";
@@ -6,9 +5,9 @@ import { useDashboard } from "../../context/DashboardContext";
 
 function Sidebar() {
   const location = useLocation();
-  const [isAdmak, setIsAdmak] = useState(false);
+  // const [isAdmak, setIsAdmak] = useState(false);
 
-  const { expandedSidebar, handleExpandedSidebar, user } = useDashboard();
+  const { expandedSidebar, handleExpandedSidebar } = useDashboard();
 
   const getActiveClass = (path) => {
     // Pastikan hanya path spesifik yang mendapatkan kelas active
@@ -17,11 +16,11 @@ function Sidebar() {
       : "menu-list-item";
   };
 
-  useEffect(() => {
-    const getIsAdmak = user?.role.find((item) => item.id_role === "admak");
+  // useEffect(() => {
+  //   const getIsAdmak = user?.role.find((item) => item.id_role === "admak");
 
-    setIsAdmak(!!getIsAdmak);
-  }, [user]);
+  //   setIsAdmak(!!getIsAdmak);
+  // }, [user]);
 
   return (
     <div className={`sidebar  ${expandedSidebar ? "" : "collapse"} `}>

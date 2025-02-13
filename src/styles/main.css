@@ -76,7 +76,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 3.2vh 1.8vw;
+  padding: 3.2vh 1.8vw 0;
 }
 @media (max-width: 575.98px) {
   .pagination button {
@@ -640,7 +640,7 @@
   font-size: 1vw;
 }
 .pbm-content {
-  padding: 3.2vh 1.8vw;
+  padding: 3.2vh 1.8vw 8vh;
   max-width: 100%;
   min-width: 100%;
   overflow: hidden;
@@ -661,7 +661,7 @@
 }
 .pbm-content .pbm-table.jurnal-perkuliahan .thead {
   display: grid;
-  grid-template-columns: 0.4fr 0.8fr 0.5fr 1fr 0.9fr 1fr;
+  grid-template-columns: 0.4fr 1fr 0.8fr 1fr 0.7fr 0.6fr;
   width: 100%;
 }
 .pbm-content .pbm-table.jurnal-perkuliahan .thead .row {
@@ -686,7 +686,7 @@
   border-top-right-radius: 0.6vw;
   border-bottom-right-radius: 0.6vw;
 }
-.pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(2), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(4), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(5), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(6) {
+.pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(2), .pbm-content .pbm-table.jurnal-perkuliahan .thead .row:nth-child(4) {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -694,7 +694,7 @@
 }
 .pbm-content .pbm-table.jurnal-perkuliahan .tbody {
   display: grid;
-  grid-template-columns: 0.4fr 0.8fr 0.5fr 1fr 0.9fr 1fr;
+  grid-template-columns: 0.4fr 1fr 0.8fr 1fr 0.7fr 0.6fr;
   border-bottom: #ddd solid 0.15vw;
   width: 100%;
 }
@@ -708,16 +708,31 @@
   white-space: normal;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   text-align: center;
 }
-.pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(2), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(4), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(5), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(6) {
+.pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(2), .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col:nth-child(4) {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   text-align: start;
+}
+.pbm-content .pbm-table.jurnal-perkuliahan .tbody .col .print {
+  background-color: #546983;
+  padding: 0.45rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+.pbm-content .pbm-table.jurnal-perkuliahan .tbody .col .print-icon {
+  width: 16px;
+  height: 16px;
+  color: #fff;
 }
 .pbm-content .pbm-table.presensi .thead {
   display: grid;

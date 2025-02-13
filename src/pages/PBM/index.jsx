@@ -4,36 +4,36 @@ import {
   Square,
   SquareCheckBig,
   LibraryBig,
-  ClipboardList,
-  UserRoundCheck,
+  // ClipboardList,
+  // UserRoundCheck,
 } from "lucide-react";
 import Header from "@/components/Header/Header";
 import Feature from "@/components/Feature/Feature";
 import Loader from "@/components/Loader/Loader";
 import JurnalPerkuliahan from "./JurnalPerkuliahan/JurnalPerkuliahan";
-import Presensi from "./Presensi/Presensi";
-import Transkrip from "./Transkrip/Transkrip";
+// import Presensi from "./Presensi/Presensi";
+// import Transkrip from "./Transkrip/Transkrip";
 import { usePBM } from "./usePBM";
 
 const submenus = [
   {
     id: 1,
     icon: <LibraryBig className="icon" strokeWidth={2} />,
-    text: "Jurnal Perkuliahan",
+    text: "Laporan Mata Kuliah",
   },
-  {
-    id: 2,
-    icon: <UserRoundCheck className="icon" strokeWidth={2} />,
-    text: "Presensi",
-  },
-  {
-    id: 3,
-    icon: <ClipboardList className="icon" strokeWidth={2} />,
-    text: "Transkrip",
-  },
+  // {
+  //   id: 2,
+  //   icon: <UserRoundCheck className="icon" strokeWidth={2} />,
+  //   text: "Presensi",
+  // },
+  // {
+  //   id: 3,
+  //   icon: <ClipboardList className="icon" strokeWidth={2} />,
+  //   text: "Transkrip",
+  // },
 ];
 
-export function PBM() {
+function PBM() {
   const {
     activeSubmenu,
     setActiveSubmenu,
@@ -66,7 +66,7 @@ export function PBM() {
           descEl={"Laporan Kinerja Dosen"}
           Icon={FileText}
         >
-          <div className="action">
+          {/* <div className="action">
             <div className="print" onClick={() => setOpenPeriode(true)}>
               <Printer className="icon" strokeWidth={1.75} />
               <div className="text">Print</div>
@@ -86,7 +86,7 @@ export function PBM() {
                 })}
               </div>
             ) : null}
-          </div>
+          </div> */}
         </Header>
         {loadingPrint ? null : (
           <Feature
@@ -102,7 +102,6 @@ export function PBM() {
               setTempFilterMatakuliah([]);
             }}
           >
-            {" "}
             <div className="filter-modal-content">
               <div className="filter-by">Matakuliah</div>
               <div className="filter-list">
@@ -146,12 +145,12 @@ export function PBM() {
               filterMatkul={filterMatakuliah}
             />
           )}
-          {activeSubmenu === 2 && (
+          {/* {activeSubmenu === 2 && (
             <Presensi kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
           )}
           {activeSubmenu === 3 && (
             <Transkrip kelasIds={kelasIds} filterMatkul={filterMatakuliah} />
-          )}
+          )} */}
         </div>
       )}
     </>

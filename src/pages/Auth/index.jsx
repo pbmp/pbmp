@@ -28,6 +28,7 @@ function Auth() {
               placeholder="ulbi@ulbi.ac.id"
               onChange={handleChange}
               value={data.email}
+              autoComplete="email"
             />
             <div className="border-effect"></div>
           </div>
@@ -40,6 +41,7 @@ function Auth() {
               placeholder="Password"
               onChange={handleChange}
               value={data.password}
+              autoComplete="current-password"
             />
             <span
               className="material-symbols-outlined"

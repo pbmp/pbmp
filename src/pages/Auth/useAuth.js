@@ -108,7 +108,7 @@ export function useAuth() {
           });
         });
     },
-    [authSchema, data, toastPromise, toastMessage]
+    [data, navigate]
   );
 
   useEffect(() => {

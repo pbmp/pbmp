@@ -261,7 +261,8 @@
   }
 
   &-content {
-    padding: v.$py-sidebar-content v.$px-topbar-content;
+    padding: v.$py-sidebar-content v.$px-topbar-content
+      (v.$py-sidebar-content * 2.5);
     max-width: 100%;
     min-width: 100%;
     overflow: hidden;

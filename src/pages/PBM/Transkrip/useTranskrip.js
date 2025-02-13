@@ -32,6 +32,7 @@ function useTranskrip({ kelasIds, filterMatkul = [] }) {
                 );
                 return result.data.map((item) => item.attributes);
               } catch (err) {
+                console.error(err);
                 throw new Error(
                   `Gagal mengambil data KHS untuk ID kelas: ${idkelas}`
                 );
@@ -47,6 +48,7 @@ function useTranskrip({ kelasIds, filterMatkul = [] }) {
                   nama_mahasiswa: item.attributes.nama_mahasiswa,
                 }));
               } catch (err) {
+                console.error(err);
                 throw new Error(
                   `Gagal mengambil data Nama untuk ID kelas: ${idkelas}`
                 );
@@ -66,13 +68,13 @@ function useTranskrip({ kelasIds, filterMatkul = [] }) {
           successfulNameData.map((data) => [data.nim, data.nama_mahasiswa])
         );
 
-        const uniqueKHSData = [
-          ...new Map(
-            successfulKHSData
-              .reverse()
-              .map((data) => [`${data.nim}-${data.mata_kuliah}`, data])
-          ).values(),
-        ];
+        // const uniqueKHSData = [
+        //   ...new Map(
+        //     successfulKHSData
+        //       .reverse()
+        //       .map((data) => [`${data.nim}-${data.mata_kuliah}`, data])
+        //   ).values(),
+        // ];
 
         const mergedData = successfulKHSData.map((khsItem) => ({
           ...khsItem,
@@ -95,7 +97,7 @@ function useTranskrip({ kelasIds, filterMatkul = [] }) {
     };
 
     fetchJurnalData();
-  }, [kelasIds, toastMessage]);
+  }, [kelasIds]);
 
   useEffect(() => {
     const searchLowerCase = search.toLowerCase().trim();

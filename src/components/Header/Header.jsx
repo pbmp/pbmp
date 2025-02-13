@@ -19,7 +19,7 @@ Header.propTypes = {
   classEl: PropTypes.string,
   titleEl: PropTypes.string,
   descEl: PropTypes.string,
-  Icon: PropTypes.func,
+  Icon: PropTypes.object,
   children: PropTypes.node,
 };
 

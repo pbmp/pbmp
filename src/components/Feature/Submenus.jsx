@@ -32,5 +32,5 @@ Submenus.propTypes = {
   classEl: PropTypes.string.isRequired,
   submenus: PropTypes.array,
   activeSubmenu: PropTypes.number,
-  handleActiveSubmenu: PropTypes.func,
+  setActiveSubmenu: PropTypes.func,
 };
