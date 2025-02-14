@@ -70,6 +70,27 @@
     top: 0;
   }
 }
+.empty-data {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin-top: 7rem;
+  font-family: "Raleway", sans-serif;
+  color: rgba(165, 176, 190, 0.75);
+  text-align: center;
+}
+@media (max-width: 767.98px) {
+  .empty-data {
+    width: 100%;
+    padding: 0 2.4rem;
+    margin-top: 4.5rem;
+    font-size: 1.7rem;
+  }
+}
+
 .pagination {
   display: flex;
   flex-direction: row;
@@ -78,7 +99,7 @@
   width: 100%;
   padding: 3.2vh 1.8vw 0;
 }
-@media (max-width: 575.98px) {
+@media (max-width: 767.98px) {
   .pagination button {
     width: 7vw;
     height: 3.5vh;
@@ -211,7 +232,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-@media (max-width: 575.98px) {
+@media (max-width: 767.98px) {
   .perwalian .perwalian-header {
     padding: 2.6vh 4.2vw;
   }
@@ -407,11 +428,10 @@
 }
 .pbm-feature {
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
   padding: 0.9vh 1.8vw;
+  gap: 2rem;
 }
 .pbm-feature-submenu {
   display: flex;
@@ -556,11 +576,11 @@
   align-items: center;
   cursor: pointer;
 }
-.pbm-feature-filter .add-filters .filter-modal-content .filter-list-item .icon {
+.pbm-feature-filter .add-filters .filter-modal-content .filter-list-item-icon {
   width: 15px;
   height: 15px;
 }
-.pbm-feature-filter .add-filters .filter-modal-content .filter-list-item .text {
+.pbm-feature-filter .add-filters .filter-modal-content .filter-list-item-text {
   font-size: 0.8rem;
 }
 .pbm-feature-filter .add-filters .filter-modal-button {
@@ -582,6 +602,12 @@
   font-size: 0.8rem;
   cursor: pointer;
 }
+@media (max-width: 767.98px) {
+  .pbm-feature-filter .add-filters .filter-modal-button span:first-child {
+    font-size: 0.65rem;
+    border-radius: 0.8vw;
+  }
+}
 .pbm-feature-filter .add-filters .filter-modal-button span:last-child {
   padding: 0.4rem 0.85rem;
   border-radius: 0.2vw;
@@ -592,6 +618,12 @@
   letter-spacing: 0.5px;
   font-size: 0.8rem;
   cursor: pointer;
+}
+@media (max-width: 767.98px) {
+  .pbm-feature-filter .add-filters .filter-modal-button span:last-child {
+    font-size: 0.65rem;
+    border-radius: 0.8vw;
+  }
 }
 .pbm-feature-filter .clear-filter {
   display: flex;
@@ -711,14 +743,14 @@
 }
 @media (max-width: 767.98px) {
   .pbm-content .pbm-table.jurnal-perkuliahan .thead {
-    grid-template-columns: 0.4fr 0.8fr 0.8fr 1fr 0.7fr 0.6fr;
+    grid-template-columns: 0.4fr 1fr 0.8fr 0.6fr 0.6fr;
   }
   .pbm-content .pbm-table.jurnal-perkuliahan .thead .row {
     font-size: 0.48rem;
     padding: 3.1vh 1.8vw;
   }
   .pbm-content .pbm-table.jurnal-perkuliahan .tbody {
-    grid-template-columns: 0.4fr 0.8fr 0.8fr 1fr 0.7fr 0.6fr;
+    grid-template-columns: 0.4fr 1fr 0.8fr 0.6fr 0.6fr;
   }
   .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col {
     font-size: 0.48rem;
@@ -1083,13 +1115,17 @@
   }
   .pbm-feature-submenu-link {
     padding: 0.7vh 0.7vw 1.3vh;
-    gap: 1vw;
+    gap: 1.3vw;
+  }
+  .pbm-feature-submenu-link::after {
+    height: 0.2vw;
   }
   .pbm-feature-submenu-link .text {
     font-size: 0.86rem;
+    font-weight: 600;
   }
   .pbm-feature-filter {
-    margin: 0;
+    margin: 0.4rem;
   }
   .pbm-feature-filter .add-filters {
     display: flex;
@@ -1116,6 +1152,18 @@
   }
   .pbm-feature-filter .add-filters .text span {
     display: inline-block;
+  }
+  .pbm-feature-filter .add-filters .filter-modal {
+    width: 14rem;
+  }
+  .pbm-feature-filter .add-filters .filter-modal-content .filter-list {
+    gap: 0.45rem;
+  }
+  .pbm-feature-filter .add-filters .filter-modal-content .filter-list-item-text {
+    font-size: 0.65rem;
+  }
+  .pbm-feature-filter .add-filters .filter-modal-button {
+    margin-top: 1.8rem;
   }
   .pbm-feature-filter .clear-filter {
     display: flex;
@@ -1487,22 +1535,26 @@
   border-radius: 0.4vw;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
 }
-.layout .topbar-other .option-modal span {
-  padding: 0 0.95rem;
-  height: 3rem;
+.layout .topbar-other .option-modal-item {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  cursor: pointer;
-  color: #546983;
+  padding: 0 0.95rem;
+  height: 3rem;
   transition: background-color 0.2s ease-in;
+  gap: 0.5rem;
 }
-.layout .topbar-other .option-modal span:hover {
+.layout .topbar-other .option-modal-item:hover {
   background-color: rgba(165, 176, 190, 0.2);
   transition: background-color 0.2s ease-out;
 }
-@media (max-width: 575.98px) {
+.layout .topbar-other .option-modal-item span,
+.layout .topbar-other .option-modal-item .icon {
+  color: #546983;
+}
+@media (max-width: 767.98px) {
   .layout .topbar {
     height: 9vh;
     padding: 0 4.2vw;
@@ -1631,6 +1683,14 @@
 .layout .sidebar-menus .menu-list-item.active .text {
   color: #546983;
 }
+.layout .sidebar-message {
+  margin: auto 0 3.2vh;
+  padding: 0.8rem 1.1rem;
+  font-size: 1.1vw;
+  background-color: rgba(165, 176, 190, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.2) 0.5px 0.5px 2px;
+  border-radius: 0.4vw;
+}
 .layout .sidebar.collapse {
   width: 6vw;
   transition: ease-out 0.4s width;
@@ -1659,7 +1719,10 @@
 .layout .sidebar.collapse .sidebar-menus .menu-list-item .text {
   display: none;
 }
-@media (max-width: 575.98px) {
+.layout .sidebar.collapse .sidebar-message {
+  display: none;
+}
+@media (max-width: 767.98px) {
   .layout .sidebar {
     display: none;
   }

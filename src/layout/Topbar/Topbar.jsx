@@ -1,42 +1,27 @@
-import { useEffect, useCallback, useState, useRef } from "react";
-import userImage from "/images/user.png";
-import { Search, Bell, EllipsisVertical, Menu } from "lucide-react";
-import { useSearch } from "@/context/SearchContext";
-import { toastMessage } from "@/helpers/AlertMessage";
-import { useDashboard } from "@/context/DashboardContext";
-import Cookies from "js-cookie";
+import { useCallback, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Search, Bell, EllipsisVertical, Menu, LogOut } from "lucide-react";
+import Cookies from "js-cookie";
+
+import userImage from "/images/user.png";
+import { useSearch } from "@/context/SearchContext";
+import { useDashboard } from "@/context/DashboardContext";
+import { toastMessage } from "@/helpers/AlertMessage";
+import useClickOutside from "../../hooks/useClickOutside";
 
 function Topbar() {
-  const [openModal, setOpenModal] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false);
+  const [openNavMobile, setOpenNavMobile] = useState(false);
 
-  const modalRef = useRef(null);
+  const settingRef = useRef(null);
+  const navMobileRef = useRef(null);
 
   const { setSearch, search } = useSearch();
   const { user } = useDashboard();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const clickOutside = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        setOpenModal(false);
-      }
-    };
-
-    if (openModal) {
-      document.addEventListener("mousedown", clickOutside);
-    } else {
-      document.removeEventListener("mousedown", clickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", clickOutside);
-    };
-  }, [modalRef, openModal]);
-
-  // useEffect(() => {
-  //   console.log(openModal);
-  // }, []);
+  useClickOutside(settingRef, () => setOpenSetting(false), openSetting);
+  useClickOutside(navMobileRef, () => setOpenNavMobile(false), openNavMobile);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -75,7 +60,17 @@ function Topbar() {
           size={20}
           onClick={handleInfoAlert}
         />
-        <Menu className="hamburger" strokeWidth={1.25} size={20} />
+        <Menu
+          className="hamburger"
+          strokeWidth={1.25}
+          size={20}
+          onClick={() => setOpenNavMobile(true)}
+        />
+        {openNavMobile ? (
+          <div className="nav-mobile" ref={navMobileRef}>
+            Test
+          </div>
+        ) : null}
         <div className="line"></div>
         <div className="profile">
           <div className="image">
@@ -90,11 +85,14 @@ function Topbar() {
           <EllipsisVertical
             strokeWidth={1.25}
             size={20}
-            onClick={() => setOpenModal(true)}
+            onClick={() => setOpenSetting(true)}
           />
-          {openModal ? (
-            <div className="option-modal" ref={modalRef}>
-              <span onClick={handleLogout}>Logout</span>
+          {openSetting ? (
+            <div className="option-modal" ref={settingRef}>
+              <div className="option-modal-item">
+                <LogOut className="icon" strokeWidth={1.5} size={18} />
+                <span onClick={handleLogout}>Logout</span>
+              </div>
             </div>
           ) : null}
         </span>

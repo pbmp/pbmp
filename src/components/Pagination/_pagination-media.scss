@@ -2,7 +2,7 @@
 @use "./../../helpers/variables" as v;
 
 @mixin pagination-media() {
-  @media (max-width: 575.98px) {
+  @media (max-width: 767.98px) {
     button {
       width: 7vw;
       height: 3.5vh;

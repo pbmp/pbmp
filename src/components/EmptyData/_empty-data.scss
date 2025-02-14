@@ -1,0 +1,19 @@
+@use "../../helpers/mixins" as m;
+@use "../../helpers/variables" as v;
+
+.empty-data {
+  width: 100%;
+  @include m.flex();
+  font-size: 3rem;
+  margin-top: 7rem;
+  font-family: "Raleway", sans-serif;
+  color: rgba($color: map-get(v.$color, "other-blue"), $alpha: 0.75);
+  text-align: center;
+
+  @media (max-width: 767.98px) {
+    width: 100%;
+    padding: 0 2.4rem;
+    margin-top: 4.5rem;
+    font-size: 1.7rem;
+  }
+}

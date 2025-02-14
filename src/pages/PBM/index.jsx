@@ -121,9 +121,12 @@ function PBM() {
                       {activeFilter ? (
                         <SquareCheckBig strokeWidth={1.75} className="icon" />
                       ) : (
-                        <Square strokeWidth={1.25} className="icon" />
+                        <Square
+                          strokeWidth={1.25}
+                          className="filter-list-item-icon"
+                        />
                       )}
-                      <div className="text">
+                      <div className="filter-list-item-text">
                         {item.attributes.id_periode} -{" "}
                         {item.attributes.mata_kuliah}
                       </div>

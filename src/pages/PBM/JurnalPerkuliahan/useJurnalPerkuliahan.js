@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { apiOptions } from "@/hooks/useApiSevima";
+import PropTypes from "prop-types";
+
 import { useSearch } from "@/context/SearchContext";
 import { useDashboard } from "@/context/DashboardContext";
+import { apiOptions } from "@/hooks/useApiSevima";
 import { formatDate } from "@/helpers/FormatDate";
 import { toastMessage } from "@/helpers/AlertMessage";
-import PropTypes from "prop-types";
 
 function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
   const { search } = useSearch(); // Input pencarian
@@ -79,11 +80,14 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
           total_pertemuan: totalMeet[item.id_kelas],
         }));
 
-        // console.log(mergedData);
-
-        // console.log(uniqueData);
+        mergedData.sort((a, b) => {
+          return b.id_periode - a.id_periode; // Mengurutkan dari yang terbaru ke yang lama
+        });
 
         setJurnalData(mergedData);
+
+        // console.log(mergedData);
+        // console.log(uniqueData);
 
         const errors = jurnalResults
           .filter((result) => result.status === "rejected")
@@ -115,10 +119,12 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
       .filter(
         (item) =>
           item?.mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
-          item?.nomor_pertemuan?.toLowerCase().includes(searchLowerCase) ||
           formatDate(item?.tanggal)?.toLowerCase().includes(searchLowerCase) ||
           item?.id_periode?.toLowerCase().includes(searchLowerCase) ||
-          item?.total_pertemuan?.toLowerCase().includes(searchLowerCase)
+          item?.total_pertemuan
+            ?.toString()
+            .toLowerCase()
+            .includes(searchLowerCase)
       );
 
     setFilteredData(filtered);

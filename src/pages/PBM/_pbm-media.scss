@@ -33,16 +33,21 @@
         &-submenu {
           &-link {
             padding: 0.7vh 0.7vw 1.3vh;
-            gap: 1vw;
+            gap: 1.3vw;
+
+            &::after {
+              height: 0.2vw;
+            }
 
             .text {
               font-size: 0.86rem;
+              font-weight: 600;
             }
           }
         }
 
         &-filter {
-          margin: 0;
+          margin: .4rem;
 
           .add-filters {
             @include header.button(
@@ -51,6 +56,26 @@
               $h: 4.5vh,
               $dsp-text: none
             );
+
+            .filter-modal {
+              width: 14rem;
+
+              &-content {
+                .filter-list {
+                  gap: 0.45rem;
+
+                  &-item {
+                    &-text {
+                      font-size: 0.65rem;
+                    }
+                  }
+                }
+              }
+
+              &-button {
+                margin-top: 1.8rem;
+              }
+            }
           }
 
           .clear-filter {

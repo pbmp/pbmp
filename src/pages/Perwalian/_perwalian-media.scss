@@ -2,7 +2,7 @@
 @use "../../helpers/variables" as v;
 
 @mixin perwalian-media() {
-  @media (max-width: 575.98px) {
+  @media (max-width: 767.98px) {
     .perwalian {
       &-header {
         padding: v.$py-sidebar-content-media v.$px-topbar-content-media;

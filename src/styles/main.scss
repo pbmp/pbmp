@@ -2,6 +2,7 @@
 @use "../helpers/mixins" as m;
 
 @use "../components/Loader/loader" as loader;
+@use "../components/EmptyData/empty-data";
 @use "../components/Pagination/pagination";
 @use "../pages/Error404/error404";
 @use "../pages/Perwalian/perwalian";

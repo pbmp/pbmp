@@ -111,13 +111,13 @@
         border-radius: 0.4vw;
         box-shadow: 0 0 4px rgba($color: #000, $alpha: 0.15);
 
-        span {
+        &-item {
+          cursor: pointer;
+          @include m.flex($justify: flex-start);
           padding: 0 0.95rem;
           height: 3rem;
-          @include m.flex($justify: flex-start);
-          cursor: pointer;
-          color: map-get($map: v.$color, $key: "blue");
           transition: background-color 0.2s ease-in;
+          gap: 0.5rem;
 
           &:hover {
             background-color: rgba(
@@ -125,6 +125,11 @@
               $alpha: 0.2
             );
             transition: background-color 0.2s ease-out;
+          }
+
+          span,
+          .icon {
+            color: map-get($map: v.$color, $key: "blue");
           }
         }
       }

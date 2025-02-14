@@ -2,7 +2,7 @@
 @use "../../helpers/variables" as v;
 
 @mixin media-topbar() {
-  @media (max-width: 575.98px) {
+  @media (max-width: 767.98px) {
     height: v.$h-topbar-sidebar-media;
     padding: 0 v.$px-topbar-content-media;
 

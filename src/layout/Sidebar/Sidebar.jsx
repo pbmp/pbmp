@@ -1,31 +1,64 @@
+import { useEffect, useRef } from "react";
 import { Users, PanelLeftClose, FileText } from "lucide-react";
 import logo from "/logo/logo-Photoroom.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { useDashboard } from "../../context/DashboardContext";
 
+const navigation = [
+  {
+    id: 1,
+    icon: <FileText className="icon" strokeWidth={1.25} />,
+    text: "PBM",
+    url: "/pbmp/",
+  },
+  {
+    id: 2,
+    icon: <Users className="icon" strokeWidth={1.25} />,
+    text: "Perwalian",
+    url: "/pbmp/perwalian",
+  },
+];
+
 function Sidebar() {
   const location = useLocation();
-  // const [isAdmak, setIsAdmak] = useState(false);
+  const messageRef = useRef(null);
+  const logoRef = useRef(null);
+  const textRefs = useRef([]);
 
   const { expandedSidebar, handleExpandedSidebar } = useDashboard();
 
   const getActiveClass = (path) => {
-    // Pastikan hanya path spesifik yang mendapatkan kelas active
     return location.pathname === path
       ? "menu-list-item active"
       : "menu-list-item";
   };
 
-  // useEffect(() => {
-  //   const getIsAdmak = user?.role.find((item) => item.id_role === "admak");
+  useEffect(() => {
+    if (!expandedSidebar) {
+      messageRef.current.style.display = "none";
+      logoRef.current.style.display = "none";
+      textRefs.current.forEach((text) => {
+        text.style.display = "none";
+      });
+    }
 
-  //   setIsAdmak(!!getIsAdmak);
-  // }, [user]);
+    const timeOut = setTimeout(() => {
+      if (expandedSidebar) {
+        messageRef.current.style.display = "block";
+        logoRef.current.style.display = "block";
+        textRefs.current.forEach((text) => {
+          text.style.display = "flex";
+        });
+      }
+    }, 500);
+
+    return () => clearTimeout(timeOut);
+  }, [expandedSidebar, messageRef, logoRef]);
 
   return (
-    <div className={`sidebar  ${expandedSidebar ? "" : "collapse"} `}>
+    <div className={`sidebar ${expandedSidebar ? "" : "collapse"} `}>
       <div className="sidebar-logo">
-        <img src={logo} alt="Logo" />
+        <img src={logo} alt="Logo" ref={logoRef} />
         <span onClick={handleExpandedSidebar}>
           <PanelLeftClose size={24} strokeWidth={1.25} />
         </span>
@@ -33,33 +66,29 @@ function Sidebar() {
       <div className="sidebar-menus">
         <div className="menu-title">Main Menu</div>
         <div className="menu-list">
-          {/* {isAdmak ? (
-            <NavLink
-              className={() => getActiveClass("/pbmp/synchronize")}
-              to={"/pbmp/synchronize"}
-            >
-              <span className="icon">
-                <DatabaseBackup size={22} strokeWidth={1.25} />
-              </span>
-              <span className="text">Synchronize</span>
-            </NavLink>
-          ) : null} */}
-          <NavLink className={() => getActiveClass("/pbmp/")} to={"/pbmp/"}>
-            <span className="icon">
-              <FileText size={22} strokeWidth={1.25} />
-            </span>
-            <span className="text">PBM</span>
-          </NavLink>
-          <NavLink
-            className={() => getActiveClass("/pbmp/perwalian")}
-            to={"/pbmp/perwalian"}
-          >
-            <span className="icon">
-              <Users size={22} strokeWidth={1.25} />
-            </span>
-            <span className="text">Perwalian</span>
-          </NavLink>
+          {navigation.map((item, index) => {
+            return (
+              <NavLink
+                key={index}
+                className={() => getActiveClass(item.url)}
+                to={item.url}
+              >
+                <span className="icon">{item.icon}</span>
+                <span
+                  className="text"
+                  ref={(el) => (textRefs.current[index] = el)}
+                >
+                  {item.text}
+                </span>
+              </NavLink>
+            );
+          })}
         </div>
+      </div>
+      <div className="sidebar-message" ref={messageRef}>
+        Sinkronisasi data dilakukan setiap pukul 03.00 WIB, apabila ada
+        perubahan data setelah jadwal sinkronisasi, silahkan hubungi staff DTI.
+        Terima kasih.
       </div>
     </div>
   );
