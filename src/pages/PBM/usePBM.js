@@ -80,13 +80,13 @@ export function usePBM() {
   }, []);
 
   const handlePrint = useCallback(
-    async (periodeId) => {
+    async (kelasId, periodeId) => {
       try {
         setLoadingPrint(true);
 
         const response = await apiOptions.get("/laporan/pbmp", {
           params: {
-            idpegawai: user.role[0]?.id_pegawai,
+            idkelas: kelasId,
             idperiode: periodeId,
           },
           responseType: "blob",
@@ -96,7 +96,12 @@ export function usePBM() {
         const fileUrl = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = fileUrl;
-        a.download = `Laporan_${periodeId}_${formatName(user.nama)}.pdf`;
+        a.download = `LaporanBKD_${periodeId}_${formatName(
+          kelasData.data.filter(
+            (item) => item.attributes.id_kelas === kelasId
+          )[0].attributes.mata_kuliah,
+          "matkul"
+        )}_${formatName(user.nama, "name")}.pdf`;
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -110,7 +115,7 @@ export function usePBM() {
         setLoadingPrint(false);
       }
     },
-    [user, setLoadingPrint]
+    [user, setLoadingPrint, kelasData]
   );
 
   return {

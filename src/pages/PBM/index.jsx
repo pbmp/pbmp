@@ -1,6 +1,6 @@
 import {
   FileText,
-  Printer,
+  // Printer,
   Square,
   SquareCheckBig,
   LibraryBig,
@@ -39,15 +39,15 @@ function PBM() {
     setActiveSubmenu,
     kelasIds,
     kelasData,
-    periodeData,
+    // periodeData,
     loadingPrint,
-    openPeriode,
-    setOpenPeriode,
+    // openPeriode,
+    // setOpenPeriode,
     filterMatakuliah,
     setFilterMatakuliah,
     tempFilterMatakuliah,
     setTempFilterMatakuliah,
-    periodeModal,
+    // periodeModal,
     isLoadingKelas,
     isErrorKelas,
     handleFilterMatakuliah,
@@ -143,6 +143,7 @@ function PBM() {
             <JurnalPerkuliahan
               kelasIds={kelasIds}
               filterMatkul={filterMatakuliah}
+              handlePrint={handlePrint}
             />
           )}
           {/* {activeSubmenu === 2 && (

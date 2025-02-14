@@ -79,7 +79,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
           total_pertemuan: totalMeet[item.id_kelas],
         }));
 
-        console.log(mergedData);
+        // console.log(mergedData);
 
         // console.log(uniqueData);
 

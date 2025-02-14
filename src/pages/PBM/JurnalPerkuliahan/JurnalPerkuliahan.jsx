@@ -5,7 +5,7 @@ import Loader from "@/components/Loader/Loader";
 import useJurnalPerkuliahan from "./useJurnalPerkuliahan";
 import PropTypes from "prop-types";
 
-function JurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
+function JurnalPerkuliahan({ kelasIds, filterMatkul = [], handlePrint }) {
   const {
     filteredData,
     currentData,
@@ -44,7 +44,10 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
                 <div className="col">{formatDate(data.tanggal)}</div>
                 <div className="col">{data.id_periode}</div>
                 <div className="col">
-                  <div className="print">
+                  <div
+                    className="print"
+                    onClick={() => handlePrint(data.id_kelas, data.id_periode)}
+                  >
                     <Printer className="print-icon" strokeWidth={1.5} />
                   </div>
                 </div>
@@ -68,6 +71,7 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
 JurnalPerkuliahan.propTypes = {
   kelasIds: PropTypes.array,
   filterMatkul: PropTypes.array,
+  handlePrint: PropTypes.func,
 };
 
 export default JurnalPerkuliahan;
