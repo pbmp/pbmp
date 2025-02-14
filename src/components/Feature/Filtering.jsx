@@ -50,7 +50,9 @@ export function Filtering({ classEl, onApplyFilter, onClearFilter, children }) {
         ) : null}
       </div>
       <div className="clear-filter" onClick={handleClear}>
-        <div className="text">Clear Filter</div>
+        <div className="text">
+          Clear <span>Filter</span>
+        </div>
       </div>
     </div>
   );

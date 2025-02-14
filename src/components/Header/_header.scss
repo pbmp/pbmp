@@ -49,14 +49,17 @@
   $clr: #fff,
   $bdr-clr: transparent,
   $h: 6vh,
+  $p: 0 1.2vw,
   $w-icon: 20px,
   $h-icon: 20px,
-  $fs: 1vw
+  $fs: 1vw,
+  $dsp-text: inline-block,
+  $dsp-span: inline-block
 ) {
   @include m.flex();
   column-gap: 0.4vw;
   border-radius: 0.4vw;
-  padding: 0 1.2vw;
+  padding: $p;
   background-color: $bg-clr;
   color: $clr;
   border: 0.12vw solid $bdr-clr;
@@ -70,5 +73,10 @@
 
   .text {
     font-size: $fs;
+    display: $dsp-text;
+
+    span {
+      display: $dsp-span;
+    }
   }
 }

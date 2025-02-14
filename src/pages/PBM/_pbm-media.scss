@@ -1,8 +1,9 @@
 @use "../../helpers/mixins" as m;
 @use "../../helpers/variables" as v;
+@use "../../components/Header/header" as header;
 
 @mixin pbm-media() {
-  @media (max-width: 575.98px) {
+  @media (max-width: 767.98px) {
     .pbm {
       &-header {
         padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
@@ -24,21 +25,53 @@
             font-size: 3.2vw;
           }
         }
+      }
 
-        .add-user {
-          column-gap: 0.4vw;
-          padding: 1.4vw 2.4vw 1.4vw 1.2vw;
-          border-radius: 0.8vw;
+      &-feature {
+        padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
 
-          .icon {
-            width: 4.4vw;
-            height: 4.4vw;
-          }
+        &-submenu {
+          &-link {
+            padding: 0.7vh 0.7vw 1.3vh;
+            gap: 1vw;
 
-          .text {
-            font-size: 3.8vw;
+            .text {
+              font-size: 0.86rem;
+            }
           }
         }
+
+        &-filter {
+          margin: 0;
+
+          .add-filters {
+            @include header.button(
+              $w-icon: 14px,
+              $h-icon: 14px,
+              $h: 4.5vh,
+              $dsp-text: none
+            );
+          }
+
+          .clear-filter {
+            @include header.button(
+              $w-icon: 14px,
+              $h-icon: 14px,
+              $fs: 0.6rem,
+              $p: 1.8vw,
+              $h: 4.5vh,
+              $bg-clr: map-get($map: v.$color, $key: "light-grey"),
+              $clr: map-get($map: v.$color, $key: "blue"),
+              $bdr-clr: map-get($map: v.$color, $key: "other-blue"),
+              $dsp-span: none
+            );
+          }
+        }
+      }
+
+      &-content {
+        padding: (v.$py-sidebar-content-media * 0.8) v.$px-topbar-content-media
+          v.$py-sidebar-content-media;
       }
     }
   }

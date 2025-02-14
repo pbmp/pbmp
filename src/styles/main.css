@@ -297,38 +297,6 @@
   justify-content: flex-start;
   width: 100%;
 }
-@media (max-width: 575.98px) {
-  .pbm .pbm-header {
-    padding: 2.6vh 4.2vw;
-  }
-  .pbm .pbm-header .menu {
-    gap: 0 1.4vw;
-  }
-  .pbm .pbm-header .menu .icon {
-    width: 10vw;
-    height: 10vw;
-    border-radius: 1.6vw;
-  }
-  .pbm .pbm-header .menu .title {
-    font-size: 4.2vw;
-  }
-  .pbm .pbm-header .menu .desc {
-    font-size: 3.2vw;
-  }
-  .pbm .pbm-header .add-user {
-    -moz-column-gap: 0.4vw;
-         column-gap: 0.4vw;
-    padding: 1.4vw 2.4vw 1.4vw 1.2vw;
-    border-radius: 0.8vw;
-  }
-  .pbm .pbm-header .add-user .icon {
-    width: 4.4vw;
-    height: 4.4vw;
-  }
-  .pbm .pbm-header .add-user .text {
-    font-size: 3.8vw;
-  }
-}
 .pbm-header {
   display: flex;
   flex-direction: row;
@@ -406,6 +374,10 @@
 }
 .pbm-header .action .print .text {
   font-size: 1.1vw;
+  display: inline-block;
+}
+.pbm-header .action .print .text span {
+  display: inline-block;
 }
 .pbm-header .action .periode-modal {
   width: 150%;
@@ -537,6 +509,10 @@
 }
 .pbm-feature-filter .add-filters .text {
   font-size: 1vw;
+  display: inline-block;
+}
+.pbm-feature-filter .add-filters .text span {
+  display: inline-block;
 }
 .pbm-feature-filter .add-filters .filter-modal {
   position: absolute;
@@ -638,6 +614,10 @@
 }
 .pbm-feature-filter .clear-filter .text {
   font-size: 1vw;
+  display: inline-block;
+}
+.pbm-feature-filter .clear-filter .text span {
+  display: inline-block;
 }
 .pbm-content {
   padding: 3.2vh 1.8vw 8vh;
@@ -652,12 +632,7 @@
   justify-content: center;
   overflow-x: auto;
   max-width: 100%;
-  width: 75.1vw;
   transition: width 0.4s ease-in;
-}
-.pbm-content .pbm-table.expanded {
-  width: 89.1vw;
-  transition: width 0.4s ease-out;
 }
 .pbm-content .pbm-table.jurnal-perkuliahan .thead {
   display: grid;
@@ -733,6 +708,32 @@
   width: 16px;
   height: 16px;
   color: #fff;
+}
+@media (max-width: 767.98px) {
+  .pbm-content .pbm-table.jurnal-perkuliahan .thead {
+    grid-template-columns: 0.4fr 0.8fr 0.8fr 1fr 0.7fr 0.6fr;
+  }
+  .pbm-content .pbm-table.jurnal-perkuliahan .thead .row {
+    font-size: 0.48rem;
+    padding: 3.1vh 1.8vw;
+  }
+  .pbm-content .pbm-table.jurnal-perkuliahan .tbody {
+    grid-template-columns: 0.4fr 0.8fr 0.8fr 1fr 0.7fr 0.6fr;
+  }
+  .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col {
+    font-size: 0.48rem;
+    padding: 3.6vh 1.8vw;
+  }
+  .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col .print {
+    padding: 0.35rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+  }
+  .pbm-content .pbm-table.jurnal-perkuliahan .tbody .col .print-icon {
+    width: 14px;
+    height: 14px;
+    color: #fff;
+  }
 }
 .pbm-content .pbm-table.presensi .thead {
   display: grid;
@@ -1059,6 +1060,93 @@
   }
 }
 
+@media (max-width: 767.98px) {
+  .pbm-header {
+    padding: 2.6vh 4.2vw;
+  }
+  .pbm-header .menu {
+    gap: 0 1.4vw;
+  }
+  .pbm-header .menu .icon {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 1.6vw;
+  }
+  .pbm-header .menu .title {
+    font-size: 4.2vw;
+  }
+  .pbm-header .menu .desc {
+    font-size: 3.2vw;
+  }
+  .pbm-feature {
+    padding: 2.6vh 4.2vw;
+  }
+  .pbm-feature-submenu-link {
+    padding: 0.7vh 0.7vw 1.3vh;
+    gap: 1vw;
+  }
+  .pbm-feature-submenu-link .text {
+    font-size: 0.86rem;
+  }
+  .pbm-feature-filter {
+    margin: 0;
+  }
+  .pbm-feature-filter .add-filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    -moz-column-gap: 0.4vw;
+         column-gap: 0.4vw;
+    border-radius: 0.4vw;
+    padding: 0 1.2vw;
+    background-color: #546983;
+    color: #fff;
+    border: 0.12vw solid transparent;
+    height: 4.5vh;
+    cursor: pointer;
+  }
+  .pbm-feature-filter .add-filters .icon {
+    width: 14px;
+    height: 14px;
+  }
+  .pbm-feature-filter .add-filters .text {
+    font-size: 1vw;
+    display: none;
+  }
+  .pbm-feature-filter .add-filters .text span {
+    display: inline-block;
+  }
+  .pbm-feature-filter .clear-filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    -moz-column-gap: 0.4vw;
+         column-gap: 0.4vw;
+    border-radius: 0.4vw;
+    padding: 1.8vw;
+    background-color: #f6f8fa;
+    color: #546983;
+    border: 0.12vw solid #a5b0be;
+    height: 4.5vh;
+    cursor: pointer;
+  }
+  .pbm-feature-filter .clear-filter .icon {
+    width: 14px;
+    height: 14px;
+  }
+  .pbm-feature-filter .clear-filter .text {
+    font-size: 0.6rem;
+    display: inline-block;
+  }
+  .pbm-feature-filter .clear-filter .text span {
+    display: none;
+  }
+  .pbm-content {
+    padding: 2.08vh 4.2vw 2.6vh;
+  }
+}
 .auth {
   width: 100%;
   height: 100vh;

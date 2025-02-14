@@ -9,7 +9,6 @@
 
 .pbm {
   @include m.flex($direction: column, $start: true);
-  @include pbm-m.pbm-media();
   width: 100%;
 
   &-header {
@@ -271,13 +270,12 @@
       @include m.flex($direction: column, $align: flex-start);
       overflow-x: auto;
       max-width: 100%;
-      width: 75.1vw;
       transition: width 0.4s ease-in;
 
-      &.expanded {
-        width: 89.1vw;
-        transition: width 0.4s ease-out;
-      }
+      // &.expanded {
+      //   width: 89.1vw;
+      //   transition: width 0.4s ease-out;
+      // }
 
       &.jurnal-perkuliahan {
         @include jurnal-perkuliahan.jurnal-perkuliahan();
@@ -295,3 +293,5 @@
     @include loader.loader(40vh);
   }
 }
+
+@include pbm-m.pbm-media();
