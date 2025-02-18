@@ -89,9 +89,9 @@ function Topbar() {
           />
           {openSetting ? (
             <div className="option-modal" ref={settingRef}>
-              <div className="option-modal-item">
+              <div className="option-modal-item" onClick={handleLogout}>
                 <LogOut className="icon" strokeWidth={1.5} size={18} />
-                <span onClick={handleLogout}>Logout</span>
+                <span>Logout</span>
               </div>
             </div>
           ) : null}
