@@ -49,18 +49,10 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [], handlePrint }) {
             <EmptyData data={filteredData} />
             {currentData.map((data, index) => {
               const kelas =
-                data.semester_mata_kuliah === "1" ||
-                data.semester_mata_kuliah === "2"
-                  ? "1"
-                  : data.semester_mata_kuliah === "3" ||
-                    data.semester_mata_kuliah === "4"
-                  ? "2"
-                  : data.semester_mata_kuliah === "5" ||
-                    data.semester_mata_kuliah === "6"
-                  ? "3"
-                  : data.semester_mata_kuliah === "7" ||
-                    data.semester_mata_kuliah === "8"
-                  ? "4"
+                data.nama_kelas[1] === "1"
+                  ? `${data.nama_kelas[0]}A`
+                  : data.nama_kelas[1] === "2"
+                  ? `${data.nama_kelas[0]}B`
                   : null;
 
               return (
@@ -68,9 +60,7 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [], handlePrint }) {
                   <div className="tbody" key={index}>
                     <div className="col">{indexFirstItem + index + 1}</div>
                     <div className="col">{data.mata_kuliah}</div>
-                    <div className="col">
-                      {kelas + data.id_kelas_perkuliahan}
-                    </div>
+                    <div className="col">{kelas}</div>
                     {windowWidth > 767.98 ? (
                       <>
                         <div className="col">{data.total_pertemuan}</div>

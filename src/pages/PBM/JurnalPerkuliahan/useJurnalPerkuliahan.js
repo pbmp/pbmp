@@ -113,11 +113,9 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
   useEffect(() => {
     const searchLowerCase = search.toLowerCase();
 
-    const getKelas = (semester) => {
-      if (semester === "1" || semester === "2") return "1";
-      if (semester === "3" || semester === "4") return "2";
-      if (semester === "5" || semester === "6") return "3";
-      if (semester === "7" || semester === "8") return "4";
+    const getKelas = (kelas) => {
+      if (kelas[1] === "1") return `${kelas[0]}A`;
+      if (kelas[1] === "2") return `${kelas[0]}B`;
       return null;
     };
 
@@ -126,14 +124,11 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
         filterMatkul.length === 0 ? true : filterMatkul.includes(item.id_kelas)
       )
       .filter((item) => {
-        const kelas = getKelas(item?.semester_mata_kuliah);
-        const kelasDanId = `${kelas || ""}${
-          item?.id_kelas_perkuliahan || ""
-        }`.toLowerCase();
+        const kelas = getKelas(item?.nama_kelas).toLowerCase();
 
         return (
           item?.mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
-          kelasDanId.includes(searchLowerCase) ||
+          kelas.includes(searchLowerCase) ||
           formatDate(item?.tanggal)?.toLowerCase().includes(searchLowerCase) ||
           item?.id_periode?.toLowerCase().includes(searchLowerCase) ||
           item?.total_pertemuan

@@ -12,7 +12,7 @@ export function useAuth() {
 
   const [hidePassword, setHidePassword] = useState(true);
   const [data, setData] = useState({
-    email: "",
+    identifier: "", // Bisa berisi email atau NIDN
     password: "",
   });
 
@@ -21,14 +21,13 @@ export function useAuth() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      return setData((prev) => ({ ...prev, [name]: value }));
-    },
-    [setData]
-  );
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    setData((prev) => ({ ...prev, [name]: value }));
+  }, []);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -37,9 +36,15 @@ export function useAuth() {
       authSchema
         .validate(data, { abortEarly: false })
         .then(() => {
+          // Tentukan apakah identifier adalah email atau nidn
+          const isEmail = emailRegex.test(data.identifier);
+          const requestBody = isEmail
+            ? { email: data.identifier, password: data.password }
+            : { nidn: data.identifier, password: data.password };
+
           const authPromise = axios.post(
             "https://lulusan.ulbi.ac.id/lulusan/transkrip/sevima/login",
-            data
+            requestBody
           );
 
           toastPromise(
@@ -57,12 +62,10 @@ export function useAuth() {
 
           authPromise
             .then((res) => {
-              // console.log(res.data);
-
               authStatus.current = res.data.success;
 
               setData({
-                email: "",
+                identifier: "",
                 password: "",
               });
 
@@ -74,19 +77,16 @@ export function useAuth() {
                 sameSite: "Strict",
               });
 
-              const SECRET_KEY = "!uLBi123!";
+              const SECRET_KEY = "#uLBi2025#";
 
               if (!SECRET_KEY) {
-                console.error(
-                  "Secret key is not defined. Make sure it's set in your environment variables."
-                );
+                console.error("Secret key is not defined.");
                 return;
               }
 
               const getUser = res.data.data.attributes;
-
               const encryptedData = CryptoJS.AES.encrypt(
-                JSON.stringify(getUser), // Konversi objek ke string
+                JSON.stringify(getUser),
                 SECRET_KEY
               ).toString();
 

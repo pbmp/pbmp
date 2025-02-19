@@ -23,7 +23,7 @@ export const DashboardProvider = ({ children }) => {
     setExpandedSidebar(!expandedSidebar);
   };
 
-  const SECRET_KEY = "!uLBi123!";
+  const SECRET_KEY = "#uLBi2025#";
 
   useEffect(() => {
     const encryptedData = Cookies.get("pbmp-user");

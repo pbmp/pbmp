@@ -20,18 +20,19 @@ function Auth() {
         </div>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="identifier">Email atau NIDN</label>
             <input
               type="text"
-              id="email"
-              name="email"
-              placeholder="ulbi@ulbi.ac.id"
+              id="identifier"
+              name="identifier"
+              placeholder="ulbi.ac.id atau NIDN"
               onChange={handleChange}
-              value={data.email}
+              value={data.identifier}
               autoComplete="email"
             />
             <div className="border-effect"></div>
           </div>
+
           <div className="auth-form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -51,10 +52,11 @@ function Auth() {
             </span>
             <div className="border-effect"></div>
           </div>
+
           <button
             className="auth-form-button"
             type="submit"
-            disabled={data.email === "" || data.password === ""}
+            disabled={data.identifier === "" || data.password === ""}
           >
             Login
           </button>
