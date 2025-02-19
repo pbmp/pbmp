@@ -9,7 +9,7 @@ export const formatName = (nama, type = "name") => {
         .trim()
         .replace(/\s+/g, "")
         .replace(/\b\w/g, (char) => char.toUpperCase())
-    : nama.replace(/,.*/g, "").trim().replace(/\s+/g, "");
+    : nama.trim().toUpperCase();
 };
 
 formatName.propTypes = {

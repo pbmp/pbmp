@@ -99,7 +99,7 @@ export function usePBM() {
         a.download = `LaporanBKD_${periodeId}_${formatName(
           kelasData.data.filter(
             (item) => item.attributes.id_kelas === kelasId
-          )[0].attributes.mata_kuliah,
+          )[0].attributes.kode_mata_kuliah,
           "matkul"
         )}_${formatName(user.nama, "name")}.pdf`;
         document.body.appendChild(a);
