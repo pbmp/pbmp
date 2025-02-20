@@ -24,7 +24,12 @@ export function usePBM() {
     isLoading: isLoadingKelas,
     isError: isErrorKelas,
   } = useQuery({
-    queryKey: [`matakuliah/${user.role[0]?.id_pegawai}`, 1],
+    queryKey: [
+      `matakuliah/${
+        user.id_pegawai ? user.id_pegawai : user.role[0]?.id_pegawai
+      }`,
+      1,
+    ],
     queryFn: useFetchData,
     keepPreviousData: true,
     staleTime: 1000 * 60 * 5,
