@@ -101,6 +101,8 @@ export const DashboardProvider = ({ children }) => {
       apiOptions
         .get("/google/login/callback", { params: { code: codeParams } })
         .then((res) => {
+          console.log(res.data);
+
           toastMessage("success", res.data.message);
           processUserAuthentication(res.data.token, res.data.user);
         })
