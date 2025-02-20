@@ -78,7 +78,7 @@ function Topbar() {
           </div>
           <div className="text">
             <span className="name">{user.nama}</span>
-            <span className="job">{user?.role[0]?.nama_role || ""}</span>
+            {/* <span className="job">{user?.role[0]?.nama_role || ""}</span> */}
           </div>
         </div>
         <span className="option">

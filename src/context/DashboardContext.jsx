@@ -115,7 +115,7 @@ export const DashboardProvider = ({ children }) => {
         .finally(() => {
           // Membersihkan query params di URL
           const params = new URLSearchParams(window.location.search);
-          ["authuser", "code", "prompt", "state", "scope"].forEach((param) =>
+          ["authuser", "prompt", "state", "scope", "hd"].forEach((param) =>
             params.delete(param)
           );
           window.history.replaceState(
