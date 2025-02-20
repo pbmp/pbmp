@@ -104,7 +104,7 @@ export const DashboardProvider = ({ children }) => {
           console.log(res.data);
 
           toastMessage("success", res.data.message);
-          processUserAuthentication(res.data.token, res.data.user);
+          processUserAuthentication(res.data.token, res.data.user[0]);
         })
         .catch((err) => {
           console.error("Error fetching Google login callback:", err);
@@ -124,7 +124,7 @@ export const DashboardProvider = ({ children }) => {
     } else {
       decryptUserData();
     }
-  }, [navigate, searchParams, ]);
+  }, [navigate, searchParams]);
 
   // Tampilkan loader hingga autentikasi selesai
   if (!isAuthenticated && !token) {
