@@ -32,26 +32,28 @@ export const DashboardProvider = ({ children }) => {
     const encryptedData = Cookies.get("pbmp-user");
     const getToken = Cookies.get("pbmp-login");
 
-    if (getToken && encryptedData) {
-      try {
-        const decryptedData = CryptoJS.AES.decrypt(
-          encryptedData,
-          SECRET_KEY
-        ).toString(CryptoJS.enc.Utf8);
-
-        const parsedData = JSON.parse(decryptedData);
-
-        setUser(parsedData);
-        setToken(getToken);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error("Failed to decrypt or parse user data:", error);
-        navigate("/pbmp/auth", { replace: true });
-      }
-    } else if (paramsObject) {
+    if (Object.keys(paramsObject).length === 0) {
       console.log("searchParams:", paramsObject);
     } else {
-      navigate("/pbmp/auth", { replace: true });
+      if (getToken && encryptedData) {
+        try {
+          const decryptedData = CryptoJS.AES.decrypt(
+            encryptedData,
+            SECRET_KEY
+          ).toString(CryptoJS.enc.Utf8);
+
+          const parsedData = JSON.parse(decryptedData);
+
+          setUser(parsedData);
+          setToken(getToken);
+          setIsAuthenticated(true);
+        } catch (error) {
+          console.error("Failed to decrypt or parse user data:", error);
+          navigate("/pbmp/auth", { replace: true });
+        }
+      } else {
+        navigate("/pbmp/auth", { replace: true });
+      }
     }
   }, [navigate, searchParams]);
 
