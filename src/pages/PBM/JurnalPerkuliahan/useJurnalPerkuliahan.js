@@ -141,7 +141,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
     setFilteredData(filtered);
     setCurrentPage(1);
 
-    console.log(filtered);
+    // console.log(filtered);
   }, [search, jurnalData, filterMatkul]);
 
   const handlePageDataChange = (currentData, indexOfFirstItem) => {

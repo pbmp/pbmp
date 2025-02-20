@@ -96,16 +96,11 @@ export const DashboardProvider = ({ children }) => {
     };
 
     if (hasParams) {
-      console.log(paramsObject);
-      console.log(paramsObject.code);
-
       const codeParams = paramsObject.code;
 
       apiOptions
         .get(`/google/login/callback?code=${codeParams}`)
         .then((res) => {
-          console.log(res.data);
-
           toastMessage("success", res.data.message);
           processUserAuthentication(res.data.token, res.data.user[0]);
         })
