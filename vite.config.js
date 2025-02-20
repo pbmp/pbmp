@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
-  base: "/", 
+  base: "/pbmp.github.io/", 
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
