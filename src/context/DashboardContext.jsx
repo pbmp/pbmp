@@ -32,7 +32,7 @@ export const DashboardProvider = ({ children }) => {
     const encryptedData = Cookies.get("pbmp-user");
     const getToken = Cookies.get("pbmp-login");
 
-    if (Object.keys(paramsObject).length === 0) {
+    if (Object.keys(paramsObject).length !== 0) {
       console.log("searchParams:", paramsObject);
     } else {
       if (getToken && encryptedData) {
