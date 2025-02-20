@@ -124,7 +124,7 @@ export const DashboardProvider = ({ children }) => {
     } else {
       decryptUserData();
     }
-  }, [navigate, searchParams]);
+  }, [navigate, searchParams, ]);
 
   // Tampilkan loader hingga autentikasi selesai
   if (!isAuthenticated && !token) {
