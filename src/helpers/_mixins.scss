@@ -40,7 +40,8 @@
   $px: 0,
   $py: 1rem,
   $tx-align: start,
-  $w: 100%
+  $w: 100%,
+  $mt: .9rem
 ) {
   width: $w;
   padding: $py $px;
@@ -52,7 +53,7 @@
   font-size: 0.9rem;
   letter-spacing: 1px;
   text-transform: $tx-transform;
-  margin-top: 0.9rem;
+  margin-top: $mt;
   color: $color;
   cursor: $cursor;
   position: relative;

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
 import PropTypes from "prop-types";
@@ -16,8 +16,10 @@ export const DashboardProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Status autentikasi
-  const navigate = useNavigate();
   const [expandedSidebar, setExpandedSidebar] = useState(true);
+
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const handleExpandedSidebar = () => {
     setExpandedSidebar(!expandedSidebar);
@@ -26,10 +28,13 @@ export const DashboardProvider = ({ children }) => {
   const SECRET_KEY = "#uLBi2025#";
 
   useEffect(() => {
+    const paramsObject = Object.fromEntries(searchParams.entries());
     const encryptedData = Cookies.get("pbmp-user");
     const getToken = Cookies.get("pbmp-login");
 
-    if (getToken && encryptedData) {
+    if (paramsObject) {
+      console.log("searchParams:", paramsObject);
+    } else if (getToken && encryptedData) {
       try {
         const decryptedData = CryptoJS.AES.decrypt(
           encryptedData,
@@ -48,7 +53,7 @@ export const DashboardProvider = ({ children }) => {
     } else {
       navigate("/pbmp/auth", { replace: true });
     }
-  }, [navigate]);
+  }, [navigate, searchParams]);
 
   // Tampilkan loader hingga autentikasi selesai
   if (!isAuthenticated && !token) {
