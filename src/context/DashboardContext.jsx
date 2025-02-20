@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
@@ -20,8 +20,6 @@ export const DashboardProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Status autentikasi
   const [expandedSidebar, setExpandedSidebar] = useState(true);
 
-  const statusLoginGoogle = useRef(null);
-
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -33,79 +31,96 @@ export const DashboardProvider = ({ children }) => {
 
   useEffect(() => {
     const paramsObject = Object.fromEntries(searchParams.entries());
+    const encryptedData = Cookies.get("pbmp-user");
+    const getToken = Cookies.get("pbmp-login");
+    const hasParams = Object.keys(paramsObject).length !== 0;
 
-    if (Object.keys(paramsObject).length !== 0) {
-      // console.log("searchParams:", paramsObject);
+    const processUserAuthentication = (token, user) => {
+      try {
+        const expiryInDays = 18 / 24;
+
+        Cookies.set("pbmp-login", token, {
+          expires: expiryInDays,
+          path: "/",
+          secure: true,
+          sameSite: "Strict",
+        });
+
+        if (!SECRET_KEY) {
+          console.error("Secret key is not defined.");
+          return;
+        }
+
+        const encryptedUserData = CryptoJS.AES.encrypt(
+          JSON.stringify(user),
+          SECRET_KEY
+        ).toString();
+
+        Cookies.set("pbmp-user", encryptedUserData, {
+          expires: expiryInDays,
+          path: "/",
+          secure: true,
+          sameSite: "Strict",
+        });
+
+        setUser(user);
+        setToken(token);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Error processing user authentication:", error);
+      }
+    };
+
+    const decryptUserData = () => {
+      if (!getToken || !encryptedData) {
+        navigate("/pbmp/auth", { replace: true });
+        return;
+      }
+
+      try {
+        const decryptedData = CryptoJS.AES.decrypt(
+          encryptedData,
+          SECRET_KEY
+        ).toString(CryptoJS.enc.Utf8);
+
+        if (!decryptedData) throw new Error("Decryption failed");
+
+        const parsedData = JSON.parse(decryptedData);
+        setUser(parsedData);
+        setToken(getToken);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Failed to decrypt or parse user data:", error);
+        navigate("/pbmp/auth", { replace: true });
+      }
+    };
+
+    if (hasParams) {
       const codeParams = paramsObject.code;
 
       apiOptions
-        .get("/google/login/callback", {
-          params: { code: codeParams },
-        })
+        .get("/google/login/callback", { params: { code: codeParams } })
         .then((res) => {
           toastMessage("success", res.data.message);
-
-          const expiryInDays = 18 / 24;
-
-          Cookies.set("pbmp-login", res.data.token, {
-            expires: expiryInDays,
-            path: "/",
-            secure: true,
-            sameSite: "Strict",
-          });
-
-          if (!SECRET_KEY) {
-            console.error("Secret key is not defined.");
-            return;
-          }
-
-          const getUser = res.data.user;
-          const encryptedData = CryptoJS.AES.encrypt(
-            JSON.stringify(getUser),
-            SECRET_KEY
-          ).toString();
-
-          Cookies.set("pbmp-user", encryptedData, {
-            expires: expiryInDays,
-            path: "/",
-            secure: true,
-            sameSite: "Strict",
-          });
+          processUserAuthentication(res.data.token, res.data.user);
         })
         .catch((err) => {
-          console.error(err);
+          console.error("Error fetching Google login callback:", err);
+        })
+        .finally(() => {
+          // Membersihkan query params di URL
+          const params = new URLSearchParams(window.location.search);
+          ["authuser", "code", "prompt", "state", "scope"].forEach((param) =>
+            params.delete(param)
+          );
+          window.history.replaceState(
+            {},
+            "",
+            `${window.location.pathname}?${params.toString()}`
+          );
         });
-
-      const params = new URLSearchParams(window.location.search);
-      const paramsToDelete = ["authuser", "code", "prompt", "state", "scope"];
-      paramsToDelete.forEach((param) => params.delete(param));
-
-      // Update URL tanpa reload
-      const newUrl = `${window.location.pathname}?${params.toString()}`;
-      window.history.replaceState({}, "", newUrl);
     } else {
-      const encryptedData = Cookies.get("pbmp-user");
-      const getToken = Cookies.get("pbmp-login");
-
-      if (getToken && encryptedData) {
-        try {
-          const decryptedData = CryptoJS.AES.decrypt(
-            encryptedData,
-            SECRET_KEY
-          ).toString(CryptoJS.enc.Utf8);
-
-          const parsedData = JSON.parse(decryptedData);
-
-          setUser(parsedData);
-          setToken(getToken);
-          setIsAuthenticated(true);
-        } catch (error) {
-          console.error("Failed to decrypt or parse user data:", error);
-          navigate("/pbmp/auth", { replace: true });
-        }
-      } else {
-        navigate("/pbmp/auth", { replace: true });
-      }
+      decryptUserData();
     }
   }, [navigate, searchParams]);
 
