@@ -106,7 +106,7 @@ export function usePBM() {
             (item) => item.attributes.id_kelas === kelasId
           )[0].attributes.kode_mata_kuliah,
           "matkul"
-        )}_${formatName(user.nama, "name")}.pdf`;
+        )}_${formatName(user.nama ? user.nama : user.name, "name")}.pdf`;
         document.body.appendChild(a);
         a.click();
         a.remove();

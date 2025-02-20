@@ -77,8 +77,8 @@ function Topbar() {
             <img src={userImage} alt="User" />
           </div>
           <div className="text">
-            <span className="name">{user.nama}</span>
-            {/* <span className="job">{user?.role[0]?.nama_role || ""}</span> */}
+            <span className="name">{user.nama ? user.nama : user.name}</span>
+            {/* <span className="job">{user?.role[0]?.nama_role}</span> */}
           </div>
         </div>
         <span className="option">

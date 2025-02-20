@@ -102,7 +102,7 @@ export const DashboardProvider = ({ children }) => {
       const codeParams = paramsObject.code;
 
       apiOptions
-        .get("/google/login/callback", { params: { code: codeParams } })
+        .get(`/google/login/callback?code=${codeParams}`)
         .then((res) => {
           console.log(res.data);
 
@@ -115,8 +115,8 @@ export const DashboardProvider = ({ children }) => {
         .finally(() => {
           // Membersihkan query params di URL
           const params = new URLSearchParams(window.location.search);
-          ["authuser", "prompt", "state", "scope", "hd"].forEach((param) =>
-            params.delete(param)
+          ["authuser", "prompt", "state", "scope", "hd", "code"].forEach(
+            (param) => params.delete(param)
           );
           window.history.replaceState(
             {},
