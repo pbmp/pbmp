@@ -91,6 +91,7 @@ export function useAuth() {
               ).toString();
 
               Cookies.set("pbmp-user", encryptedData, {
+                expires: expiryInDays,
                 path: "/",
                 secure: true,
                 sameSite: "Strict",
