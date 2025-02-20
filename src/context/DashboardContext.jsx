@@ -96,6 +96,9 @@ export const DashboardProvider = ({ children }) => {
     };
 
     if (hasParams) {
+      console.log(paramsObject);
+      console.log(paramsObject.code);
+
       const codeParams = paramsObject.code;
 
       apiOptions
