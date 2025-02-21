@@ -1790,10 +1790,25 @@
 .layout .sidebar-message {
   margin: auto 0 3.2vh;
   padding: 0.8rem 1.1rem;
-  font-size: 1.1vw;
   background-color: rgba(165, 176, 190, 0.2);
   box-shadow: rgba(0, 0, 0, 0.2) 0.5px 0.5px 2px;
   border-radius: 0.4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.layout .sidebar-message .text {
+  font-size: 1.1vw;
+}
+.layout .sidebar-message .name {
+  margin-top: 2.1rem;
+  font-size: 0.92vw;
+  font-weight: 600;
+}
+.layout .sidebar-message .no-hp {
+  margin-top: 0.15rem;
+  font-size: 0.9vw;
 }
 .layout .sidebar.collapse {
   width: 6vw;
@@ -2091,4 +2106,4 @@ input[type=file]::-webkit-file-upload-button {
 
 .toast {
   z-index: 9999;
-}
+}/*# sourceMappingURL=main.css.map */
