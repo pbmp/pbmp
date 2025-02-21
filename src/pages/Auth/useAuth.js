@@ -55,7 +55,7 @@ export function useAuth() {
             { autoClose: 2000 },
             () => {
               if (authStatus.current) {
-                navigate("/pbmp/");
+                navigate("/");
               }
             }
           );

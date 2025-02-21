@@ -73,7 +73,7 @@ export const DashboardProvider = ({ children }) => {
 
     const decryptUserData = () => {
       if (!getToken || !encryptedData) {
-        navigate("/pbmp/auth", { replace: true });
+        navigate("/auth", { replace: true });
         return;
       }
 
@@ -91,7 +91,7 @@ export const DashboardProvider = ({ children }) => {
         setIsAuthenticated(true);
       } catch (error) {
         console.error("Failed to decrypt or parse user data:", error);
-        navigate("/pbmp/auth", { replace: true });
+        navigate("/auth", { replace: true });
       }
     };
 

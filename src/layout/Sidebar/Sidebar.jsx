@@ -9,13 +9,13 @@ const navigation = [
     id: 1,
     icon: <FileText className="icon" strokeWidth={1.25} />,
     text: "PBM",
-    url: "/pbmp/",
+    url: "/",
   },
   {
     id: 2,
     icon: <Users className="icon" strokeWidth={1.25} />,
     text: "Perwalian",
-    url: "/pbmp/perwalian",
+    url: "/perwalian",
   },
 ];
 
