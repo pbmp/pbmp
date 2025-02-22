@@ -95,7 +95,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
 
         if (errors.length > 0) {
           console.warn("Beberapa data tidak bisa diambil:", errors);
-          toastMessage("warn", errors.join("\n"), { position: "top-center" });
+          // toastMessage("warn", errors.join("\n"), { position: "top-center" });
         }
       } catch (error) {
         console.error("Error fetching jurnal data:", error);
