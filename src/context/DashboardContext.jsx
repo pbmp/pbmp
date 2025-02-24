@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
 import PropTypes from "prop-types";
 import Loader from "@/components/Loader/Loader";
-import { apiOptions } from "../hooks/useApiSevima";
-import { toastMessage } from "../helpers/AlertMessage";
+import { apiOptions } from "@/hooks/useApiSevima";
+import { toastMessage } from "@/helpers/AlertMessage";
 
 const DashboardContext = createContext({
   user: {},

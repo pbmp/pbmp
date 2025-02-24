@@ -7,8 +7,8 @@ import userImage from "/images/user.png";
 import { useSearch } from "@/context/SearchContext";
 import { useDashboard } from "@/context/DashboardContext";
 import { toastMessage } from "@/helpers/AlertMessage";
-import useClickOutside from "../../hooks/useClickOutside";
-import { navigation } from "../../components/navigationData";
+import useClickOutside from "@/hooks/useClickOutside";
+import { navigation } from "@/components/navigationData";
 
 function Topbar() {
   const [openSetting, setOpenSetting] = useState(false);

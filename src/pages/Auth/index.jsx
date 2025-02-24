@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { useAuth } from "./useAuth";
 import { Link } from "react-router-dom";
 import google from "/logo/google.png";
-import { apiOptions } from "../../hooks/useApiSevima";
+import { apiOptions } from "@/hooks/useApiSevima";
 
 function Auth() {
   const { hidePassword, setHidePassword, data, handleChange, handleSubmit } =

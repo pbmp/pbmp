@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { Users, PanelLeftClose, FileText } from "lucide-react";
 import logo from "/logo/logo-Photoroom.png";
 import { NavLink, useLocation } from "react-router-dom";
-import { useDashboard } from "../../context/DashboardContext";
-import { navigation } from "../../components/navigationData";
+import { useDashboard } from "@/context/DashboardContext";
+import { navigation } from "@/components/navigationData";
 
 function Sidebar() {
   const location = useLocation();
