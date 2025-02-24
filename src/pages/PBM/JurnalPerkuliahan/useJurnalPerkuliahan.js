@@ -116,6 +116,9 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
     const getKelas = (kelas) => {
       if (kelas[1] === "1") return `${kelas[0]}A`;
       if (kelas[1] === "2") return `${kelas[0]}B`;
+      if (kelas[1] === "3") return `${kelas[0]}C`;
+      if (kelas[1] === "4") return `${kelas[0]}D`;
+      if (kelas[1] === "5") return `${kelas[0]}E`;
       return null;
     };
 
@@ -124,7 +127,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
         filterMatkul.length === 0 ? true : filterMatkul.includes(item.id_kelas)
       )
       .filter((item) => {
-        const kelas = getKelas(item?.nama_kelas).toLowerCase();
+        const kelas = getKelas(item?.nama_kelas)?.toLowerCase();
 
         return (
           item?.mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
@@ -133,7 +136,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
           item?.id_periode?.toLowerCase().includes(searchLowerCase) ||
           item?.total_pertemuan
             ?.toString()
-            .toLowerCase()
+            ?.toLowerCase()
             .includes(searchLowerCase)
         );
       });

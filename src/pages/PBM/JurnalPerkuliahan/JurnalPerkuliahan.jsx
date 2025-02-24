@@ -53,6 +53,12 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [], handlePrint }) {
                   ? `${data.nama_kelas[0]}A`
                   : data.nama_kelas[1] === "2"
                   ? `${data.nama_kelas[0]}B`
+                  : data.nama_kelas[1] === "3"
+                  ? `${data.nama_kelas[0]}C`
+                  : data.nama_kelas[1] === "4"
+                  ? `${data.nama_kelas[0]}D`
+                  : data.nama_kelas[1] === "5"
+                  ? `${data.nama_kelas[0]}E`
                   : null;
 
               return (

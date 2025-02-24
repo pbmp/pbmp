@@ -62,6 +62,8 @@ export function useAuth() {
 
           authPromise
             .then((res) => {
+              // console.log(res.data.data);
+
               authStatus.current = res.data.success;
 
               setData({

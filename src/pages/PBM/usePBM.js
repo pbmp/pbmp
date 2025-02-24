@@ -35,9 +35,9 @@ export function usePBM() {
     staleTime: 1000 * 60 * 5,
   });
 
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   useEffect(() => {
     if (kelasData?.data) {
