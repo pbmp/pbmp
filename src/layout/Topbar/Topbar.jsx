@@ -1,5 +1,5 @@
 import { useCallback, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { Search, Bell, EllipsisVertical, Menu, LogOut } from "lucide-react";
 import Cookies from "js-cookie";
 
@@ -8,6 +8,7 @@ import { useSearch } from "@/context/SearchContext";
 import { useDashboard } from "@/context/DashboardContext";
 import { toastMessage } from "@/helpers/AlertMessage";
 import useClickOutside from "../../hooks/useClickOutside";
+import { navigation } from "../../components/navigationData";
 
 function Topbar() {
   const [openSetting, setOpenSetting] = useState(false);
@@ -15,6 +16,7 @@ function Topbar() {
 
   const settingRef = useRef(null);
   const navMobileRef = useRef(null);
+  const textRefs = useRef([]);
 
   const { setSearch, search } = useSearch();
   const { user } = useDashboard();
@@ -25,6 +27,12 @@ function Topbar() {
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
+  };
+
+  const getActiveClass = (path) => {
+    return location.pathname === path
+      ? "menu-list-item active"
+      : "menu-list-item";
   };
 
   const handleInfoAlert = useCallback(() => {
@@ -67,13 +75,50 @@ function Topbar() {
           onClick={() => setOpenNavMobile(true)}
         />
         {openNavMobile ? (
-          <div className="nav-mobile" ref={navMobileRef}>
-            <LogOut
-              className="icon"
-              strokeWidth={1.5}
-              size={18}
-              onClick={handleLogout}
-            />
+          <div className="nav-mobile-wrapper">
+            <div className="nav-mobile" ref={navMobileRef}>
+              <div className="nav-mobile-profile">
+                <div className="image">
+                  <img src={userImage} alt="User" />
+                </div>
+                <div className="text">{user.nama ? user.nama : user.name}</div>
+              </div>
+              <div className="nav-mobile-menus">
+                <div className="menu-title">Main Menu</div>
+                <div className="menu-list">
+                  {navigation.map((item, index) => {
+                    return (
+                      <NavLink
+                        key={index}
+                        className={() => getActiveClass(item.url)}
+                        to={item.url}
+                      >
+                        <span className="icon">{item.icon}</span>
+                        <span
+                          className="text"
+                          ref={(el) => (textRefs.current[index] = el)}
+                        >
+                          {item.text}
+                        </span>
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="nav-mobile-logout" onClick={handleLogout}>
+                <LogOut className="icon" strokeWidth={1.5} size={18} />
+                <span>Logout</span>
+              </div>
+              <div className="nav-mobile-message">
+                <div className="text">
+                  Sinkronisasi data dilakukan setiap pukul 03.00 WIB, apabila
+                  ada perubahan data setelah jadwal sinkronisasi, silahkan
+                  hubungi no staff DTI di bawah ini. Terima kasih.
+                </div>
+                <div className="name">Ahmad Rifky Ayala</div>
+                <div className="no-hp">(+62) 82118952582</div>
+              </div>
+            </div>
           </div>
         ) : null}
         <div className="line"></div>

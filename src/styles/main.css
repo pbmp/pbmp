@@ -917,7 +917,7 @@
   justify-content: center;
   gap: 0.8rem;
   position: relative;
-  z-index: 9999;
+  z-index: 101;
   /* From Uiverse.io by Nawsome */
 }
 .pbm-content .wrapper-fetch-loader .fetch-loader {
@@ -1559,6 +1559,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 1vw;
+  position: relative;
 }
 .layout .topbar-other .notification {
   cursor: pointer;
@@ -1694,11 +1695,165 @@
   .layout .topbar-other .option {
     display: none;
   }
+  .layout .topbar-other .nav-mobile-wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 107;
+  }
   .layout .topbar-other .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 109;
+    background-color: #fff;
+    height: 100%;
+    width: 70vw;
+    padding: 2.73vh 4.2vw;
+  }
+  .layout .topbar-other .nav-mobile-profile {
+    width: -moz-fit-content;
+    width: fit-content;
+    height: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 0.35rem;
+  }
+  .layout .topbar-other .nav-mobile-profile .image {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .layout .topbar-other .nav-mobile-profile .image img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .layout .topbar-other .nav-mobile-profile .text {
+    width: 100%;
+    height: auto;
+    font-size: 0.9rem;
+    line-height: 125%;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.8);
+  }
+  .layout .topbar-other .nav-mobile-menus {
+    width: 100%;
+    padding-top: 4.16vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    row-gap: 1.8vh;
+  }
+  .layout .topbar-other .nav-mobile-menus .menu-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .layout .topbar-other .nav-mobile-menus .menu-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .layout .topbar-other .nav-mobile-menus .menu-list-item {
+    width: 100%;
+    padding: 2.3vh 0.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    gap: 0.7rem;
+    font-size: 1.1rem;
+    border-radius: 0.4rem;
+  }
+  .layout .topbar-other .nav-mobile-menus .menu-list-item span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.8);
+  }
+  .layout .topbar-other .nav-mobile-menus .menu-list-item:hover span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #546983;
+  }
+  .layout .topbar-other .nav-mobile-menus .menu-list-item.active {
+    background-color: rgba(165, 176, 190, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.2) 0.5px 0.5px 2px;
+  }
+  .layout .topbar-other .nav-mobile-menus .menu-list-item.active .icon,
+  .layout .topbar-other .nav-mobile-menus .menu-list-item.active .text {
+    color: #546983;
+  }
+  .layout .topbar-other .nav-mobile-logout {
+    margin: auto 0 0 auto;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 0.95rem;
+    height: 3rem;
+    transition: background-color 0.2s ease-in;
+    gap: 0.6rem;
+    border-radius: 0.4rem;
+  }
+  .layout .topbar-other .nav-mobile-logout:hover {
+    background-color: rgba(165, 176, 190, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.2) 0.5px 0.5px 2px;
+    transition: background-color 0.2s ease-out;
+  }
+  .layout .topbar-other .nav-mobile-logout span,
+  .layout .topbar-other .nav-mobile-logout .icon {
+    color: #546983;
+  }
+  .layout .topbar-other .nav-mobile-message {
+    margin-top: 0.6rem;
+    padding: 0.8rem 1.1rem;
+    background-color: rgba(165, 176, 190, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.2) 0.5px 0.5px 2px;
+    border-radius: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .layout .topbar-other .nav-mobile-message .text {
+    font-size: 0.95rem;
+  }
+  .layout .topbar-other .nav-mobile-message .name {
+    margin-top: 1.8rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .layout .topbar-other .nav-mobile-message .no-hp {
+    margin-top: 0.2rem;
+    font-size: 0.88rem;
   }
 }
 .layout .sidebar {
@@ -1894,7 +2049,7 @@
   justify-content: center;
   gap: 0.8rem;
   position: relative;
-  z-index: 9999;
+  z-index: 101;
   /* From Uiverse.io by Nawsome */
 }
 .wrapper-fetch-loader .fetch-loader {

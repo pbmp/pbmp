@@ -96,7 +96,7 @@
     @include m.flex($direction: column);
     gap: 0.8rem;
     position: relative;
-    z-index: 9999;
+    z-index: 101;
 
     /* From Uiverse.io by Nawsome */
     .fetch-loader {

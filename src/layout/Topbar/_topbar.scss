@@ -43,6 +43,7 @@
     height: auto;
     @include m.flex($justify: flex-end);
     gap: 1vw;
+    position: relative;
 
     .notification {
       cursor: pointer;
