@@ -68,7 +68,12 @@ function Topbar() {
         />
         {openNavMobile ? (
           <div className="nav-mobile" ref={navMobileRef}>
-            Test
+            <LogOut
+              className="icon"
+              strokeWidth={1.5}
+              size={18}
+              onClick={handleLogout}
+            />
           </div>
         ) : null}
         <div className="line"></div>

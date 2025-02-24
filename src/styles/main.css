@@ -1694,6 +1694,12 @@
   .layout .topbar-other .option {
     display: none;
   }
+  .layout .topbar-other .nav-mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
 }
 .layout .sidebar {
   grid-area: sidebar;
@@ -2106,4 +2112,4 @@ input[type=file]::-webkit-file-upload-button {
 
 .toast {
   z-index: 9999;
-}/*# sourceMappingURL=main.css.map */
+}

@@ -3,21 +3,7 @@ import { Users, PanelLeftClose, FileText } from "lucide-react";
 import logo from "/logo/logo-Photoroom.png";
 import { NavLink, useLocation } from "react-router-dom";
 import { useDashboard } from "../../context/DashboardContext";
-
-const navigation = [
-  {
-    id: 1,
-    icon: <FileText className="icon" strokeWidth={1.25} />,
-    text: "PBM",
-    url: "/",
-  },
-  {
-    id: 2,
-    icon: <Users className="icon" strokeWidth={1.25} />,
-    text: "Perwalian",
-    url: "/perwalian",
-  },
-];
+import { navigation } from "../../components/navigationData";
 
 function Sidebar() {
   const location = useLocation();
@@ -87,9 +73,9 @@ function Sidebar() {
       </div>
       <div className="sidebar-message" ref={messageRef}>
         <div className="text">
-        Sinkronisasi data dilakukan setiap pukul 03.00 WIB, apabila ada
-        perubahan data setelah jadwal sinkronisasi, silahkan hubungi no staff DTI di bawah ini.
-        Terima kasih.
+          Sinkronisasi data dilakukan setiap pukul 03.00 WIB, apabila ada
+          perubahan data setelah jadwal sinkronisasi, silahkan hubungi no staff
+          DTI di bawah ini. Terima kasih.
         </div>
         <div className="name">Ahmad Rifky Ayala</div>
         <div className="no-hp">(+62) 82118952582</div>
