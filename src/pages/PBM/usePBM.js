@@ -115,7 +115,11 @@ export function usePBM() {
         toastMessage("success", "File berhasil diunduh!");
       } catch (error) {
         console.error("Error fetching PDF:", error);
-        toastMessage("error", `Gagal mengunduh file: ${error.message}`);
+        toastMessage(
+          "error",
+          `Gagal mengunduh file dikarenakan data kelas yang dimaksud belum tersinkron`
+        );
+        toastMessage("info", `Dimohon untuk mencoba kembali besok setelah pukul 03.00 WIB`);
       } finally {
         setLoadingPrint(false);
       }
