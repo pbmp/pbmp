@@ -7,7 +7,11 @@ import { apiOptions } from "@/hooks/useApiSevima";
 import { formatDate } from "@/helpers/FormatDate";
 import { toastMessage } from "@/helpers/AlertMessage";
 
-function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
+function useJurnalPerkuliahan({
+  kelasIds,
+  filterMatkul = [],
+  filterPeriode = [],
+}) {
   const { search } = useSearch(); // Input pencarian
   const [jurnalData, setJurnalData] = useState([]);
   const [filteredData, setFilteredData] = useState([]); // Data setelah filter pencarian
@@ -36,7 +40,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
 
               return response.data.data;
             } catch (err) {
-              console.error(err);
+              // console.error(err);
               throw new Error(
                 `Gagal mengambil data untuk ID kelas: ${idkelas}`
               );
@@ -94,7 +98,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
           .map((result) => result.reason.message);
 
         if (errors.length > 0) {
-          console.warn("Beberapa data tidak bisa diambil:", errors);
+          // console.warn("Beberapa data tidak bisa diambil:", errors);
           // toastMessage("warn", errors.join("\n"), { position: "top-center" });
         }
       } catch (error) {
@@ -113,18 +117,34 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
   useEffect(() => {
     const searchLowerCase = search.toLowerCase();
 
+    const containsAlphabet = (str) => /[a-zA-Z]/.test(str);
+
     const getKelas = (kelas) => {
-      if (kelas[1] === "1") return `${kelas[0]}A`;
-      if (kelas[1] === "2") return `${kelas[0]}B`;
-      if (kelas[1] === "3") return `${kelas[0]}C`;
-      if (kelas[1] === "4") return `${kelas[0]}D`;
-      if (kelas[1] === "5") return `${kelas[0]}E`;
-      return null;
+      if (containsAlphabet(kelas)) {
+        return kelas;
+      }
+
+      const mapping = {
+        1: "A",
+        2: "B",
+        3: "C",
+        4: "D",
+        5: "E",
+      };
+
+      return mapping[kelas[1]] ? `${kelas[0]}${mapping[kelas[1]]}` : null;
     };
 
     const filtered = jurnalData
       .filter((item) =>
-        filterMatkul.length === 0 ? true : filterMatkul.includes(item.id_kelas)
+        filterPeriode.length === 0
+          ? true
+          : filterPeriode.includes(item.id_periode)
+      )
+      .filter((item) =>
+        filterMatkul.length === 0
+          ? true
+          : filterMatkul.includes(item.mata_kuliah)
       )
       .filter((item) => {
         const kelas = getKelas(item?.nama_kelas)?.toLowerCase();
@@ -145,7 +165,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
     setCurrentPage(1);
 
     // console.log(filtered);
-  }, [search, jurnalData, filterMatkul]);
+  }, [search, jurnalData, filterMatkul, filterPeriode]);
 
   const handlePageDataChange = (currentData, indexOfFirstItem) => {
     setCurrentData(currentData);
@@ -167,6 +187,7 @@ function useJurnalPerkuliahan({ kelasIds, filterMatkul = [] }) {
 useJurnalPerkuliahan.propTypes = {
   kelasIds: PropTypes.array,
   filterMatkul: PropTypes.array,
+  filterPeriode: PropTypes.array,
 };
 
 export default useJurnalPerkuliahan;

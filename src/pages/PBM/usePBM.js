@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useFetchData, apiOptions } from "@/hooks/useApiSevima";
 import { useQuery } from "@tanstack/react-query";
 import { useDashboard } from "@/context/DashboardContext";
@@ -8,13 +8,13 @@ import { formatName } from "@/helpers/FormatName";
 export function usePBM() {
   const [activeSubmenu, setActiveSubmenu] = useState(1);
   const [kelasIds, setKelasIds] = useState([]);
-  const [periodeData, setPeriodeData] = useState([]);
   const [loadingPrint, setLoadingPrint] = useState(false);
-  const [openPeriode, setOpenPeriode] = useState(false);
+  const [matkulData, setMatkulData] = useState([]);
   const [filterMatakuliah, setFilterMatakuliah] = useState([]);
   const [tempFilterMatakuliah, setTempFilterMatakuliah] = useState([]);
-
-  const periodeModal = useRef(null);
+  const [periodeData, setPeriodeData] = useState([]);
+  const [filterPeriode, setFilterPeriode] = useState(["20241"]);
+  const [tempFilterPeriode, setTempFilterPeriode] = useState(["20241"]);
 
   const { user } = useDashboard();
 
@@ -46,36 +46,48 @@ export function usePBM() {
 
       // console.log(kelasData);
 
+      const getMatkul = Object.values(
+        kelasData.data.reduce((acc, item) => {
+          const matkul = item.attributes.mata_kuliah;
+          const idPeriode = item.attributes.id_periode;
+
+          if (!acc[matkul]) {
+            acc[matkul] = { mata_kuliah: matkul, id_periode: new Set() };
+          }
+
+          acc[matkul].id_periode.add(idPeriode);
+
+          return acc;
+        }, {})
+      ).map((item) => ({
+        ...item,
+        id_periode: Array.from(item.id_periode), // Convert Set to Array
+      }));
+
+      setMatkulData(getMatkul);
+
       const getPeriode = [
         ...new Set(kelasData.data.map((item) => item.attributes.id_periode)),
       ];
-      setPeriodeData(getPeriode);
+      const sortedPeriode = getPeriode.sort((a, b) => {
+        return b - a;
+      });
+      setPeriodeData(sortedPeriode);
     }
   }, [kelasData]);
 
-  const handleClickOutside = useCallback(
-    (e) => {
-      if (periodeModal.current && !periodeModal.current.contains(e.target)) {
-        setOpenPeriode(false);
-      }
-    },
-    [periodeModal]
-  );
-
-  useEffect(() => {
-    if (openPeriode) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [openPeriode, handleClickOutside]);
-
   const handleFilterMatakuliah = useCallback((id) => {
     setTempFilterMatakuliah((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((item) => item !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  }, []);
+
+  const handleFilterPeriode = useCallback((id) => {
+    setTempFilterPeriode((prev) => {
       if (prev.includes(id)) {
         return prev.filter((item) => item !== id);
       } else {
@@ -158,18 +170,21 @@ export function usePBM() {
     setActiveSubmenu,
     kelasIds,
     kelasData,
-    periodeData,
-    loadingPrint,
-    openPeriode,
-    setOpenPeriode,
+    matkulData,
     filterMatakuliah,
     setFilterMatakuliah,
     tempFilterMatakuliah,
     setTempFilterMatakuliah,
-    periodeModal,
+    periodeData,
+    filterPeriode,
+    setFilterPeriode,
+    tempFilterPeriode,
+    setTempFilterPeriode,
+    loadingPrint,
     isLoadingKelas,
     isErrorKelas,
     handleFilterMatakuliah,
+    handleFilterPeriode,
     handlePrint,
   };
 }

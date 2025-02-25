@@ -8,7 +8,12 @@ import { formatDate } from "@/helpers/FormatDate";
 import { useWindowWidth } from "@/hooks/useWindowWidth";
 import useJurnalPerkuliahan from "./useJurnalPerkuliahan";
 
-function JurnalPerkuliahan({ kelasIds, filterMatkul = [], handlePrint }) {
+function JurnalPerkuliahan({
+  kelasIds,
+  filterMatkul = [],
+  filterPeriode = [],
+  handlePrint,
+}) {
   const {
     filteredData,
     currentData,
@@ -18,7 +23,7 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [], handlePrint }) {
     handlePageDataChange,
     expandedSidebar,
     isLoading,
-  } = useJurnalPerkuliahan({ kelasIds, filterMatkul });
+  } = useJurnalPerkuliahan({ kelasIds, filterMatkul, filterPeriode });
 
   const windowWidth = useWindowWidth();
 
@@ -48,25 +53,32 @@ function JurnalPerkuliahan({ kelasIds, filterMatkul = [], handlePrint }) {
             </div>
             <EmptyData data={filteredData} />
             {currentData.map((data, index) => {
-              const kelas =
-                data.nama_kelas[1] === "1"
-                  ? `${data.nama_kelas[0]}A`
-                  : data.nama_kelas[1] === "2"
-                  ? `${data.nama_kelas[0]}B`
-                  : data.nama_kelas[1] === "3"
-                  ? `${data.nama_kelas[0]}C`
-                  : data.nama_kelas[1] === "4"
-                  ? `${data.nama_kelas[0]}D`
-                  : data.nama_kelas[1] === "5"
-                  ? `${data.nama_kelas[0]}E`
+              const containsAlphabet = (str) => /[a-zA-Z]/.test(str);
+
+              const getClassName = (data) => {
+                if (containsAlphabet(data)) {
+                  return data;
+                }
+
+                const mapping = {
+                  1: "A",
+                  2: "B",
+                  3: "C",
+                  4: "D",
+                  5: "E",
+                };
+
+                return mapping[data[1]]
+                  ? `${data[0]}${mapping[data[1]]}`
                   : null;
+              };
 
               return (
                 <>
                   <div className="tbody" key={index}>
                     <div className="col">{indexFirstItem + index + 1}</div>
                     <div className="col">{data.mata_kuliah}</div>
-                    <div className="col">{kelas}</div>
+                    <div className="col">{getClassName(data.nama_kelas)}</div>
                     {windowWidth > 767.98 ? (
                       <>
                         <div className="col">{data.total_pertemuan}</div>

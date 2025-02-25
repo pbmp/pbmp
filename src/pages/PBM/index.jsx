@@ -38,19 +38,22 @@ function PBM() {
     activeSubmenu,
     setActiveSubmenu,
     kelasIds,
-    kelasData,
-    // periodeData,
-    loadingPrint,
-    // openPeriode,
-    // setOpenPeriode,
+    // kelasData,
+    matkulData,
     filterMatakuliah,
     setFilterMatakuliah,
     tempFilterMatakuliah,
     setTempFilterMatakuliah,
-    // periodeModal,
+    periodeData,
+    filterPeriode,
+    setFilterPeriode,
+    tempFilterPeriode,
+    setTempFilterPeriode,
+    loadingPrint,
     isLoadingKelas,
     isErrorKelas,
     handleFilterMatakuliah,
+    handleFilterPeriode,
     handlePrint,
   } = usePBM();
 
@@ -111,27 +114,26 @@ function PBM() {
             setActiveSubmenu={setActiveSubmenu}
             onApplyFilter={() => {
               setFilterMatakuliah(tempFilterMatakuliah);
+              setFilterPeriode(tempFilterPeriode);
             }}
             onClearFilter={() => {
               setFilterMatakuliah([]);
               setTempFilterMatakuliah([]);
+              setFilterPeriode(["20241"]);
+              setTempFilterPeriode(["20241"]);
             }}
           >
             <div className="filter-modal-content">
-              <div className="filter-by">Matakuliah</div>
+              <div className="filter-by">Periode</div>
               <div className="filter-list">
-                {kelasData.data.map((item, index) => {
-                  const activeFilter = tempFilterMatakuliah?.includes(
-                    item.attributes.id_kelas
-                  );
+                {periodeData.map((item, index) => {
+                  const activeFilter = tempFilterPeriode?.includes(item);
 
                   return (
                     <div
-                      className={`filter-list-item`}
+                      className="filter-list-item"
                       key={index}
-                      onClick={() =>
-                        handleFilterMatakuliah(item.attributes.id_kelas)
-                      }
+                      onClick={() => handleFilterPeriode(item)}
                     >
                       {activeFilter ? (
                         <SquareCheckBig strokeWidth={1.75} className="icon" />
@@ -141,13 +143,48 @@ function PBM() {
                           className="filter-list-item-icon"
                         />
                       )}
-                      <div className="filter-list-item-text">
-                        {item.attributes.id_periode} -{" "}
-                        {item.attributes.mata_kuliah}
-                      </div>
+                      <div className="filter-list-item-text">{item}</div>
                     </div>
                   );
                 })}
+              </div>
+            </div>
+            <div className="filter-modal-content">
+              <div className="filter-by">Matakuliah</div>
+              <div className="filter-list">
+                {matkulData
+                  .filter(
+                    (item) =>
+                      tempFilterPeriode.length === 0 ||
+                      tempFilterPeriode.some((periode) =>
+                        item.id_periode.includes(periode)
+                      )
+                  )
+                  .map((item, index) => {
+                    const activeFilter = tempFilterMatakuliah?.includes(
+                      item.mata_kuliah
+                    );
+
+                    return (
+                      <div
+                        className={`filter-list-item`}
+                        key={index}
+                        onClick={() => handleFilterMatakuliah(item.mata_kuliah)}
+                      >
+                        {activeFilter ? (
+                          <SquareCheckBig strokeWidth={1.75} className="icon" />
+                        ) : (
+                          <Square
+                            strokeWidth={1.25}
+                            className="filter-list-item-icon"
+                          />
+                        )}
+                        <div className="filter-list-item-text">
+                          {item.mata_kuliah}
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </Feature>
@@ -161,6 +198,7 @@ function PBM() {
             <JurnalPerkuliahan
               kelasIds={kelasIds}
               filterMatkul={filterMatakuliah}
+              filterPeriode={filterPeriode}
               handlePrint={handlePrint}
             />
           )}
