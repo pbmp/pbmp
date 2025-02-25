@@ -35,9 +35,9 @@ export function usePBM() {
     staleTime: 1000 * 60 * 5,
   });
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user]);
 
   useEffect(() => {
     if (kelasData?.data) {
@@ -86,42 +86,68 @@ export function usePBM() {
 
   const handlePrint = useCallback(
     async (kelasId, periodeId) => {
-      try {
-        setLoadingPrint(true);
+      if (kelasData) {
+        try {
+          setLoadingPrint(true);
 
-        const response = await apiOptions.get("/laporan/pbmp", {
-          params: {
-            idkelas: kelasId,
-            idperiode: periodeId,
-          },
-          responseType: "blob",
-        });
+          const response = await apiOptions.get("/laporan/pbmp", {
+            params: {
+              idkelas: kelasId,
+              idperiode: periodeId,
+            },
+            responseType: "blob",
+          });
 
-        const blob = response.data;
-        const fileUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = fileUrl;
-        a.download = `LaporanBKD_${periodeId}_${formatName(
-          kelasData.data.filter(
+          const blob = response.data;
+          const fileUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = fileUrl;
+
+          const matkulCode = kelasData.data.find(
             (item) => item.attributes.id_kelas === kelasId
-          )[0].attributes.kode_mata_kuliah,
-          "matkul"
-        )}_${formatName(user.nama ? user.nama : user.name, "name")}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.URL.revokeObjectURL(fileUrl);
+          ).attributes.kode_mata_kuliah;
+          const getKelas = kelasData.data.find(
+            (item) => item.attributes.id_kelas === kelasId
+          );
+          const kelas =
+            getKelas.attributes.nama_kelas[1] === "1"
+              ? `${getKelas.attributes.nama_kelas[0]}A`
+              : getKelas.attributes.nama_kelas[1] === "2"
+              ? `${getKelas.attributes.nama_kelas[0]}B`
+              : getKelas.attributes.nama_kelas[1] === "3"
+              ? `${getKelas.attributes.nama_kelas[0]}C`
+              : getKelas.attributes.nama_kelas[1] === "4"
+              ? `${getKelas.attributes.nama_kelas[0]}D`
+              : getKelas.attributes.nama_kelas[1] === "5"
+              ? `${getKelas.attributes.nama_kelas[0]}E`
+              : null;
 
-        toastMessage("success", "File berhasil diunduh!");
-      } catch (error) {
-        console.error("Error fetching PDF:", error);
-        toastMessage(
-          "error",
-          `Gagal mengunduh file dikarenakan data kelas yang dimaksud belum tersinkron`
-        );
-        toastMessage("info", `Dimohon untuk mencoba kembali besok setelah pukul 03.00 WIB`);
-      } finally {
-        setLoadingPrint(false);
+          a.download = `LaporanBKD_${periodeId}_${formatName(
+            matkulCode,
+            "matkul"
+          )}_${kelas}_${formatName(
+            user.nama ? user.nama : user.name,
+            "name"
+          )}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(fileUrl);
+
+          toastMessage("success", "File berhasil diunduh!");
+        } catch (error) {
+          console.error("Error fetching PDF:", error);
+          toastMessage(
+            "error",
+            `Gagal mengunduh file dikarenakan data kelas yang dimaksud belum tersinkron`
+          );
+          toastMessage(
+            "info",
+            `Dimohon untuk mencoba kembali besok setelah pukul 03.00 WIB`
+          );
+        } finally {
+          setLoadingPrint(false);
+        }
       }
     },
     [user, setLoadingPrint, kelasData]
