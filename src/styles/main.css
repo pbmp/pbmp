@@ -651,6 +651,13 @@
 .pbm-feature-filter .clear-filter .text span {
   display: inline-block;
 }
+.pbm-message {
+  margin: 4vh 1.8vw 8vh;
+  padding: 3.2vh;
+  background-color: rgba(165, 176, 190, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.2) 0.5px 0.5px 2px;
+  border-radius: 0.4vw;
+}
 .pbm-content {
   padding: 3.2vh 1.8vw 8vh;
   max-width: 100%;
@@ -1122,6 +1129,11 @@
   }
   .pbm-header .menu .desc {
     font-size: 3.2vw;
+  }
+  .pbm-message {
+    margin: 0.65rem 0;
+    padding: 2.6vh 4.2vw;
+    border-radius: 0.4rem;
   }
   .pbm-feature {
     padding: 2.6vh 4.2vw;

@@ -55,7 +55,22 @@ function PBM() {
   } = usePBM();
 
   if (isLoadingKelas) return <Loader />;
-  if (isErrorKelas) return <p>Error fetching data</p>;
+  if (isErrorKelas)
+    return (
+      <div className="pbm">
+        <Header
+          classEl={"pbm"}
+          titleEl={"PBM"}
+          descEl={"Laporan Kinerja Dosen"}
+          Icon={FileText}
+        ></Header>
+        <div className="pbm-message">
+          Error dalam mengambil data kelas dikarenakan request menuju server
+          sedang sibuk. Mohon maaf atas ketidaknyamanan yang ditimbulkan.
+          Silahkan refresh untuk mengambil data kelas kembali.
+        </div>
+      </div>
+    );
 
   return (
     <>

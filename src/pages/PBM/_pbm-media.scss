@@ -27,6 +27,12 @@
         }
       }
 
+      &-message {
+        margin: .65rem 0;
+        padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
+        border-radius: 0.4rem;
+      }
+
       &-feature {
         padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
 
@@ -47,7 +53,7 @@
         }
 
         &-filter {
-          margin: .4rem;
+          margin: 0.4rem;
 
           .add-filters {
             @include header.button(
