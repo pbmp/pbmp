@@ -6,6 +6,7 @@ import Auth from "@/pages/Auth";
 import Error404 from "@/pages/Error404/Error404";
 import PBM from "@/pages/PBM";
 import Perwalian from "@/pages/Perwalian/Perwalian";
+import Sinkronisasi from "@/pages/Sinkronisasi/Sinkronisasi";
 
 export function routes() {
   return [
@@ -33,6 +34,10 @@ export function routes() {
           path: "perwalian",
           element: <Perwalian />,
         },
+        {
+          path: "sinkronisasi",
+          element: <Sinkronisasi />,
+        }
       ],
     },
     {

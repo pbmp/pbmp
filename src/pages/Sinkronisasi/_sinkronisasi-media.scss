@@ -1,0 +1,42 @@
+@use "../../helpers/mixins" as m;
+@use "../../helpers/variables" as v;
+@use "../../components/Header/header" as header;
+
+@mixin sinkronisasi-media() {
+  @media (max-width: 767.98px) {
+    .sinkronisasi {
+      &-header {
+        padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
+
+        .menu {
+          gap: 0 1.4vw;
+
+          .icon {
+            width: 10vw;
+            height: 10vw;
+            border-radius: 1.6vw;
+          }
+
+          .title {
+            font-size: 4.2vw;
+          }
+
+          .desc {
+            font-size: 3.2vw;
+          }
+        }
+      }
+
+      &-message {
+        margin: 0.65rem 0;
+        padding: v.$py-sidebar-content-media v.$px-topbar-content-media;
+        border-radius: 0.4rem;
+      }
+
+      &-content {
+        padding: (v.$py-sidebar-content-media * 0.8) v.$px-topbar-content-media
+          v.$py-sidebar-content-media;
+      }
+    }
+  }
+}

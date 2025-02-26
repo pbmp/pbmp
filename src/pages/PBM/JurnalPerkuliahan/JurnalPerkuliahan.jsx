@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import Pagination from "@/components/Pagination/Pagination";
 import Loader from "@/components/Loader/Loader";
 import EmptyData from "@/components/EmptyData/EmptyData";
-import { formatDate } from "@/helpers/FormatDate";
 import { useWindowWidth } from "@/hooks/useWindowWidth";
+import { formatDate } from "@/helpers/FormatDate";
 import useJurnalPerkuliahan from "./useJurnalPerkuliahan";
 
 function JurnalPerkuliahan({

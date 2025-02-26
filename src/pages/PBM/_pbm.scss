@@ -14,46 +14,6 @@
 
   &-header {
     @include header.header();
-
-    .action {
-      @include m.flex();
-      gap: 0.5rem;
-      position: relative;
-
-      // .download,
-      .print {
-        @include header.button($fs: 1.1vw);
-      }
-
-      .periode-modal {
-        width: 150%;
-        height: auto;
-        position: absolute;
-        background-color: #fff;
-        top: 115%;
-        right: 0;
-        border-radius: 0.4vw;
-        box-shadow: 0 0 4px rgba($color: #000, $alpha: 0.15);
-        z-index: 43;
-
-        &-content {
-          padding: 0 0.95rem;
-          height: 3.3rem;
-          @include m.flex($justify: flex-start);
-          cursor: pointer;
-          color: map-get($map: v.$color, $key: "blue");
-          transition: background-color 0.2s ease-in;
-
-          &:hover {
-            background-color: rgba(
-              $color: map-get(v.$color, "other-blue"),
-              $alpha: 0.2
-            );
-            transition: background-color 0.2s ease-out;
-          }
-        }
-      }
-    }
   }
 
   @include feature.feature();

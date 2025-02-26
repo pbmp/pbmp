@@ -1,4 +1,4 @@
-import { FileText, Users } from "lucide-react";
+import { FileText, Users, DatabaseBackup } from "lucide-react";
 
 export const navigation = [
   {
@@ -12,5 +12,11 @@ export const navigation = [
     icon: <Users className="icon" strokeWidth={1.25} />,
     text: "Perwalian",
     url: "/perwalian",
+  },
+  {
+    id: 3,
+    icon: <DatabaseBackup className="icon" strokeWidth={1.25} />,
+    text: "Sinkronisasi",
+    url: "/sinkronisasi",
   },
 ];

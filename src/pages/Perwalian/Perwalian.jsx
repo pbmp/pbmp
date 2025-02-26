@@ -1,4 +1,4 @@
-import { LayoutDashboard } from "lucide-react";
+import { Users } from "lucide-react";
 
 function Perwalian() {
   return (
@@ -7,7 +7,7 @@ function Perwalian() {
         <div className="perwalian-header">
           <div className="menu">
             <div className="icon">
-              <LayoutDashboard strokeWidth={1.25} size={28} />
+              <Users strokeWidth={1.25} size={28} />
             </div>
             <div className="title">Perwalian</div>
             <div className="desc">Overview All Component</div>
