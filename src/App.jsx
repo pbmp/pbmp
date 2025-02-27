@@ -6,7 +6,9 @@ import "@/styles/main.css";
 function App() {
   const queryClient = new QueryClient();
 
-  const router = createBrowserRouter(routes());
+  const router = createBrowserRouter(routes(), {
+    basename: "/",
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
