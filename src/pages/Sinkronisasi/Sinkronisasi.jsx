@@ -219,10 +219,10 @@ function Sinkronisasi() {
 
   useEffect(() => {
     if (selectedPresensi !== "") {
-      setLoadingPresensi(true); // Mulai loading sejak proses dimulai
+      setLoadingPresensi(true);
       toastMessage(
         "info",
-        "Proses sinkronisasi diperkirakan selesai setelah 2.5 menit."
+        "Proses sinkronisasi diperkirakan selesai setelah 3 menit."
       );
 
       const handlePresensi = async () => {
@@ -248,7 +248,7 @@ function Sinkronisasi() {
         toastMessage("success", "Sinkronisasi presensi berhasil dilakukan.");
         setLoadingPresensi(false);
         setSelectedPresensi("");
-      }, 150000);
+      }, 180000);
 
       return () => {
         clearTimeout(timeout);
