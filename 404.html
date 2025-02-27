@@ -2,15 +2,12 @@
 <html>
   <head>
     <script>
-      var redirectTo = window.location.pathname;
-
-      // Pastikan path tidak kosong dan dimulai dengan /
-      if (!redirectTo || redirectTo === "/") {
-        redirectTo = "";
-      }
-
-      window.location.replace("https://pbmp.ulbi.ac.id" + redirectTo);
+      setTimeout(function () {
+        var redirectTo = window.location.pathname;
+        window.location.replace("https://pbmp.ulbi.ac.id" + redirectTo);
+      }, 2000); // Delay 2 detik sebelum redirect
     </script>
   </head>
-  <body></body>
+  <body>
+  </body>
 </html>
