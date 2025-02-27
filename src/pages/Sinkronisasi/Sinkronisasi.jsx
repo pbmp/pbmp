@@ -222,7 +222,7 @@ function Sinkronisasi() {
       setLoadingPresensi(true);
       toastMessage(
         "info",
-        "Proses sinkronisasi diperkirakan selesai setelah 3 menit."
+        "Proses sinkronisasi diperkirakan selesai setelah 4 menit."
       );
 
       const handlePresensi = async () => {
@@ -248,7 +248,7 @@ function Sinkronisasi() {
         toastMessage("success", "Sinkronisasi presensi berhasil dilakukan.");
         setLoadingPresensi(false);
         setSelectedPresensi("");
-      }, 180000);
+      }, 240000);
 
       return () => {
         clearTimeout(timeout);
