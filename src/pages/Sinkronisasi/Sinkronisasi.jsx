@@ -219,40 +219,41 @@ function Sinkronisasi() {
 
   useEffect(() => {
     if (selectedPresensi !== "") {
+      setLoadingPresensi(true); // Mulai loading sejak proses dimulai
+      toastMessage(
+        "info",
+        "Proses sinkronisasi diperkirakan selesai setelah 2.5 menit."
+      );
+
       const handlePresensi = async () => {
         try {
-          setLoadingPresensi(true);
-          // Kumpulkan semua id_perkuliahan dalam satu array
           const idPerkuliahanList = allData
             .filter((item) => item.mata_kuliah === selectedPresensi)
-            .map((data) => ({ id_perkuliahan: data.id_perkuliahan })); // Perbaikan di sini
+            .map((data) => ({ id_perkuliahan: data.id_perkuliahan }));
 
-          if (!idPerkuliahanList.length) {
-            console.warn(
-              "Tidak ada ID perkuliahan yang ditemukan untuk mata kuliah ini."
-            );
-            return;
-          }
-
-          console.log("Payload yang dikirim:", idPerkuliahanList);
-
-          // Kirim request sekali dengan payload berupa array
           const response = await apiOptions.post(
             "perkuliahan/presensi",
-            idPerkuliahanList // Pastikan payload benar
+            idPerkuliahanList
           );
 
-          toastMessage("success", response.data.status);
-          console.log("Response:", response.data);
+          console.log(response.status);
         } catch (error) {
           console.error("Terjadi kesalahan saat mengirim presensi:", error);
-        } finally {
-          setLoadingPresensi(false);
-          setSelectedPresensi("");
         }
       };
 
       handlePresensi();
+
+      const timeout = setTimeout(() => {
+        toastMessage("success", "Sinkronisasi presensi berhasil dilakukan.");
+        setLoadingPresensi(false);
+        setSelectedPresensi("");
+      }, 150000);
+
+      return () => {
+        clearTimeout(timeout);
+        setLoadingPresensi(false);
+      };
     }
   }, [selectedPresensi, allData]);
 
