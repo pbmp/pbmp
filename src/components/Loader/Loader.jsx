@@ -12,7 +12,7 @@ function Loader({ text = null }) {
         <div className="fetch-loader__bar"></div>
         <div className="fetch-loader__ball"></div>
       </div>
-      <div className="fecth-text">{text}</div>
+      <div className="fetch-text">{text}</div>
     </div>
   );
 }

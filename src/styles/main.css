@@ -916,6 +916,10 @@
   border-radius: 50%;
   animation: ball624 4s infinite;
 }
+.pbm-content .wrapper-fetch-loader .fetch-text {
+  width: 60%;
+  text-align: center;
+}
 @keyframes ball624 {
   0% {
     transform: translate(0, 0);
@@ -1599,7 +1603,7 @@
 }
 .sinkronisasi-content-table .thead {
   display: grid;
-  grid-template-columns: 0.4fr 1fr 0.6fr 1fr 0.6fr;
+  grid-template-columns: 0.4fr 1fr 0.6fr 1fr;
   width: 100%;
 }
 .sinkronisasi-content-table .thead .row {
@@ -1632,7 +1636,7 @@
 }
 .sinkronisasi-content-table .tbody {
   display: grid;
-  grid-template-columns: 0.4fr 1fr 0.6fr 1fr 0.6fr;
+  grid-template-columns: 0.4fr 1fr 0.6fr 1fr;
   border-bottom: #ddd solid 0.15vw;
   width: 100%;
 }
@@ -2341,6 +2345,10 @@
   background: #546983;
   border-radius: 50%;
   animation: ball624 4s infinite;
+}
+.wrapper-fetch-loader .fetch-text {
+  width: 60%;
+  text-align: center;
 }
 @keyframes ball624 {
   0% {

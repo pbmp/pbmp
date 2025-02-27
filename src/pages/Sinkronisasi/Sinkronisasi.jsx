@@ -26,9 +26,9 @@ function Sinkronisasi() {
   const [indexFirstItem, setIndexFirstItem] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedPresensi, setSelectedPresensi] = useState("");
+  const [selectedKelas, setSelectedKelas] = useState(null);
+  const [selectedMatkul, setSelectedMatkul] = useState("");
   const [loadingPresensi, setLoadingPresensi] = useState(false);
-  const [selectedTranskrip, setSelectedTranskrip] = useState(null);
   const [loadingTranskrip, setLoadingTranskrip] = useState(false);
 
   const periodeModal = useRef(null);
@@ -218,68 +218,62 @@ function Sinkronisasi() {
   };
 
   useEffect(() => {
-    if (selectedPresensi !== "") {
+    if (selectedKelas) {
+      const getMatkul = allData.filter(
+        (item) => item.id_kelas === selectedKelas
+      )[0].mata_kuliah;
+
+      setSelectedMatkul(getMatkul);
       setLoadingPresensi(true);
-      toastMessage(
-        "info",
-        "Proses sinkronisasi diperkirakan selesai setelah 4 menit."
-      );
 
-      const handlePresensi = async () => {
-        try {
-          const idPerkuliahanList = allData
-            .filter((item) => item.mata_kuliah === selectedPresensi)
-            .map((data) => ({ id_perkuliahan: data.id_perkuliahan }));
+      const idPerkuliahanList = allData
+        .filter((item) => item.id_kelas === selectedKelas)
+        .map((data) => ({ id_perkuliahan: data.id_perkuliahan }));
 
-          const response = await apiOptions.post(
-            "perkuliahan/presensi",
-            idPerkuliahanList
-          );
+      // Kirim permintaan presensi
+      apiOptions
+        .post("perkuliahan/presensi", idPerkuliahanList)
+        .catch((err) => {
+          console.error("Terjadi kesalahan saat mengirim presensi:", err);
+        });
 
-          console.log(response.status);
-        } catch (error) {
-          console.error("Terjadi kesalahan saat mengirim presensi:", error);
-        }
-      };
-
-      handlePresensi();
-
+      // Setelah presensi selesai (4 menit), lanjut ke transkrip
       const timeout = setTimeout(() => {
         toastMessage("success", "Sinkronisasi presensi berhasil dilakukan.");
-        setLoadingPresensi(false);
-        setSelectedPresensi("");
-      }, 240000);
+        setLoadingPresensi(false); // Tandai presensi selesai
+
+        // Mulai proses sinkronisasi transkrip
+        setLoadingTranskrip(true);
+        apiOptions
+          .get(`/sinkron/transkrip/mahasiswa/${selectedKelas}`)
+          .then((res) => {
+            // console.log(res.data);
+            toastMessage("success", "Sinkronisasi transkrip berhasil dilakukan.");
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+          .finally(() => {
+            setSelectedKelas(null);
+            setLoadingTranskrip(false);
+            toastMessage(
+              "info",
+              `Seluruh proses sinkronisasi ${getMatkul} selesai.`,
+              {
+                autoClose: false,
+                theme: "colored",
+              }
+            );
+          });
+      }, 240000); // 4 menit
 
       return () => {
         clearTimeout(timeout);
         setLoadingPresensi(false);
+        setLoadingTranskrip(false);
       };
     }
-  }, [selectedPresensi, allData]);
-
-  useEffect(() => {
-    if (selectedTranskrip) {
-      setLoadingTranskrip(true);
-
-      apiOptions
-        .get(`/sinkron/transkrip/mahasiswa/${selectedTranskrip}`)
-        .then((res) => {
-          console.log(res.data);
-          toastMessage("success", res.data.status);
-        })
-        .catch((err) => {
-          console.error(err);
-          toastMessage(
-            "error",
-            "Dimohon untuk melakukan sinkronisasi presensi terlebih dahulu"
-          );
-        })
-        .finally(() => {
-          setSelectedTranskrip(null);
-          setLoadingTranskrip(false);
-        });
-    }
-  }, [selectedTranskrip]);
+  }, [selectedKelas, allData]);
 
   if (isLoadingKelas) return <Loader />;
   if (isErrorKelas)
@@ -294,7 +288,7 @@ function Sinkronisasi() {
         <div className="sinkronisasi-message">
           Error dalam mengambil data kelas dikarenakan request menuju server
           sedang sibuk. Mohon maaf atas ketidaknyamanan yang ditimbulkan.
-          Silahkan refresh untuk mengambil data kelas kembali.
+          Silahkan tunggu dan refresh untuk mengambil data kelas kembali.
         </div>
       </div>
     );
@@ -307,8 +301,14 @@ function Sinkronisasi() {
         descEl={"Memperbarui data server dengan data terbaru SEVIMA"}
         Icon={DatabaseBackup}
       ></Header>
-      {loadingPresensi || loadingTranskrip ? (
-        <Loader text="Sinkronisasi sedang berlansung, mohon tunggu..." />
+      {loadingPresensi ? (
+        <Loader
+          text={`Sinkronisasi presensi ${selectedMatkul} sedang berlansung, mohon bersabar menunggu...`}
+        />
+      ) : loadingTranskrip ? (
+        <Loader
+          text={`Sinkronisasi transkrip ${selectedMatkul} sedang berlansung, mohon bersabar menunggu...`}
+        />
       ) : (
         <div className="sinkronisasi-content">
           <div className="sinkronisasi-content-filter">
@@ -355,7 +355,6 @@ function Sinkronisasi() {
                   <div className="row">Mata Kuliah</div>
                   <div className="row">Kelas</div>
                   <div className="row">Presensi</div>
-                  <div className="row">Transkrip</div>
                 </div>
                 <EmptyData data={filteredData} />
                 {currentData.map((data, index) => {
@@ -390,20 +389,7 @@ function Sinkronisasi() {
                         <div className="col">
                           <div
                             className="refresh"
-                            onClick={() =>
-                              setSelectedPresensi(data.mata_kuliah)
-                            }
-                          >
-                            <RefreshCw
-                              className="refresh-icon"
-                              strokeWidth={1.5}
-                            />
-                          </div>
-                        </div>
-                        <div className="col">
-                          <div
-                            className="refresh"
-                            onClick={() => setSelectedTranskrip(data.id_kelas)}
+                            onClick={() => setSelectedKelas(data.id_kelas)}
                           >
                             <RefreshCw
                               className="refresh-icon"

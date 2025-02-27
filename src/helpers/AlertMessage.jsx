@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export const toastMessage = (type, message, option = {}) => {
   toast[type](message, {
     position: option.position || "top-right",
-    autoClose: option.autoClose || 3000,
+    autoClose: option.autoClose === false ? false : option.autoClose || 3000,
     hideProgressBar: option.hideProgressBar || false,
     closeOnClick: option.closeOnClick || true,
     pauseOnHover: option.pauseOnHover || true,
