@@ -3,7 +3,13 @@
   <head>
     <script>
       var redirectTo = window.location.pathname;
-      window.location.replace("https://pbmp.ulbi.ac.id/" + redirectTo);
+
+      // Pastikan path tidak kosong dan dimulai dengan /
+      if (!redirectTo || redirectTo === "/") {
+        redirectTo = "";
+      }
+
+      window.location.replace("https://pbmp.ulbi.ac.id" + redirectTo);
     </script>
   </head>
   <body></body>
