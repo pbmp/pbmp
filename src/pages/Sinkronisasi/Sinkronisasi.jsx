@@ -15,7 +15,6 @@ import Header from "@/components/Header/Header";
 import Loader from "@/components/Loader/Loader";
 import useClickOutside from "@/hooks/useClickOutside";
 import { useSearch } from "@/context/SearchContext";
-import { formatDate } from "@/helpers/FormatDate";
 import { toastMessage } from "@/helpers/AlertMessage";
 import Pagination from "@/components/Pagination/Pagination";
 import EmptyData from "@/components/EmptyData/EmptyData";
@@ -34,7 +33,6 @@ function Sinkronisasi() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedKelas, setSelectedKelas] = useState([]);
-  const [selectedMatkul, setSelectedMatkul] = useState([]);
   const [currentMatkul, setCurrentMatkul] = useState(null);
   const [startSync, setStartSync] = useState(false);
   const [loadingPresensi, setLoadingPresensi] = useState(false);
@@ -77,10 +75,6 @@ function Sinkronisasi() {
       setPeriodeData(sortedPeriode);
     }
   }, [kelasData]);
-
-  //   useEffect(() => {
-  //     console.log(periodeData);
-  //   }, [periodeData]);
 
   useEffect(() => {
     const fetchDisplayData = async () => {
@@ -205,13 +199,7 @@ function Sinkronisasi() {
 
       return (
         item?.mata_kuliah?.toLowerCase().includes(searchLowerCase) ||
-        kelas.includes(searchLowerCase) ||
-        formatDate(item?.tanggal)?.toLowerCase().includes(searchLowerCase) ||
-        item?.id_periode?.toLowerCase().includes(searchLowerCase) ||
-        item?.total_pertemuan
-          ?.toString()
-          ?.toLowerCase()
-          .includes(searchLowerCase)
+        kelas.includes(searchLowerCase)
       );
     });
 
@@ -237,13 +225,6 @@ function Sinkronisasi() {
   }, []);
 
   const handleCheckListAll = useCallback(() => {
-    const getMatkul = [
-      ...new Set(
-        allData
-          .filter((item) => item.id_periode === selectedPeriode)
-          .map((item) => item.mata_kuliah)
-      ),
-    ];
     const getKelas = [
       ...new Set(
         allData
@@ -252,48 +233,58 @@ function Sinkronisasi() {
       ),
     ];
 
-    setSelectedMatkul(getMatkul);
     setSelectedKelas(getKelas);
   }, [allData, selectedPeriode]);
 
   useEffect(() => {
+    const containsAlphabet = (str) => /[a-zA-Z]/.test(str);
+
+    const getClassName = (data) => {
+      if (containsAlphabet(data)) {
+        return data;
+      }
+
+      const mapping = {
+        1: "A",
+        2: "B",
+        3: "C",
+        4: "D",
+        5: "E",
+      };
+
+      return mapping[data[1]] ? `${data[0]}${mapping[data[1]]}` : null;
+    };
+
+    const getMatkul = currentData
+      .filter((item) => selectedKelas.includes(item.id_kelas))
+      .map((item) => `${item.mata_kuliah} - ${getClassName(item.nama_kelas)}`);
+
     if (selectedKelas.length > 0) {
-      const getMatkul = [
-        ...new Set(
-          allData
-            .filter((item) => selectedKelas.includes(item.id_kelas))
-            .map((item) => item.mata_kuliah)
-        ),
-      ];
-
-      setSelectedMatkul(getMatkul);
-
       if (startSync) {
         setLoadingPresensi(true);
         const fetchPresensiTranskrip = async () => {
           for (const kelas of selectedKelas) {
-            const matkul =
-              allData.find((item) => item.id_kelas === kelas)?.mata_kuliah ||
-              "Mata Kuliah";
-            setCurrentMatkul(matkul);
+            const matkul = currentData
+              .filter((item) => item.id_kelas === kelas)
+              .map(
+                (item) =>
+                  `${item.mata_kuliah} - ${getClassName(item.nama_kelas)}`
+              );
 
+            setCurrentMatkul(matkul);
             const idPerkuliahanList = allData
               .filter((item) => item.id_kelas === kelas)
               .map((data) => ({ id_perkuliahan: data.id_perkuliahan }));
-
             try {
               // Kirim presensi
               await apiOptions.post("perkuliahan/presensi", idPerkuliahanList);
-
               // Tunggu 4 menit (240.000ms) sebelum lanjut ke transkrip
               await new Promise((resolve) => setTimeout(resolve, 240000));
               toastMessage(
                 "success",
                 `Sinkronisasi presensi ${matkul} berhasil dilakukan.`
               );
-
               setLoadingTranskrip(true);
-
               await apiOptions.get(`/sinkron/transkrip/mahasiswa/${kelas}`);
               toastMessage(
                 "success",
@@ -305,19 +296,16 @@ function Sinkronisasi() {
               setLoadingTranskrip(false);
             }
           }
-
           const formatMatkulList = (matkulList) => {
             if (matkulList.length === 0) return "";
             if (matkulList.length === 1) return matkulList[0];
             if (matkulList.length === 2) return matkulList.join(" dan ");
-
             return (
               matkulList.slice(0, -1).join(", ") +
               ", dan " +
               matkulList[matkulList.length - 1]
             );
           };
-
           toastMessage(
             "info",
             `Seluruh proses sinkronisasi untuk ${formatMatkulList(
@@ -328,19 +316,15 @@ function Sinkronisasi() {
               theme: "colored",
             }
           );
-
           setLoadingPresensi(false);
-          setSelectedKelas([]); // Reset setelah semua kelas selesai
           setCurrentMatkul(null);
           setStartSync(false);
+          setSelectedKelas([])
         };
-
         fetchPresensiTranskrip();
       }
-    } else {
-      setSelectedMatkul([]);
     }
-  }, [selectedKelas, allData, startSync]);
+  }, [selectedKelas, allData, startSync, currentData]);
 
   if (isLoadingKelas) return <Loader />;
   if (isErrorKelas)
@@ -428,7 +412,6 @@ function Sinkronisasi() {
                   <div
                     className="buttons-cancel"
                     onClick={() => {
-                      setSelectedMatkul([]);
                       setSelectedKelas([]);
                     }}
                   >
@@ -446,12 +429,11 @@ function Sinkronisasi() {
               <>
                 <div className="thead">
                   <div className="row">
-                    {currentData.length === selectedMatkul.length ? (
+                    {currentData.length === selectedKelas.length ? (
                       <SquareCheckBig
                         className="icon"
                         strokeWidth={2}
                         onClick={() => {
-                          setSelectedMatkul([]);
                           setSelectedKelas([]);
                         }}
                       />
@@ -496,7 +478,7 @@ function Sinkronisasi() {
                           className="col"
                           onClick={() => handleCheckListKelas(data.id_kelas)}
                         >
-                          {selectedMatkul.includes(data.mata_kuliah) ? (
+                          {selectedKelas.includes(data.id_kelas) ? (
                             <SquareCheckBig className="icon" strokeWidth={2} />
                           ) : (
                             <Square className="icon" strokeWidth={1.5} />
