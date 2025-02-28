@@ -165,6 +165,10 @@
     .fetch-text {
       width: 60%;
       text-align: center;
+
+      @media (max-width: 767.98px) {
+        width: 80%;
+      }
     }
 
     @keyframes ball624 {
