@@ -47,6 +47,8 @@ input[type="file"]::-webkit-file-upload-button {
   z-index: 9999;
 }
 
-.Toastify__toast-container {
-  width: 28vw;
+@media (min-width: 768px) {
+  .Toastify__toast-container {
+    width: 28vw;
+  }
 }

@@ -370,11 +370,15 @@ function Sinkronisasi() {
       ></Header>
       {loadingPresensi ? (
         <Loader
-          text={`Sinkronisasi presensi ${currentMatkul} sedang berlansung, mohon bersabar menunggu...`}
+          text={`Sinkronisasi presensi ${currentMatkul} sedang berlansung, mohon bersabar menunggu dengan estimasi waktu ${
+            selectedKelas.length * 5
+          } menit...`}
         />
       ) : loadingTranskrip ? (
         <Loader
-          text={`Sinkronisasi transkrip ${currentMatkul} sedang berlansung, mohon bersabar menunggu...`}
+          text={`Sinkronisasi transkrip ${currentMatkul} sedang berlansung, mohon bersabar menunggu dengan estimasi waktu ${
+            selectedKelas.length * 5
+          } menit...`}
         />
       ) : (
         <div className="sinkronisasi-content">
@@ -412,20 +416,27 @@ function Sinkronisasi() {
               ) : null}
             </div>
             <div className="buttons">
-              <div className="buttons-sync" onClick={() => setStartSync(true)}>
-                <RefreshCw className="icon" strokeWidth={2.5} />
-                <div className="text">Sync</div>
-              </div>
-              <div
-                className="buttons-cancel"
-                onClick={() => {
-                  setSelectedMatkul([]);
-                  setSelectedKelas([]);
-                }}
-              >
-                <CircleX className="icon" strokeWidth={2.5} />
-                <div className="text">Cancel</div>
-              </div>
+              {selectedKelas.length > 0 ? (
+                <>
+                  <div
+                    className="buttons-sync"
+                    onClick={() => setStartSync(true)}
+                  >
+                    <RefreshCw className="icon" strokeWidth={2.5} />
+                    <div className="text">Sync</div>
+                  </div>
+                  <div
+                    className="buttons-cancel"
+                    onClick={() => {
+                      setSelectedMatkul([]);
+                      setSelectedKelas([]);
+                    }}
+                  >
+                    <CircleX className="icon" strokeWidth={2.5} />
+                    <div className="text">Cancel</div>
+                  </div>
+                </>
+              ) : null}
             </div>
           </div>
           <div className="sinkronisasi-content-table">
@@ -438,7 +449,7 @@ function Sinkronisasi() {
                     {currentData.length === selectedMatkul.length ? (
                       <SquareCheckBig
                         className="icon"
-                        strokeWidth={1.5}
+                        strokeWidth={2}
                         onClick={() => {
                           setSelectedMatkul([]);
                           setSelectedKelas([]);
@@ -495,17 +506,6 @@ function Sinkronisasi() {
                         <div className="col">
                           {getClassName(data.nama_kelas)}
                         </div>
-                        {/* <div className="col">
-                          <div
-                            className="refresh"
-                            onClick={() => setSelectedKelas(data.id_kelas)}
-                          >
-                            <RefreshCw
-                              className="refresh-icon"
-                              strokeWidth={1.5}
-                            />
-                          </div>
-                        </div> */}
                       </div>
                     </>
                   );

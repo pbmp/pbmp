@@ -2,6 +2,15 @@
 @use "../../helpers/variables" as v;
 @use "../../components/Header/header" as header;
 
+@mixin button() {
+  border-width: 1.5px;
+
+  .text {
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+}
+
 @mixin sinkronisasi-media() {
   @media (max-width: 767.98px) {
     .sinkronisasi {
@@ -34,8 +43,63 @@
       }
 
       &-content {
-        padding: (v.$py-sidebar-content-media * 0.8) v.$px-topbar-content-media
+        padding: (v.$py-sidebar-content-media * 0.95) v.$px-topbar-content-media
           v.$py-sidebar-content-media;
+
+        &-filter {
+          .periode-modal {
+            width: 50%;
+
+            &-title {
+              font-size: 0.75rem;
+              margin-bottom: 0.35rem;
+            }
+          }
+
+          .buttons {
+            @include m.flex($direction: column, $align: flex-end);
+
+            &-sync {
+              @include button();
+            }
+
+            &-cancel {
+              @include button();
+            }
+          }
+        }
+
+        &-table {
+          @media (max-width: 767.98px) {
+            .thead {
+              grid-template-columns: 0.4fr 1fr 0.6fr;
+
+              .row {
+                font-size: 0.48rem;
+                padding: 3.1vh 1.8vw;
+
+                .icon {
+                  width: 16px;
+                  height: 16px;
+                }
+              }
+            }
+
+            .tbody {
+              grid-template-columns: 0.4fr 1fr 0.6fr;
+
+              .col {
+                font-size: 0.48rem;
+                padding: 3.6vh 1.8vw;
+
+                .icon {
+                  width: 15px;
+                  height: 15px;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

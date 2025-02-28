@@ -51,7 +51,7 @@
             $alpha: 0.2
           );
           box-shadow: rgba($color: #000, $alpha: 0.2) 0.5px 0.5px 2px;
-          border-radius: 0.4vw;
+          border-radius: 0.4rem;
           cursor: pointer;
           color: map-get($map: v.$color, $key: "blue");
         }
@@ -222,47 +222,6 @@
             width: 19px;
             height: 19px;
             cursor: pointer;
-          }
-        }
-      }
-
-      @media (max-width: 767.98px) {
-        .thead {
-          grid-template-columns: 0.4fr 1fr 0.6fr 0.6fr 0.6fr;
-
-          .row {
-            font-size: 0.48rem;
-            padding: 3.1vh 1.8vw;
-
-            &:nth-child(5) {
-              @include m.flex();
-            }
-          }
-        }
-
-        .tbody {
-          grid-template-columns: 0.4fr 1fr 0.6fr 0.6fr 0.6fr;
-
-          .col {
-            font-size: 0.48rem;
-            padding: 3.6vh 1.8vw;
-
-            &:nth-child(5) {
-              @include m.flex();
-              text-align: center;
-            }
-
-            .refresh {
-              padding: 0.35rem;
-              border-radius: 0.2rem;
-              cursor: pointer;
-
-              &-icon {
-                width: 14px;
-                height: 14px;
-                color: #fff;
-              }
-            }
           }
         }
       }
