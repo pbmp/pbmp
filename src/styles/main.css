@@ -1528,8 +1528,8 @@
 .sinkronisasi-content-filter {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 .sinkronisasi-content-filter .periode-modal {
@@ -1592,6 +1592,55 @@
   color: #fff;
   transition: ease-out 0.25s background-color, ease-out 0.25s color;
 }
+.sinkronisasi-content-filter .buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.sinkronisasi-content-filter .buttons-sync {
+  background-color: #546983;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  gap: 0.35rem;
+}
+.sinkronisasi-content-filter .buttons-sync .icon {
+  width: 18px;
+  height: 18px;
+  color: #fff;
+}
+.sinkronisasi-content-filter .buttons-sync .text {
+  color: #fff;
+  font-weight: 700;
+}
+.sinkronisasi-content-filter .buttons-cancel {
+  background-color: transparent;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  border: 2px solid #546983;
+  gap: 0.35rem;
+}
+.sinkronisasi-content-filter .buttons-cancel .icon {
+  width: 18px;
+  height: 18px;
+  color: #546983;
+}
+.sinkronisasi-content-filter .buttons-cancel .text {
+  color: #546983;
+  font-weight: 700;
+}
 .sinkronisasi-content-table {
   display: flex;
   flex-direction: column;
@@ -1603,7 +1652,7 @@
 }
 .sinkronisasi-content-table .thead {
   display: grid;
-  grid-template-columns: 0.4fr 1fr 0.6fr 1fr;
+  grid-template-columns: 0.4fr 1fr 1fr;
   width: 100%;
 }
 .sinkronisasi-content-table .thead .row {
@@ -1619,6 +1668,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+.sinkronisasi-content-table .thead .row .icon {
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
 }
 .sinkronisasi-content-table .thead .row:first-child {
   border-top-left-radius: 0.6vw;
@@ -1636,7 +1690,7 @@
 }
 .sinkronisasi-content-table .tbody {
   display: grid;
-  grid-template-columns: 0.4fr 1fr 0.6fr 1fr;
+  grid-template-columns: 0.4fr 1fr 1fr;
   border-bottom: #ddd solid 0.15vw;
   width: 100%;
 }
@@ -1661,20 +1715,10 @@
   justify-content: flex-start;
   text-align: start;
 }
-.sinkronisasi-content-table .tbody .col .refresh {
-  background-color: #546983;
-  padding: 0.45rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.3rem;
+.sinkronisasi-content-table .tbody .col .icon {
+  width: 19px;
+  height: 19px;
   cursor: pointer;
-}
-.sinkronisasi-content-table .tbody .col .refresh-icon {
-  width: 16px;
-  height: 16px;
-  color: #fff;
 }
 @media (max-width: 767.98px) {
   .sinkronisasi-content-table .thead {
@@ -2516,4 +2560,8 @@ input[type=file]::-webkit-file-upload-button {
 
 .toast {
   z-index: 9999;
+}
+
+.Toastify__toast-container {
+  width: 28vw;
 }

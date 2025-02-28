@@ -31,7 +31,7 @@
     gap: 1.8rem;
 
     &-filter {
-      @include m.flex($start: true);
+      @include m.flex($justify: space-between);
       width: 100%;
 
       .periode-modal {
@@ -102,6 +102,48 @@
           }
         }
       }
+
+      .buttons {
+        @include m.flex();
+        gap: 0.4rem;
+
+        @mixin button(
+          $bg: map-get($map: v.$color, $key: "blue"),
+          $bdr: transparent,
+          $clr: #fff
+        ) {
+          background-color: $bg;
+          padding: 0.5rem 0.8rem;
+          @include m.flex();
+          border-radius: 0.3rem;
+          cursor: pointer;
+          border: 2px solid $bdr;
+          gap: 0.35rem;
+
+          .icon {
+            width: 18px;
+            height: 18px;
+            color: $clr;
+          }
+
+          .text {
+            color: $clr;
+            font-weight: 700;
+          }
+        }
+
+        &-sync {
+          @include button();
+        }
+
+        &-cancel {
+          @include button(
+            $bdr: map-get($map: v.$color, $key: "blue"),
+            $bg: transparent,
+            $clr: map-get($map: v.$color, $key: "blue")
+          );
+        }
+      }
     }
 
     &-table {
@@ -112,7 +154,7 @@
 
       .thead {
         display: grid;
-        grid-template-columns: 0.4fr 1fr 0.6fr 1fr;
+        grid-template-columns: 0.4fr 1fr 1fr;
         width: 100%;
 
         .row {
@@ -130,6 +172,12 @@
           line-height: 135%;
           text-align: center;
           @include m.flex();
+
+          .icon {
+            width: 21px;
+            height: 21px;
+            cursor: pointer;
+          }
 
           &:first-child {
             border-top-left-radius: 0.6vw;
@@ -150,7 +198,7 @@
       .tbody {
         display: grid;
         // grid-template-columns: repeat(11, 4rem);
-        grid-template-columns: 0.4fr 1fr 0.6fr 1fr;
+        grid-template-columns: 0.4fr 1fr 1fr;
         border-bottom: #ddd solid 0.15vw;
         width: 100%;
 
@@ -170,18 +218,10 @@
             text-align: start;
           }
 
-          .refresh {
-            background-color: map-get($map: v.$color, $key: "blue");
-            padding: 0.45rem;
-            @include m.flex();
-            border-radius: 0.3rem;
+          .icon {
+            width: 19px;
+            height: 19px;
             cursor: pointer;
-
-            &-icon {
-              width: 16px;
-              height: 16px;
-              color: #fff;
-            }
           }
         }
       }
