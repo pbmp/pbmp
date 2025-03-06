@@ -74,8 +74,9 @@ function Sidebar() {
       <div className="sidebar-message" ref={messageRef}>
         <div className="text">
           Sinkronisasi data dilakukan setiap pukul 03.00 WIB, apabila ada
-          perubahan data setelah jadwal sinkronisasi, silahkan hubungi no staff
-          DTI di bawah ini. Terima kasih.
+          perubahan data setelah jadwal sinkronisasi, bisa dilakukan sinkronisasi 
+          secara manual menggunakan menu sinkronisasi. Jika ada kendala bisa menghubungi 
+          no staff IT Dev dibawah ini. Terima kasih.
         </div>
         <div className="name">Ahmad Rifky Ayala</div>
         <div className="no-hp">(+62) 82118952582</div>
