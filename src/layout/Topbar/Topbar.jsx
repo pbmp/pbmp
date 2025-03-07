@@ -42,11 +42,10 @@ function Topbar() {
   const handleLogout = useCallback(() => {
     Cookies.remove("pbmp-login");
     Cookies.remove("pbmp-user");
-
-    navigate("/auth", {
-      state: { logoutMessage: "Logout Successful!" },
-    });
-  }, [navigate]);
+  
+    window.location.href = "https://euis.ulbi.ac.id/";
+  }, []);
+  
 
   return (
     <div className="topbar">
