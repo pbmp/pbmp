@@ -40,8 +40,8 @@ function Topbar() {
   }, []);
 
   const handleLogout = useCallback(() => {
-    Cookies.remove("pbmp-login", { path: "/", secure: window.location.protocol === "https:", sameSite: "Lax" });
-    Cookies.remove("pbmp-user", { path: "/", secure: window.location.protocol === "https:", sameSite: "Lax" });
+    Cookies.remove("pbmp-login", { path: "/", domain: ".ulbi.ac.id" });
+    Cookies.remove("pbmp-user", { path: "/", domain: ".ulbi.ac.id" });
     Cookies.remove("pbmp-login")
     Cookies.remove("pbmp-user")
   
