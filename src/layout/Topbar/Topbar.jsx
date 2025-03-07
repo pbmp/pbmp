@@ -40,11 +40,17 @@ function Topbar() {
   }, []);
 
   const handleLogout = useCallback(() => {
-    Cookies.remove("pbmp-login");
-    Cookies.remove("pbmp-user");
+    Cookies.remove("pbmp-login", { path: "/", secure: window.location.protocol === "https:", sameSite: "Lax" });
+    Cookies.remove("pbmp-user", { path: "/", secure: window.location.protocol === "https:", sameSite: "Lax" });
+    Cookies.remove("pbmp-login")
+    Cookies.remove("pbmp-user")
   
-    window.location.href = "https://euis.ulbi.ac.id/";
+    // Redirect setelah memastikan cookies dihapus
+    setTimeout(() => {
+      window.location.href = "https://euis.ulbi.ac.id/";
+    }, 100);
   }, []);
+  
   
 
   return (
